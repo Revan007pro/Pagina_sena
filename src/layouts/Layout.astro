@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/Imagenes/Logotipo.webp" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Proyecto Aplicacion Web</title>
+
+    <!-- Aquí Astro inyecta CSS y demás -->
+    <slot name="head" />
+  </head>
+  <body id="body">
+  
+    <script src="/script.js" is:inline></script>
+
+    <slot />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

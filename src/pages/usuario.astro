@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+   
+ 
+<!-- Botón hamburguesa para mostrar/ocultar menú -->
+<button id="toggleMenu" class="menu_hamburguesa">
+  ☰
+</button>
+<!-- Botón hamburguesa para mostrar/ocultar menú -->
+
+<!-- Barra superior -->
+<header class="header">
+ <header class="mb-8 flex justify-center items-center">
+      <div>
+        <h1 class="text-4xl py-5 text-center font-bold"> 
+          Bienvenido al Panel de Control Usuario
+        </h1>
+      </div>
+    </header>
+        <header class="mb-8 flex justify-end items-center">
+      <div class="flex justify-center items-center gap-4 w-50 h-7 bg-sky-900 rounded-3xl">
+        <div><span><h3 class="text-white">Usuario</h3><b id="nombreUsuario"></b></span></div>
+        <div class="hover:bg-yellow-500 scala">🔔<span class="bage">3</span></div>
+        <div>👤 <a class="text-cyan-400">⮟</a> </div>
+      </div>
+    </header>
+
+ 
+<nav>
+  
+  <h2 class="titulo_menu">Biblioteca v 1.0</h2>
+  <ul>
+    <li>
+      <a href="#">Inicio</a>
+    </li>
+    <li class="submenu">
+      <a href="#">Préstamos ▾</a>
+      <ul class="subitems">
+        <li><a href="libros_prestados_usr.html">Libros Prestados</a></li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <div class="logout">
+    <a  href="index.html">Cerrar sesión</a>
+  </div>
+</nav>
+
+<main>
+
+
+
+
+<section class="resumen-contenedor">
+   <h1 id="saludo">  </h1>
+   <h1>Bienvenido al Panel de la Biblioteca</h1>
+  <div class="resumen">
+    <article class="card">
+      <h3>Libros disponibles</h3>
+      <p>Hay 120 libros disponibles.</p>
+    </article>
+    <article class="card">
+      <h3>Libros prestados</h3>
+      <p>35 libros están prestados actualmente.</p>
+    </article>
+    <article class="card">
+      <h3>Nuevos usuarios</h3>
+      <p>Hoy se registraron 5 nuevos usuarios.</p>
+    </article>
+    <article class="card">
+      <h3>Libros dados de baja</h3>
+      <p>Hoy se eliminaron 3 libros del sistema.</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <article class="acciones">
+    <h2>Últimas Acciones</h2>
+    <ul>
+      <li>Juan Pérez devolvió "Cien Años de Soledad".</li>
+      <li>María Gómez solicitó el libro "El Principito".</li>
+      <li>Nuevo usuario registrado: Andrés Ruiz.</li>
+    </ul>
+  </article>
+</section>
+  <footer> copyright © derechos reservados 2025  
+    <a href="terminosycondiciones.html"> <p> ver terminos y condiciones </p> </a>
+  </footer>
+
+  </main>
+</Layout>

@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+
+---
+<script src="/scripAdmi.js" is:inline></script>
+
+<Layout>
+    <main>
+        <header >
+            <div>
+                <h1 class="flex justify-center items-center text-4xl py-5 text-center">
+                    <strong> Bienvenido al Panel de Control<br>Gestion Usuarios</strong>
+                </h1>
+            </div>
+        </header>
+
+        <div class="flex flex-col md:flex-row justify-center items-start gap-10 py-10 animate-fadeSlideUp">
+            
+            <nav class="nav_admi">
+                <button id="toggleMenu" class="hamburguesa ">
+                    &#x2261;
+                </button>
+                <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                    Elementos del administrador
+                </h2>
+                
+                <ul class="flex flex-col gap-2">
+                    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                        <a href="/Administrador_Academia">Academia</a>
+                    </li>
+                    <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                        <a href="#">Citas </a><a class="text-cyan-400">⮟</a>
+                        <ul class="subitems hidden group-hover:block pl-8 rounded-b-lg">
+                            <li><a href="/Administrador_Abogado">Abogados</a></li>
+                            <li><a href="/Administrador_Detective">Detectives</a></li>
+                            <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+                        </ul>
+                    </li>
+                    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                        <a href="/Administrador_Usuarios">Usuarios</a>
+                    </li>
+                    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                        <a href="/Administrador_Usuarios">Gestión de Horarios</a>
+                    </li>
+                    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+                        <a href="/Administrador_Blocks">Blocks</a>
+                    </li>
+                </ul>
+                
+                <div class="flex justify-center bg-red-600 w-32 h-7 rounded-3xl items-center text-center mt-4 hover:scale-105 transition-transform duration-300">
+                    <a href="/">Cerrar Sesión</a>
+                </div>
+            </nav>
+
+            <div class="flex-grow flex justify-center">
+                <div class="from-container max-w-lg w-full">
+                    <h1 class="text-2xl font-bold text-center text-gray-800 mb-8">
+                        Gestion de Usuarios
+                    </h1>
+                    <form id="formUsuario" onsubmit="return validarFormulario()" class="id_formulario">
+                        <div class="form-group mb-4">
+                            <label class="text-black block mb-1" for="nuevo-usuario">Nuevo Usuario</label>
+                            <input
+                                class="input" type="text"
+                                id="nuevo-usuario"
+                                name="nuevoUsuario"
+                                title="Registrar usuario"
+                                placeholder="Nombre del Usuario"
+                            />
+                        </div>
+                        <div class="form-group mb-4">
+                            <label class="text-black block mb-1" for="apellido">Apellido</label>
+                            <input
+                                class="input"
+                                type="text"
+                                id="apellido"
+                                name="apellidoEmpleado"
+                                title="Apellido Usuario"
+                                placeholder="Apellido Nuevo usuario"
+                            />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label class="text-black block mb-1" for="documento">Documento</label>
+                            <input
+                                class="input"
+                                type="number"
+                                id="documento"
+                                name="documentoEmpleado"
+                                title="Documento Usuario"
+                                placeholder="Documento de Identificación"
+                            />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label class="text-black block mb-1" for="especialidad">Especialidad</label>
+                            <select
+                                class="input"
+                                id="especialidad"
+                                name="especialidadEmpleado"
+                                title="Especialidad del Usuario"
+                            >
+                                <option value="">Selecciona una opción</option>
+                                <option value="detective">Detective</option>
+                                <option value="poligrafista">Poligrafista</option>
+                                <option value="Abogado">Abogado</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-6">
+                            <label class="text-black block mb-1" for="estadoEmpleado">Estado</label>
+                            <select class="input"
+                                id="estadoEmpleado"
+                                name="Estado"
+                                title="Seleccionar Estado">
+                                <option value="">Selecciona una opción</option>
+                                <option value="Activo">Activar</option>
+                                <option value="Eliminar">Eliminar</option>
+                                <option value="Inhabilitar">Inhabilitar</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-6">
+                            <label class="text-black block mb-2" for="foto_empleado">Subir Foto</label>
+                            <input
+                                type="file"
+                                id="foto_empleado"
+                                name="portada"
+                                title="Ingrese imagen"
+                                accept="image/*"
+                                class="hidden" />
+                            <label for="foto_empleado" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded cursor-pointer text-center block w-full">
+                                Seleccionar Archivo
+                            </label>
+                            <span id="file-name" class="block text-sm text-gray-600 mt-2"></span>
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-blue-500 transform transition-transform duration-5 object-cover hover:scale-105 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Registrar usuario                       
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>

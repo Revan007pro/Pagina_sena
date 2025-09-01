@@ -1,0 +1,199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+
+---
+
+<Layout>
+ 
+<main>
+       <header class="header">
+        <div class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg">
+        
+        <div class="flex items-center gap-110"> 
+            <input type="text" class="w-35 bg-white text-black rounded-3xl" placeholder="Buscar" id="Buscar" />
+            <div class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105  object-cover"> 
+                <a href="/">Inicio</a>
+            </div>
+            <div id="theme-switcher" class="z-50 ml-25">
+                <button id="theme-toggle" aria-label="Toggle dark-mode">
+                    <svg id="moon-icon" class="theme-icon hover:bg-cyan-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+
+                    <svg id="sun-icon" class="theme-icon hover:bg-orange-400 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+<nav class="mt-20 left-0 w-full flex justify-center py-6 z-50 "> 
+  <div class="mx-full flex justify-around items-center w-full max-w-145 bg-sky-950 text-white p-4 gap-4 rounded-2xl">
+    <a href="/" class="text-center hover:text-gray-400 font-semibold">Inicio</a>
+    <a href="/Nosotros" class="text-center hover:text-gray-400 font-semibold">Nosotros</a>
+    <a href="/Blog" class="text-center hover:text-gray-400 font-semibold">Blogs</a>
+    <a href="http://localhost:4321/Academia" class="text-center hover:text-gray-400 font-semibold">Academia</a>
+    
+    <li class="relative submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 list-none hover:text-gray-400">
+      <a href="http://localhost:4321/Servicios">Servicio</a><a class="text-cyan-400 ml-1">⮟</a>
+      
+      <ul class="absolute top-9 mt-2 w-48 bg-gray-700 text-white p-2 rounded-b-lg shadow-lg subitems hidden group-hover:block z-10">
+        <li><a href="/Abogado" class="block px-4 py-2 hover:bg-cyan-700 rounded">Abogados</a></li>
+        <li><a href="/Detective" class="block px-4 py-2 hover:bg-cyan-700 rounded">Detectives</a></li>
+        <li><a href="/Poligrafista" class="block px-4 py-2 hover:bg-cyan-700 rounded">Poligrafistas</a></li>
+      </ul>
+    </li>
+  </div>
+</nav>
+<div class=" flex flex-col items-center animate-fadeSlideUp reveal-item">
+  <img src="./Imagenes/18.webp" alt="Imagen publica acerca de a funcion de abogados Penalistas">
+  <h1 class="text-black w-250 text-3xl font-special text-start mt-4">Bienvenido. a nuestra área de psicofisiología Forense
+    donde te ofrecemos nuestros servicios de poligrafia especializada, contamos con herramientas confiables y precisas
+    para la deteccio de engaños y obtención de información veraz. Nuestro equipo de expertos en comunicación no 
+    verbal estan capacitados en tecnicas mas azanzadas en poligrafia y utilizan equipos de ultima generación para brindar
+    resultados confiables en cada prueba. 
+  </h1>
+</div>
+<div class="acordeon-content hidden overflow-hidden transition-max-height duration-700 ease-in-out mt-4">
+        <div class="p-4 border border-t-0 border-gray-300 bg-white">
+            <p class="mb-4">Puedes dar clic en cada imagen para conocer más sobre esa capacitación:</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <div class="border rounded-lg overflow-hidden shadow-md">
+                    <img src="/Imagenes/16.webp" alt="Diplomado en Derecho Penal General" class="w-full h-auto object-cover">
+                    <p class="p-2 text-sm text-center">DIPLOMADO EN DERECHO PENAL GENERAL</p>
+                </div>
+                <div class="border rounded-lg overflow-hidden shadow-md">
+                    <img src="/ruta/a/diplomado-procesal-penal.jpg" alt="Diplomado en Derecho Procesal Penal" class="w-full h-auto object-cover">
+                    <p class="p-2 text-sm text-center">DIPLOMADO EN PROCESAL PENAL</p>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="acordeon-item font-special mt-4">
+    <button class="acordeon-header flex justify-between items-center w-full p-4 bg-sky-900 text-white font-bold rounded-lg focus:outline-none">
+        <span>CLIC AQUÍ - OFERTA EDUCATIVA EN INVESTIGACIÓN CRIMINAL</span>
+        <span class="acordeon-icon transform transition-transform duration-300">▼</span>
+    </button>
+
+    <div class="acordeon-content hidden overflow-hidden transition-max-height duration-700 ease-in-out ">
+        <div class="p-4 border border-t-0 border-gray-300 bg-white ">
+            <p>Contenido de la oferta en Investigación Criminal...</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="border rounded-lg overflow-hidden shadow-md">
+                    <img src="/ruta/a/vigilancia-y-seguimiento.jpg" alt="Vigilancia y Seguimiento" class="w-full h-auto object-cover">
+                    <p class="p-2 text-sm text-center">VIGILANCIA Y SEGUIMIENTO</p>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="acordeon-item mt-4 font-special">
+    <button class="acordeon-header flex justify-between items-center w-full p-4 bg-sky-900 text-white font-bold rounded-lg focus:outline-none">
+        <span>CLIC AQUÍ - LIBROS Y MANUALES</span>
+        <span class="acordeon-icon transform transition-transform duration-300">▼</span>
+    </button>
+    <div class="acordeon-content hidden overflow-hidden transition-max-height duration-700 ease-in-out">
+        <div class="p-4 border border-t-0 border-gray-300 bg-white">
+            <p>Aquí se mostrarán los libros y manuales disponibles...</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+        </div>
+        <div class="w-full max-w-screen-md mx-auto flex justify-center items-center gap-6 text-white p-4 rounded-b-lg rounded-lg shadow-xl border-gray-300 mt-8">
+    <div class="bg-white p-6 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4 text-black">Formulario de Contacto</h2>
+        <form class="space-y-4">
+            <div>
+                <label class="block text-gray-700">Nombre de tu Empresa</label>
+                <input type="text" class="w-full border-2 p-[7px] drop-shadow-sm px-4 py-2 rounded-md text-black" />
+            </div>
+            <div>
+                <label class="block text-gray-700">Teléfono</label>
+                <input type="tel" class="w-full border-2 p-[7px] drop-shadow-sm px-4 py-2 rounded-md text-black" />
+            </div>
+            <div>
+                <label class="block text-gray-700">Email</label>
+                <input type="email" class="w-full border-2 p-[7px] drop-shadow-sm px-4 py-2 rounded-md text-black" />
+            </div>
+            <div>
+                <label class="block text-gray-700">Dirección</label>
+                <input type="text" class="w-full border-2 p-[7px] drop-shadow-sm px-4 py-2 rounded-md text-black" />
+            </div>
+            <div>
+                <label class="block text-gray-700">Mensaje</label>
+                <input type="text" class="w-full border-2 p-[7px] drop-shadow-sm px-4 py-2 rounded-md text-black h-20" />
+            </div>
+        </form>
+    </div>
+  <main>
+    <div class="w-full mx-auto bg-gray-50 rounded-xl shadow-md overflow-hidden h-[500px] mt-8">
+      <Fragment set:html={`<iframe
+        class="w-full h-115"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.1972979500597!2d-76.60902782400156!3d2.441234657094157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30030554ee777d%3A0xd3194ddf180ab808!2sCentro%2C%20Popay%C3%A1n%2C%20Cauca!5e0!3m2!1ses-419!2sco!4v1754101169253!5m2!1ses-419!2sco"
+        title="Mapa de Popayán"
+        style="border:0;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>`} />
+    </div>
+
+    </div>
+</div>
+
+</div>
+        <div class="pt-5"> <div class="grid grid-cols-4 grid-rows-1 gap-20 w-full h-auto mb-4">
+                <div class="col-start-2 col-span-3 text-black text-right pr-4">
+                    Cree siempre en la verdad
+                </div>
+            </div>
+
+            <div class="flex justify-end items-center gap-6 bg-sky-950 p-6 w-full mt-8 ">
+              
+            <a href="https://github.com/Revan007pro" target="_blank">
+  <svg class="w-6 h-6 text-white hover:text-gray-300">
+    <use href="/sprites.svg#github" />
+  </svg>
+</a>
+<a href="https://youtube.com" target="_blank">
+  <svg class="w-6 h-6 text-red-600 hover:text-red-700"> 
+    <use href="/sprites.svg#youtube" /> 
+  </svg>
+</a>
+
+
+<a href="https://instagram.com" target="_blank">
+  <svg class="w-6 h-6 text-pink-600 hover:text-pink-700">
+    <use href="/sprites.svg#instagram" />
+  </svg>
+</a>
+</a>
+        </div>
+
+        <footer class="w-full text-center py-4 mt-4 text-gray-600">
+            <p>Este es el pie de página.</p>
+            <p>© 2025 Mi Proyecto. Todos los derechos reservados.</p>
+            <a href="#">Ver Terminos y condiciones</a>
+        </footer>
+
+    </div>
+
+
+
+</main>
+</Layout>

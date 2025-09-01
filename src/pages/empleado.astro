@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+
+---
+
+<Layout>
+    <main>
+        <div class="flex items-center gap-110"> 
+    <input type="text" class="w-35 bg-white text-black rounded-3xl" placeholder="Buscar" id="Buscador" />
+    <div class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105  object-cover"> 
+        <a href="/">Inicio</a>
+    </div>
+</div>
+
+<div id="contenido-a-buscar">
+    <section>
+        <h2 class="buscable">Servicios en Pruebas de Polígrafo</h2>
+        <p class="buscable">Ofrecemos pruebas de polígrafo de preempleo, rutina y específicas para tu empresa.</p>
+    </section>
+
+    <section>
+        <h2 class="buscable">Libros y Manuales</h2>
+        <p class="buscable">Encuentra nuestra colección de libros y manuales sobre investigación criminal y seguridad.</p>
+    </section>
+
+    </div>
+    </main>
+</Layout>

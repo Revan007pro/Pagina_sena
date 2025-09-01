@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+
+---
+
+<Layout>
+    <main>
+            <header class="header">
+          <div >
+      
+        <h1 class="flex justify-center items-center text-4xl py-5 text-center">
+          <strong>Bienvenido al Panel de Control<br>Citas Detectives</strong>
+        </h1>
+    </header>
+    <div class="ml-20 grid grid-cols-[300px_1fr]  gap-2 ">
+    <nav class="ml-4 mt-20 flex flex-col gap-5 bg-black text-white rounded-3xl h-110 ">
+  <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">Elementos del administrador</h2>
+  
+  <ul class="flex flex-col gap-2">
+    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+      <a href="/Administrador_Academia">Academia</a>
+    </li>
+    
+    <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+      <a href="#">Citas &dArr;</a>
+      <ul class="subitems hidden group-hover:block pl-8 rounded-b-lg">
+        <li>
+          <a href="/Administrador_Abogado">Abogados</a>
+        </li>
+        <li>
+          <a href="/Administrador_Detective">Detectives</a>
+        </li>
+        <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+      </ul>
+    </li>
+    
+    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+      <a href="/Administrador_Usuarios">Usuarios</a>
+    </li>
+    <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+      <a href="/Administrador_Gestion_Horarios">Gestion de Horarios</a>
+    </li>
+<li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+  <a href="/Administrador_Blocks">Blocks</a>
+</li>
+  </ul>
+  
+  <div class="ml-15 flex justify-center bg-red-600 w-30 h-7 rounded-3xl items-center text-center transform transition-transform duration-5 hover:scale-105  object-cover">
+    <a href="/">Cerrar Sesion</a>
+  </div>
+</nav>
+<div class="container">
+        <table class="table">
+                <thead>
+                    <tr  class="border  border-black px-4 py-2 ">
+                        <th >Empleado </th>
+                        <th >Historial de citas</th>
+                        <th>Estado de la cita</th>
+                        <th>Gestionar usuario</th>
+                        
+                    </tr>
+                </thead>
+                <tbody> 
+                   <td >Nombre Empleado 1</td>
+                    <td title="Ver Historial"><a href="#">Ver Historial</a></td>
+                    <td >❌ ✅ ⛔</td>
+                    <td> <a class="cursor-pointer" title="Editar" onclick="editarUsuario()"> 📝</a><a class="cursor-pointer" title="Eliminar" onclick="eliminarUsuario()">🗑️</a><a class="cursor-pointer" title="Inhabilitar" onclick="inhabilitarUsuario()">⚠️</a> </td>
+                   
+                </tbody>
+                <tbody>
+                  <td >Nombre Empleado 2</td>
+                    <td title="Ver Historial"><a href="#">Ver Historial</a></td>
+                    <td >❌ ✅ ⛔</td>
+                    <td> <a class="cursor-pointer" title="Editar" onclick="editarUsuario()"> 📝</a><a class="cursor-pointer" title="Eliminar" onclick="eliminarUsuario()">🗑️</a><a class="cursor-pointer" title="Inhabilitar" onclick="inhabilitarUsuario()">⚠️</a> </td>
+                   
+                </tbody>
+            </table>
+</div>
+        
+    </main>
+</Layout>
