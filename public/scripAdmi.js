@@ -1,3 +1,4 @@
+
 function loginUsuario() {
     const usuario_ingresado = document.getElementById("usuario").value.trim();
     const contrasenia_ingresada = document.getElementById("password").value.trim();
@@ -38,21 +39,26 @@ function loginUsuario() {
     }
 }
 function securePage() {
-    const user = localStorage.getItem("usuario");
-    if (user !=='admi') {
-        alert("usted no tiene los permisos necesarios");
-        window.location.href="/";
+   const user = localStorage.getItem("usuario");
+    if (user !== "admin") {
+        alert("Usted no tiene los permisos necesarios.");
+        window.location.href = "/";
     }
-   
+    else{
+        alert("no funciona seguridad")
+    }
+    
 }
-document.addEventListener("DOMContentLoaded", function (){
-    const usuario=localStorage.getItem("usuario");
-    if (usuario) {
-        document.getElementById("nombreUsuario").textContent=usuario;
-    }
-    securePage();
-})
 
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname;
+    
+    //Forma para excluir al login del security page
+    if (!currentPath.includes("Login") && 
+        !currentPath.includes("Registrarse")) {
+        securePage();
+    }
+});
 function validarFormulario() {
     const _nombre = document.getElementById('nuevo-usuario').value.trim();
     const _apellido = document.getElementById('apellido').value.trim();

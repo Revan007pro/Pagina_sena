@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
         botonBorrar.addEventListener('click', () => {
             localStorage.removeItem('mensajes');
              _bage_notifi.style.display = "none";
+        
             actualizarMensajes();
         });
     }
