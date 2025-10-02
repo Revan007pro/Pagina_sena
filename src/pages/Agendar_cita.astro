@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import "../styles/global.css";
 
 ---
+ <script src="/empleado_script.js" is:inline></script>
 
 <Layout>
  
@@ -82,7 +83,7 @@ import "../styles/global.css";
       <input type="number" class="input" id="numero_identidad" title="Coloque su Documento" placeholder="Documento..."/></div>
       <div class="form-group mb-4">
       <label class="text-black block mb-1" for="Numereo_iden">Fecha Deseada</label>
-      <input type="date" class="input" id="numero_identidad" /></div>
+      <input type="date" class="input" id="fecha_deseada" /></div>
       <div class="form-group mb-6">
                             <label class="text-black block mb-1" for="especialidad">Especialidad</label>
                             <select
@@ -97,12 +98,17 @@ import "../styles/global.css";
                                 <option value="Abogado">Abogado</option>
                             </select>
                         </div>
-        <div>
-          <div class="flex justify-center">
-                            <button type="submit" class="bg-blue-500 transform transition-transform duration-5 object-cover hover:scale-105 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Comfirmar                       
-                            </button>
-                        </div>
+     <div>
+    <div class="justify-center items-center text-center">
+        <ul id="mensaje_cita">
+              
+        </ul>
+        <button id="confirmar_cita" type="submit" class="button">
+            Confirmar                       
+        </button>
+    </div>
+</div>
+    
         </div>
     </div>
       

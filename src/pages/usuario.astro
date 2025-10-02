@@ -3,95 +3,85 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<Layout>
-   
- 
-<!-- Botón hamburguesa para mostrar/ocultar menú -->
-<button id="toggleMenu" class="menu_hamburguesa">
-  ☰
-</button>
-<!-- Botón hamburguesa para mostrar/ocultar menú -->
-
-<!-- Barra superior -->
-<header class="header">
- <header class="mb-8 flex justify-center items-center">
+<Layout >
+  <main class="container mx-auto px-4 py-8">  
+    <header class="mb-8 flex justify-center items-center">
       <div>
         <h1 class="text-4xl py-5 text-center font-bold"> 
-          Bienvenido al Panel de Control Usuario
+          Bienvenido al Panel de Control
         </h1>
       </div>
     </header>
         <header class="mb-8 flex justify-end items-center">
-      <div class="flex justify-center items-center gap-4 w-50 h-7 bg-sky-900 rounded-3xl">
-        <div><span><h3 class="text-white">Usuario</h3><b id="nombreUsuario"></b></span></div>
-        <div class="hover:bg-yellow-500 scala">🔔<span class="bage">3</span></div>
-        <div>👤 <a class="text-cyan-400">⮟</a> </div>
+      <div class="flex justify-center items-center gap-4 w-70 h-auto bg-sky-900 rounded-3xl text-white ">
+        <div><p>Usuario:"Nombre" <b id="nombreUsuario"></b></p>
+        <p>Perfil: <b>Usuario</b></p></div>
+        <div id="btnNotificaciones">🔔<span class="bage" id="bage"> </span></div>
+        <div id="btnperfil">👤 <a class="text-cyan-400 ml-0">⮟</a> </div>
+      </div>
+      <div id="modal_notificaciones" class="modal">
+        <div class="modal-content"><h2>Notificaciones</h2>
+        <ul id="lista_notificaciones"></ul><button id="cerrar_modal">Cerrar</button></div>
       </div>
     </header>
 
- 
-<nav>
-  
-  <h2 class="titulo_menu">Biblioteca v 1.0</h2>
-  <ul>
-    <li>
-      <a href="#">Inicio</a>
-    </li>
-    <li class="submenu">
-      <a href="#">Préstamos ▾</a>
-      <ul class="subitems">
-        <li><a href="libros_prestados_usr.html">Libros Prestados</a></li>
+    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0"> 
+          <section>
+            <nav id="nav_admi" class="nav_admi">
+          
+        <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+         
+             <button id="_menu" class="hamburguesa ">
+            &#x2261;
+          </button>
+          Elementos del <b>Usuario</b>
+        </h2>
         
-      </ul>
-    </li>
-  </ul>
-
-  <div class="logout">
-    <a  href="index.html">Cerrar sesión</a>
-  </div>
-</nav>
-
-<main>
-
-
-
-
-<section class="resumen-contenedor">
-   <h1 id="saludo">  </h1>
-   <h1>Bienvenido al Panel de la Biblioteca</h1>
-  <div class="resumen">
-    <article class="card">
-      <h3>Libros disponibles</h3>
-      <p>Hay 120 libros disponibles.</p>
-    </article>
-    <article class="card">
-      <h3>Libros prestados</h3>
-      <p>35 libros están prestados actualmente.</p>
-    </article>
-    <article class="card">
-      <h3>Nuevos usuarios</h3>
-      <p>Hoy se registraron 5 nuevos usuarios.</p>
-    </article>
-    <article class="card">
-      <h3>Libros dados de baja</h3>
-      <p>Hoy se eliminaron 3 libros del sistema.</p>
-    </article>
-  </div>
-</section>
-
-<section>
-  <article class="acciones">
-    <h2>Últimas Acciones</h2>
-    <ul>
-      <li>Juan Pérez devolvió "Cien Años de Soledad".</li>
-      <li>María Gómez solicitó el libro "El Principito".</li>
-      <li>Nuevo usuario registrado: Andrés Ruiz.</li>
-    </ul>
-  </article>
-</section>
-  <footer> copyright © derechos reservados 2025  
-    <a href="terminosycondiciones.html"> <p> ver terminos y condiciones </p> </a>
-  </footer>
-
+        <ul class="flex flex-col gap-2">
+          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Academia">Academia</a>
+          </li>
+          <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="#">Citas </a><a id="flecha_usuario" class="text-cyan-400">⮟</a>
+            <ul id="sub_item" class="subitems hidden group-hover:block pl-8 rounded-b-lg">
+              <li><a href="/Administrador_Abogado">Abogados</a></li>
+              <li><a href="/Administrador_Detective">Detectives</a></li>
+              <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+            </ul>
+          </li>
+    
+          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Usuarios">Gestión de Horarios</a>
+          </li>
+        </ul>
+        
+        <div class="flex justify-center bg-red-600 w-32 h-7 rounded-3xl items-center text-center mt-4 hover:scale-105 transition-transform duration-300">
+          <a href="/">Cerrar Sesión</a>
+        </div>
+        
+      </nav>
+          </section>
+         
+      
+       <div id="seccion_class" class="flex-1">
+        <section  class="seccion_class">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Usuarios Registrados en la página
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Historial de citas
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Administración Academia
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Trabajadores registrados en la página
+            </div>
+          </div>
+        </section> 
+      </div>
+    </div>
+     
   </main>
 </Layout>

@@ -1,29 +1,95 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import "../styles/global.css";
-
+import '../styles/global.css';
 ---
+ <script src="/empleado_script.js" is:inline></script>
+<Layout >
+  <main class="container mx-auto px-4 py-8">  
+    <header class="mb-8 flex justify-center items-center">
+      <div>
+        <h1 class="text-4xl py-5 text-center font-bold"> 
+          Bienvenido al Panel de Control
+        </h1>
+      </div>
+    </header>
+        <header class="mb-8 flex justify-end items-center">
+      <div class="flex justify-center items-center gap-4 w-70 h-auto bg-sky-900 rounded-3xl text-white ">
+        <div><p>Usuario: <b id="nombreUsuario"></b></p>
+        <p>Perfil: <b>Empleado</b></p></div>
+        <div id="emple_notifi">🔔<span class="bage" id="bage_emple"> </span></div>
+        <div id="btnperfil">👤 <a class="text-cyan-400 ml-0">⮟</a> </div>
+      </div>
+      <div id="modal_empleado" class="modal">
+        <div class="modal-content"><h2>Notificaciones</h2>
+        <ul id="lista_notificaciones"></ul><button id="cerrar_modal">Cerrar</button></div>
+      </div>
+    </header>
+  
 
-<Layout>
-    <main>
-        <div class="flex items-center gap-110"> 
-    <input type="text" class="w-35 bg-white text-black rounded-3xl" placeholder="Buscar" id="Buscador" />
-    <div class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105  object-cover"> 
-        <a href="/">Inicio</a>
+    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0"> 
+         
+      <nav class="nav_admi">
+           
+                 <button id="toggleMenu" class="hamburguesa ">
+            &#x2261;
+          </button>
+        <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+         
+          
+          Elementos del <b>administrador</b>
+        </h2>
+        
+        <ul class="flex flex-col gap-2">
+          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Academia">Academia</a>
+          </li>
+          <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="#">Citas </a><a class="text-cyan-400">⮟</a>
+            <ul class="subitems hidden group-hover:block pl-8 rounded-b-lg">
+              <li><a href="/Administrador_Abogado">Abogados</a></li>
+              <li><a href="/Administrador_Detective">Detectives</a></li>
+              <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+            </ul>
+          </li>
+          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Usuarios">Usuarios</a>
+          </li>
+          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Usuarios">Gestión de Horarios</a>
+          </li>
+          <li class="flex cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="/Administrador_Blocks">Blocks<span class="bage" id="bage_noti"></span></a>
+          </li>
+        </ul>
+        
+        <div class="flex justify-center bg-red-600 w-32 h-7 rounded-3xl items-center text-center mt-4 hover:scale-105 transition-transform duration-300">
+          <a href="/">Cerrar Sesión</a>
+        </div>
+        
+      </nav>
+       <div class="flex-1">
+        <section class="seccion_class">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div id="citas_registradas" class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Historial de citas
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Administración Academia
+            </div>
+            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
+              Trabajadores registrados en la página
+            </div>
+          </div>
+        </section> 
+        <div class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4 
+        
+        hover:scale-105 transition-transform duration-300">
+          <button id="borrar_citas" type="button">Borrar</button>
+        </div>
+      </div>
     </div>
-</div>
-
-<div id="contenido-a-buscar">
-    <section>
-        <h2 class="buscable">Servicios en Pruebas de Polígrafo</h2>
-        <p class="buscable">Ofrecemos pruebas de polígrafo de preempleo, rutina y específicas para tu empresa.</p>
-    </section>
-
-    <section>
-        <h2 class="buscable">Libros y Manuales</h2>
-        <p class="buscable">Encuentra nuestra colección de libros y manuales sobre investigación criminal y seguridad.</p>
-    </section>
-
-    </div>
-    </main>
+     
+  </main>
 </Layout>

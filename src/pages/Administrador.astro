@@ -3,13 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-   <!-- se usa para que el script solo afecte a la paguina en cestion -->
-      <script src="/scripAdmi.js" is:inline></script>
-
 <Layout >
   <main class="container mx-auto px-4 py-8">  
     <header class="mb-8 flex justify-center items-center">
-      <script src="../scripts/scripAdmi.js"></script>
       <div>
         <h1 class="text-4xl py-5 text-center font-bold"> 
           Bienvenido al Panel de Control
@@ -28,18 +24,16 @@ import '../styles/global.css';
         <ul id="lista_notificaciones"></ul><button id="cerrar_modal">Cerrar</button></div>
       </div>
     </header>
-  
 
     <div class="flex gap-10 py-10 animate-fadeSlideUp top-0"> 
-         
-      <nav class="nav_admi">
-           
-                 <button id="toggleMenu" class="hamburguesa ">
-            &#x2261;
-          </button>
+          <section>
+            <nav id="nav_admi" class="nav_admi">
+          
         <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
          
-          
+             <button id="_menu" class="hamburguesa ">
+            &#x2261;
+          </button>
           Elementos del <b>administrador</b>
         </h2>
         
@@ -71,8 +65,11 @@ import '../styles/global.css';
         </div>
         
       </nav>
-       <div class="flex-1">
-        <section class="seccion_class">
+          </section>
+         
+      
+       <div id="seccion_class" class="flex-1">
+        <section  class="seccion_class">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
               Usuarios Registrados en la página
@@ -92,4 +89,5 @@ import '../styles/global.css';
     </div>
      
   </main>
+   <script src="/scripAdmi.js" is:inline></script>
 </Layout>

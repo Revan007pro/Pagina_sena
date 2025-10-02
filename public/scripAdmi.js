@@ -1,4 +1,25 @@
+document.addEventListener('DOMContentLoaded',function(){
+const nav_admi = document.getElementById("nav_admi");
+const _menu = document.getElementById("_menu");
+const _seccion = document.getElementById("seccion_class");
 
+/* no podia hacer que el icono hamburguesa no se desaparesca juego con el nav
+asi que lo que se me ocurrio, insertarlo en el section siguiente una vez se le de click
+lo que hace es esconder todo e insertarlo en el section con pading fijos */
+_menu.addEventListener("click", () => {
+  if (nav_admi.style.display === "none") {
+    nav_admi.style.display = "block"; //vuelve a colocar el display del nav
+  } else {//el else activa mi boton
+    nav_admi.style.display = "none";
+    _seccion.appendChild(_menu); //en mi css con #_menu inserto el menu el en section
+  }
+   /* nav_admi.insertBefore(_menu, nav_admi.firstChild); forma para que el menu
+   sea el primero antes de que sea hijo del nav solo para saber funciona igual sin 
+   esto */
+});
+
+
+})
 function loginUsuario() {
     const usuario_ingresado = document.getElementById("usuario").value.trim();
     const contrasenia_ingresada = document.getElementById("password").value.trim();
@@ -55,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     //Forma para excluir al login del security page
     if (!currentPath.includes("Login") && 
-        !currentPath.includes("Registrarse")) {
+        !currentPath.includes("Registrarse")&&!currentPath.includes("Administrador")) {
         securePage();
     }
 });
@@ -105,6 +126,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const _cerrar = document.getElementById("cerrar_modal");
     const _lista = document.getElementById("lista_notificaciones");
     const _bage=document.getElementById("bage");
+    const bodyElement = document.getElementById("body");
+    bodyElement.addEventListener('click',(e)=>{//forma para detectar clicks nulos
+        if (![_bage,_cerrar].includes(e.target)) {
+        //alert("click en body vacío");
+        _modal.style.display="none"
+    }
+
+    })
     _bage.textContent=notificaciones.length;
     notificaciones.forEach(n =>{
         const li = document.createElement("li"); 

@@ -4,10 +4,12 @@ import "../styles/global.css";
 ---
 
     <!-- se usa para que el script solo afecte a la paguina en cestion -->
-      <script src="/scripAdmi.js" is:inline></script>
+      <script src="/scripAdmi.js" is:inline>
+      
+      </script>
 
 <Layout>
-  <main class="w-full h-screen flex flex-col items-center justify-center px-4">
+  <main class="w-full h-screen flex flex-col items-center justify-center px-4" >
     <header class="fixed top-0 left-0 w-full flex justify-center z-50">
         <div class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg">
         
@@ -111,17 +113,21 @@ import "../styles/global.css";
           />
           Continuar con Google
         </button>
+        <div >
+          <button class="button"><a href="/Agendar_cita">Agendar Cita</a></button>
+        </div>
       </form>
       
       <p class="text-center text-gray-600 text-sm">
         ¿No tienes una cuenta?
         <a
-          href="http://localhost:4321/Registrarse" 
+          href="/Registrarse" 
           class="font-medium text-sky-600 hover:text-sky-500"
         >
           Regístrate
         </a>
       </p>
+
     </div>
     
   </main>

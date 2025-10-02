@@ -6,7 +6,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const sunIcon = document.getElementById('sun-icon'); 
     const bodyElement = document.getElementById("body");
     const htmlElement = document.documentElement;
-        const revealItems = document.querySelectorAll('.reveal-item');//forma para que el navegador encuentre mis animaciones
+        const revealItems = document.querySelectorAll('.reveal-item');
+       const nav_admi = document.getElementById("nav_admi");
+const _menu = document.getElementById("_menu");
+const _seccion = document.getElementById("seccion_class");
+        _menu.addEventListener("click", () => {
+  if (nav_admi.style.display === "none") {
+    nav_admi.style.display = "block"; 
+  } else {
+    nav_admi.style.display = "none";
+    _seccion.appendChild(_menu); 
+  }
+
+});
+
+const _sub_item = document.getElementById("sub_item"); 
+const _flecha = document.getElementById("flecha_usuario"); 
+// manejo el display del sub_item en el css con #sub_item para que este inactivo primero
+if (_flecha) {
+    _flecha.addEventListener('click', () => {
+        if (_sub_item.style.display === "none" || _sub_item.style.display === "") {
+            _sub_item.style.display = "block"; 
+        } else {
+            _sub_item.style.display = "none"; 
+        }
+    });
+}
+     
     if (revealItems.length > 0) {
         const observerOptions = {
             root: null,
@@ -46,12 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
     } */
 
-    console.log("Elementos encontrados:", {
-        themeToggleButton: !!themeToggleButton,
-        moonIcon: !!moonIcon,
-        sunIcon: !!sunIcon,
-        bodyElement: !!bodyElement
-    });
 
     if (themeToggleButton && moonIcon && sunIcon && bodyElement) { 
         // Cargar tema guardado
@@ -96,8 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const toggleButton = document.getElementById("toggleMenu");
     const nav = document.querySelector("nav"); 
-
-    
 
 
     const acordeonHeaders = document.querySelectorAll('.acordeon-header');
