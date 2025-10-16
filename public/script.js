@@ -20,6 +20,7 @@ const _seccion = document.getElementById("seccion_class");
 
 });
 
+
 const _sub_item = document.getElementById("sub_item"); 
 const _flecha = document.getElementById("flecha_usuario"); 
 // manejo el display del sub_item en el css con #sub_item para que este inactivo primero
@@ -33,7 +34,7 @@ if (_flecha) {
     });
 }
      
-    if (revealItems.length > 0) {
+    if (revealItems.length > 0) { // Nota: toca rediseñar la animacion, no se porque se \daño 
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -332,4 +333,15 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarMensajes();
         });
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+
+  // Espera simulando carga
+  setTimeout(() => {
+    const skeleton = document.getElementById('skeleton_container').style.display="none"
+    const content = document.getElementById('content_container').style.display="block"
+    
+  }, 1000); // puedes ajustar el tiempo
 });

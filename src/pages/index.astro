@@ -44,12 +44,12 @@ import "../styles/global.css";
     <a href="/" class="text-center hover:text-gray-400 font-semibold">Inicio</a>
     <a href="/Nosotros" class="text-center hover:text-gray-400 font-semibold">Nosotros</a>
     <a href="/Blog" class="text-center hover:text-gray-400 font-semibold">Blog</a>
-    <a href="http://localhost:4321/Academia" class="text-center hover:text-gray-400 font-semibold">Academia</a>
+    <a href="/Academia" class="text-center hover:text-gray-400 font-semibold">Academia</a>
     
     <li class="relative submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 list-none hover:text-gray-400">
       <a href="http://localhost:4321/Servicios">Servicio</a><a class="text-cyan-400 ml-1">⮟</a>
       
-      <ul class="absolute top-9 mt-2 w-48 bg-gray-700 text-white p-2 rounded-b-lg shadow-lg subitems hidden group-hover:block z-10">
+      <ul class="menu_especial">
         <li><a href="http://localhost:4321/Abogado" class="block px-4 py-2 hover:bg-cyan-700 rounded">Abogados</a></li>
         <li><a href="http://localhost:4321/Detective" class="block px-4 py-2 hover:bg-cyan-700 rounded">Detectives</a></li>
         <li><a href="http://localhost:4321/Poligrafista" class="block px-4 py-2 hover:bg-cyan-700 rounded">Poligrafistas</a></li>
@@ -62,14 +62,14 @@ import "../styles/global.css";
  <img src="./Imagenes/1.webp" alt="Imagen publica con el simbolo de la empresa" class="border-2 p-[7px] drop-shadow-sm">
 </div>
 
-<div class="buscable grid grid-cols-6 grid-rows-5 gap-9 bg-gray-300 h-90 reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out">
+<div class="buscable registro-ingresar ">
    <div class=" col-span-3 row-span-5  flex items-start justify-center p-4 bg-cover bg-[position:50%_25%] bg-[url('./Imagenes/11.webp')]">
-   <a href="http://localhost:4321/Registrarse">
+   <a href="/Registrarse">
      <button class="items-center text-black bg-white font-bold py-3 rounded-lg px-6 w-full max-w-xs text-xl mt-55 hover:bg-gray-200 transform transition-transform duration-5 hover:scale-105  object-cover">Registrarse</button>
   </a>
     </div>
     <div class="buscable col-span-3 row-span-5 col-start-4 flex items-center justify-center p-4 bg-cover bg-[position:50%_25%] bg-[url('./Imagenes/12.webp')]">
-      <a href="http://localhost:4321/Login">
+      <a href="/Login">
         <button class=" bg-white hover:bg-gray-200 text-black font-bold py-3 px-6 rounded-lg shadow-md w-full max-w-xs text-xl mt-44 opacity-100 transform transition-transform duration-5 hover:scale-105  object-cover">
             Ingresar
         </button>
@@ -80,7 +80,7 @@ import "../styles/global.css";
 
 <div class="grid grid-cols-2 gap-7 bg-white p-7 buscable">
   <div class="buscable bg-gray-100 min-h-[100px] flex items-center justify-center text-black
-              reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out">
+               ">
     <a href="http://localhost:4321/Abogados" class="w-full h-full flex flex-row items-center justify-center p-4">
       <img src="/Imagenes/2.webp" alt="Abogados Equipo A1 Colombia" class="h-auto max-w-[45%] object-contain mr-4 flex-shrink-0 transform transition-transform duration-5 hover:scale-105">
       <div class="flex-grow text-left buscable">
@@ -91,7 +91,7 @@ import "../styles/global.css";
   </div>
 
   <div class="bg-gray-100 min-h-[100px] flex items-center justify-center text-black
-              reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out buscable">
+               ">
     <a href="http://localhost:4321/Detectives" class="transform transition-transform duration-5 hover:scale-105 w-full h-full flex flex-row items-center justify-center p-4">
       <img src="./Imagenes/3.webp" alt="Imagen de detective privado equipo a1 colombia" class="h-auto max-w-[45%] object-contain mr-4 flex-shrink-0">
       <div class="flex-grow text-left buscable">
@@ -102,7 +102,7 @@ import "../styles/global.css";
   </div>
 
   <div class="bg-gray-100 min-h-[100px] flex items-center justify-center text-black
-              reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out buscable">
+              ">
     <a href="http://localhost:4321/Pligrafistas" class="transform transition-transform duration-5 hover:scale-105 w-full h-full flex flex-row items-center justify-center p-4">
       <img src="./Imagenes/4.webp" alt="Imagen coorporativa del servicio de poligrafia" class="h-auto max-w-[45%] object-contain mr-4 flex-shrink-0">
       <div class="flex-grow text-left buscable">
@@ -113,7 +113,7 @@ import "../styles/global.css";
   </div>
 
   <div class="bg-gray-100 min-h-[100px] flex items-center justify-center text-black
-              reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out buscable">
+              ">
     <a href="http://localhost:4321/Academia" class="transform transition-transform duration-5 hover:scale-105 w-full h-full flex flex-row items-center justify-center p-4">
       <img src="/Imagenes/5.webp" alt="Imagen coorporativa del servicio de academia" class="h-auto max-w-[45%] object-contain mr-4 flex-shrink-0">
       <div class="flex-grow text-left buscable">
@@ -126,7 +126,7 @@ import "../styles/global.css";
 
 
 <div class="grid grid-cols-4 grid-rows-5 gap-6 py-10 buscable">
-  <div class="col-span-2 row-span-5 bg-white py-11 reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out buscable">
+  <div class="col-span-2 row-span-5 bg-white py-11 ">
     <iframe 
       class="w-full aspect-video"
       src="https://www.youtube.com/embed/-LWc-18rth0"
@@ -137,7 +137,7 @@ import "../styles/global.css";
     <h1 class="flex justify-around py-5">Somos un equipo de expertos dedicados a resolver mulstiples inquietudes</h1>
   </div>
 
-  <div class="buscable col-span-2 row-span-5 col-start-3 flex flex-col bg-white reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out">
+  <div class="buscable col-span-2 row-span-5 col-start-3 flex flex-col bg-white ">
     <h1 class="text-center text-2xl mb-4">QUIÉNES SOMOS</h1>
     <img 
       src="./Imagenes/6.webp" 
@@ -159,7 +159,7 @@ import "../styles/global.css";
     Material descargable
   </h1>
 
-  <div class= "buscable grid grid-cols-6 grid-rows-3 gap-12 w-full py-10 reveal-item opacity-0 translate-y-5 transition-all duration-700 ease-out">
+  <div class= "buscable grid grid-cols-6 grid-rows-3 gap-12 w-full py-10 ">
     
     <div class="col-span-2 row-span-3 animate-fadeSlideUp shadow-amber-400 p-4 buscable">
       <img src="./Imagenes/8.webp" alt="Imagen de formatos" class="transform transition-transform duration-5 hover:scale-105 w-full h-full object-cover">

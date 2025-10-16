@@ -11,22 +11,22 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>Proyecto Aplicacion Web</title>
 
-    <!-- Aquí Astro inyecta CSS y demás -->
     <slot name="head" />
   </head>
-  <body id="body">
-  
-    <script src="/script.js" is:inline></script>
+  <body class="bg-white text-gray-800">
+    <!-- Skeleton (solo visible al inicio) -->
+    <div id="skeleton_container">
+      <div class="skeleton-skeleton-titele"></div>
+      <div class="skeleton-skeleton-titele w-2/3"></div>
+      <div class="skeleton-skeleton-titele"></div>
+      <div class="skeleton-skeleton-titele"></div>
+    </div>
 
-    <slot />
+    <!-- Contenido real -->
+    <div id="content_container">
+      <slot />
+    </div>
+
+    <script src="/script.js" defer></script>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

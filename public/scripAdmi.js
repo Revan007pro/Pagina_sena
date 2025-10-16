@@ -23,45 +23,67 @@ _menu.addEventListener("click", () => {
 function loginUsuario() {
     const usuario_ingresado = document.getElementById("usuario").value.trim();
     const contrasenia_ingresada = document.getElementById("password").value.trim();
-
-    // 2. Definir el objeto de usuarios y contraseñas.
     const usuarios_y_contrasenias = {
         "admi": "123",       
         "empleado": "321",
         "usuario": "231"
     };
-    
-    // 3. Validar que los campos no estén vacíos.
-    if (usuario_ingresado === "" || contrasenia_ingresada === "") {
-        alert("Por favor, llene todos los datos"); 
-        return;
-    }
 
-    // 4. Validar el usuario y la contraseña.
-    const contrasenia_correcta = usuarios_y_contrasenias[usuario_ingresado];
+ 
+    const _usuario_ingresado = document.getElementById("usuario")
+        const contrasenia_correcta = usuarios_y_contrasenias[usuario_ingresado];
+    const _id_contrasenia=document.getElementById("password")
     
-    if (contrasenia_correcta === undefined) {
-        alert("El usuario ingresado no existe");
-    } 
-    else if (contrasenia_ingresada === contrasenia_correcta) {
-        if (usuario_ingresado === "admi") {
+        if (usuario_ingresado === "admi"&&contrasenia_ingresada===contrasenia_correcta ) {
             localStorage.setItem("usuario", "admi");
             window.location.href = "/Administrador";
-        } else if (usuario_ingresado === "empleado") {
+        }
+        if (usuario_ingresado === "admi"&&contrasenia_ingresada!==contrasenia_correcta ) {
+                    _id_contrasenia.classList.add('warning')
+   
+        alert("Error: la contraseña ingresada es incorrecta");
+        return
+        }
+        
+         if (usuario_ingresado === "empleado"&&contrasenia_ingresada===contrasenia_correcta) {
             localStorage.setItem("usuario", "empleado");
             window.location.href = "/empleado";
-        } else if (usuario_ingresado === "usuario") {
+        }
+        if (usuario_ingresado === "empleado"&&contrasenia_ingresada!==contrasenia_correcta) {
+                    _id_contrasenia.classList.add('warning')
+   
+        alert("Error: la contraseña ingresada es incorrecta");
+        }
+        if (usuario_ingresado === "usuario"&&contrasenia_ingresada===contrasenia_correcta) {
             localStorage.setItem("usuario", "user");
             window.location.href = "/usuario";
         }
-    } 
-    else {
+        if (usuario_ingresado === "usuario"&&contrasenia_ingresada!==contrasenia_correcta) {
+                    _id_contrasenia.classList.add('warning')
+   
         alert("Error: la contraseña ingresada es incorrecta");
+        return
+        }
+     /* contrasenia_correcta === undefined) */ 
+
+     if (usuario_ingresado === "" || contrasenia_ingresada === "") {
+        alert("Por favor, llene todos los datos"); 
+         _usuario_ingresado.classList.add('warning')
+         _id_contrasenia.classList.add('warning')
+        return;
+    }
+    else {
+        _usuario_ingresado.classList.add('warning'); 
+        alert("El usuario ingresado no existe");
+        return; 
     }
 }
 function securePage() {
    const user = localStorage.getItem("usuario");
-    if (user !== "admin") {
+   const paginas_admi= ['/Administrador_Abogado', '/Administrador_Academia']
+   const ruta_actua=window.location.pathname
+   const _page_admi=paginas_admi.includes(ruta_actua)
+    if (user !== "admin" && user !=="empleado") {
         alert("Usted no tiene los permisos necesarios.");
         window.location.href = "/";
     }
@@ -76,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     //Forma para excluir al login del security page
     if (!currentPath.includes("Login") && 
-        !currentPath.includes("Registrarse")&&!currentPath.includes("Administrador")) {
+        !currentPath.includes("Registrarse")) {
         securePage();
     }
 });
@@ -126,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const _cerrar = document.getElementById("cerrar_modal");
     const _lista = document.getElementById("lista_notificaciones");
     const _bage=document.getElementById("bage");
-    const bodyElement = document.getElementById("body");
+     
     bodyElement.addEventListener('click',(e)=>{//forma para detectar clicks nulos
         if (![_bage,_cerrar].includes(e.target)) {
         //alert("click en body vacío");
@@ -168,5 +190,44 @@ function inhabilitarUsuario(){
     //aqui va el back-end
 }
 
+/* document.getElementById('usuario').addEventListener('blur',()=>{//blur cuando abandona el foco
+    const usuario_=document.getElementById('usuario')
+    const erro_usuario=document.getElementById("error_password")
+    const vacio=usuario_.value.trim()===''
+    erro_usuario.style.display=vacio ? 'inline':"none"
+    usuario_.classList.toggle('error-input',vacio)
+
+}) //aun no funciona implementat con css
+
+document.getElementById("password").addEventListener('input',()=>{
+    const password_=document.getElementById('password')
+    const error_password=document.getElementById('error_password')
+    const vacion=password_.value.trim()===''
+    error_password.style.display=vacion ? "inline" : "none"
+    password_.classList.toggle('error-input',vacion) //ambos metodos son para manejar los errores
+}) */
+document.addEventListener('DOMContentLoaded',function(){
+    const _show=document.getElementById("show")
+const _hide=document.getElementById("hide")
+const contrasenia_ingresada = document.getElementById("password")
+
+_hide.addEventListener('click',()=>{
+    if (_hide) {
+        _show.style.display="block"
+        _hide.style.display="none"
+        contrasenia_ingresada.type='text' 
+    }
+
+}
+)
+_show.addEventListener('click',()=>{
+    if (_show) {
+        _hide.style.display="block"
+        _show.style.display="none"
+        contrasenia_ingresada.type='password'
+    }
+
+})
 
 
+})

@@ -1,16 +1,28 @@
+
+
 document.addEventListener('DOMContentLoaded', function (){
+    
 
     const _confirm = document.getElementById("confirmar_cita")
     const mensaje_cita = document.getElementById("mensaje_cita")
     const citas_registradas = document.getElementById("citas_registradas")
     const borrar_citas = document.getElementById("borrar_citas")
- 
+
 
     function _notificacion_cita(){
         const new_cita = JSON.parse(localStorage.getItem('Confirmar') || '[]');
         const nueva_cita = document.createElement('li')
         const noti_emple=document.getElementById("bage_emple")
+const _perfil_empleado = document.getElementById("b_eperfil");
 
+_perfil_empleado.addEventListener('click', () => {
+    const menu = document.getElementById("menu_perfil");
+
+    if (menu) {
+        menu.style.display="block"
+    }
+    
+});
         noti_emple.style.display='none'
 
 
@@ -85,6 +97,42 @@ document.addEventListener('DOMContentLoaded', function (){
              _notificacion_cita()
         })
     }
+        
+    const nav_admi = document.getElementById("nav_admi"); // forma para manejar el menu hambuerguesa
+const _menu = document.getElementById("_menu");
+const _seccion_ = document.getElementById("seccion_class");
+
+_menu.addEventListener("click", () => {
+    if (_menu) {
+        nav_admi.style.display === "none"
+        _seccion_.appendChild(_menu)
+    }
+})
+const _perfil_empleado = document.getElementById("b_eperfil");
+_perfil_empleado.addEventListener('click', () => {
+    const menu = document.getElementById("menu_perfil");
+
+    if (menu) {
+        menu.style.display="block"
+    }
+    
+});
+const _cerrar_ = document.getElementById('cerrar_bage_display')
+const menu = document.getElementById("menu_perfil");
+
+_cerrar_.addEventListener('click', (e) => { // Asegúrate de pasar 'e'
+    // Detiene el evento para que no llegue al manejador del body.
+    e.stopPropagation(); 
+    menu.style.display = 'none';
+});
+document.addEventListener('keydown',(e)=>{
+    if (e.key==='Escape') {
+        if (menu.style.display='block') {
+            menu.style.display='none'
+        }
+    }
+    //nota traer el otro modal
+})
 
 if (borrar_citas) {
         borrar_citas.addEventListener('click', function(e) {
