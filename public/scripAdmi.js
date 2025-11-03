@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded',function(){
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
+const _flecha =document.getElementById("arrow")
+
+_flecha.addEventListener("click", () => {
+    // 1. Verificar el estado actual (opcional, pero útil si quieres alternar la rotación)
+    if (_flecha) {
+        _flecha.style.transform = "rotate(180deg)"
+        console.log("Flecha detectada")
+    }
+    else{
+        alert("flecha no detectada")
+    }
+
+});
 
 /* no podia hacer que el icono hamburguesa no se desaparesca juego con el nav
 asi que lo que se me ocurrio, insertarlo en el section siguiente una vez se le de click
@@ -79,17 +92,13 @@ function loginUsuario() {
     }
 }
 function securePage() {
-   const user = localStorage.getItem("usuario");
-   const paginas_admi= ['/Administrador_Abogado', '/Administrador_Academia']
-   const ruta_actua=window.location.pathname
-   const _page_admi=paginas_admi.includes(ruta_actua)
-    if (user !== "admin" && user !=="empleado") {
+   const user = localStorage.getItem("usuario")
+   //const _empleado = localStorage.getItem("empleado")
+    if (user !== "admi" ) {
         alert("Usted no tiene los permisos necesarios.");
         window.location.href = "/";
     }
-    else{
-        alert("no funciona seguridad")
-    }
+
     
 }
 
