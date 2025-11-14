@@ -69,29 +69,20 @@ import '../styles/global.css';
         
       </nav>
           </section>
-         
-      
-       <div id="seccion_class" class="flex-1">
-        <section  class="seccion_class">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div  class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300" >
-              <a href="/Administrador_Base_datos">Ver Usuarios Registrados en la página</a>
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Historial de citas
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Administración Academia
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Trabajadores registrados en la página
-            </div>
-            
-          </div>
-        </section> 
-      </div>
-    </div>
-     
-  </main>
-   <script src="/scripAdmi.js" is:inline></script>
+
+    <div class="flex-grow flex justify-center">
+                <div class="from-container max-w-lg w-full">
+                    <h1 class="text-2xl font-bold text-center text-gray-800 mb-8">Base de Datos
+                    </h1>
+                <label class="flex justify-center">enlistar usuarios:</label>
+                <button id="ver_usuarios" class="button" onclick="traerUsuarios()">Ver</button>
+                    <ul id="Usuario"></ul>
+                <label class="flex justify-center">cantidad de usuarios:</label>
+                <button id="ver_usuarios" class="button" onclick="elistar_usuarios()">Ver</button>
+                    <ul id="cantidad_usuarios"></ul></div>
+                    
+                    </div>
+                </main>
+                   <script src="/scripAdmi.js" is:client></script>
 </Layout>
+         

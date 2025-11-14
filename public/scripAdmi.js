@@ -2,18 +2,37 @@ document.addEventListener('DOMContentLoaded',function(){
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
-const _flecha =document.getElementById("arrow")
+const _flecha_ = document.getElementById("arrow");
+const _block_admi= document.getElementById("subgrupo")
+const _arrow_admi=document.getElementById("arrow_admi")
+const _menu_especial=document.getElementById("bage_admi")
 
-_flecha.addEventListener("click", () => {
-    // 1. Verificar el estado actual (opcional, pero útil si quieres alternar la rotación)
-    if (_flecha) {
-        _flecha.style.transform = "rotate(180deg)"
-        console.log("Flecha detectada")
+_arrow_admi.addEventListener("click",(e)=>{
+    e.preventDefault()
+    _arrow_admi.classList.toggle("none")
+    if (_arrow_admi) {
+        console.log("flecha admi detectada")
+        _menu_especial.style.display="block"
     }
-    else{
-        alert("flecha no detectada")
+})
+document.addEventListener("keydown",(e)=>{
+    if (e.key=='Escape') {
+        _menu_especial.style.display='none'
     }
+})
 
+_flecha_.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    _flecha_.classList.toggle("rotar-flecha"); 
+    if (_flecha_.classList.contains("rotar-flecha")) {
+        console.log("Flecha rotada a 180°")
+         _block_admi.style.display='block'
+
+    } else {
+        console.log("Flecha regresada a 0°")
+        _block_admi.style.display='none'
+
+    }
 });
 
 /* no podia hacer que el icono hamburguesa no se desaparesca juego con el nav
@@ -101,6 +120,36 @@ function securePage() {
 
     
 }
+
+
+function traerUsuarios(){
+    fetch('http://localhost:3000/Usuario')
+    .then(res => res.json())
+    .then(data => {
+      const ul = document.getElementById('Usuario')
+      if (data !== null){
+        data.forEach(usuario => {
+        const li = document.createElement('li');
+        li.textContent = usuario.nombre + " " + usuario.apellidos;
+        ul.appendChild(li); 
+      })}
+    })}
+
+function elistar_usuarios(){
+    fetch('http://localhost:3000/Usuario/cantidad')
+    .then(res => res.json())
+    .then(data =>{
+        const en = document.getElementById("cantidad_usuarios")
+        const cantidad = data.total_usuarios;
+        en.textContent = `Total de Usuarios: ${cantidad}`;
+
+    })
+}
+
+function guardar_usuario(){
+    
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const currentPath = window.location.pathname;

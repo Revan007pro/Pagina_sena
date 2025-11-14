@@ -1,0 +1,17 @@
+<!-- @ts-nocheck -->
+<ul id="Usuario"></ul>
+
+<script is:client>
+  fetch('http://localhost:3000/Usuario')
+    .then(res => res.json())
+    .then(data => {
+      const ul = document.getElementById('Usuario');
+      data.forEach(usuario => {
+        const li = document.createElement('li');
+        li.textContent = usuario.nombre;
+        ul.appendChild(li);
+      });
+    })
+    .catch(err => console.error('Error:', err));
+</script>
+  

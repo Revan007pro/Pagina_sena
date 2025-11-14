@@ -1,15 +1,19 @@
 
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    const themeToggleButton = document.getElementById('theme-toggle');
-    const moonIcon = document.getElementById('moon-icon'); 
-    const sunIcon = document.getElementById('sun-icon'); 
-    const bodyElement = document.getElementById("body");
+    const themeToggleButton = document.getElementById('theme-toggle')
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon')
+    const bodyElement = document.getElementById("body")
     const htmlElement = document.documentElement;
-        const revealItems = document.querySelectorAll('.reveal-item');
-       const nav_admi = document.getElementById("nav_admi");
+        const revealItems = document.querySelectorAll('.reveal-item')
+       const nav_admi = document.getElementById("nav_admi")
 const _menu = document.getElementById("_menu");
-const _seccion = document.getElementById("seccion_class");
+const _seccion = document.getElementById("seccion_class")
+
+
         _menu.addEventListener("click", () => {
   if (nav_admi.style.display === "none") {
     nav_admi.style.display = "block"; 
@@ -337,11 +341,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', () => {
   
-
-  // Espera simulando carga
   setTimeout(() => {
     const skeleton = document.getElementById('skeleton_container').style.display="none"
     const content = document.getElementById('content_container').style.display="block"
     
-  }, 1000); // puedes ajustar el tiempo
+  }, 1000); 
 });

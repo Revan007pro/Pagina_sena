@@ -1,13 +1,18 @@
 {
-  "name": "dangerous-doppler",
-  "type": "module",
+  "name": "application-web",
   "version": "0.0.1",
+  "type": "module",
+  "description": "aplicacion web, proyecto del sena",
+  "main": "script.js",
   "scripts": {
+    "start": "node script_back_end.js",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
+  "author": "José Manuel Molano",
+  "license": "ISC",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.5",

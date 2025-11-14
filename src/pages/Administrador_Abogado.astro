@@ -22,14 +22,14 @@ import "../styles/global.css";
                     <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
                         <a href="/Administrador_Academia">Academia</a>
                     </li>
-                    <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-                        <a href="#">Citas &dArr;</a>
-                        <ul class="subitems hidden group-hover:block pl-8 rounded-b-lg">
-                            <li><a href="/Administrador_Abogado">Abogados</a></li>
-                            <li><a href="/Administrador_Detective">Detectives</a></li>
-                            <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
-                        </ul>
-                    </li>
+                    <li class=" group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
+            <a href="#">Citas </a><span id="arrow">⮝</span>
+            <ul id="subgrupo">
+              <li><a href="/Administrador_Abogado">Abogados</a></li>
+              <li><a href="/Administrador_Detective">Detectives</a></li>
+              <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+            </ul>
+          </li>
                     <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
                         <a href="/Administrador_Usuarios">Usuarios</a>
                     </li>
@@ -78,4 +78,5 @@ import "../styles/global.css";
             </section>
         </div>
     </main>
+      <script src="/scripAdmi.js" is:inline></script>
 </Layout>
