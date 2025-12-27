@@ -7,6 +7,8 @@ const _block_admi= document.getElementById("subgrupo")
 const _arrow_admi=document.getElementById("arrow_admi")
 const _menu_especial=document.getElementById("bage_admi")
 
+
+
 _arrow_admi.addEventListener("click",(e)=>{
     e.preventDefault()
     _arrow_admi.classList.toggle("none")
@@ -110,17 +112,86 @@ function loginUsuario() {
         return; 
     }
 }
-function securePage() {
-   const user = localStorage.getItem("usuario")
-   //const _empleado = localStorage.getItem("empleado")
-    if (user !== "admi" ) {
-        alert("Usted no tiene los permisos necesarios.");
-        window.location.href = "/";
+
+
+
+async function ingresarUsuario(){
+    let password=document.getElementById("password").value.trim()
+    let usuario=document.getElementById("usuario").value.trim()
+    const payload={
+        nombre:usuario,
+        password:password
+    }
+   
+    try{
+        const respuesta= await fetch("http://localhost:8080/login",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload) //arma el json con un objeto
+        })
+        console.log("los datos cargados son:",respuesta)
+
+        if(!respuesta.ok){
+            alert("error en el servidor")
+            return
+        }
+        const data=await respuesta.json()
+        console.log("los datos del json son: ", data.datos)
+
+        alert(data.mensaje)
+
+        if(data.datos){
+            console.log("roll", data.datos.roll)
+            console.log("Correo", data.datos.correo)
+            console.log("telefono", data.datos.telefono)
+            console.log("nombre", data.datos.nombre)
+        }
+        if(!data.datos){
+            console.log("alerta no pasa a data.datos")
+        }
+        
+
+        if(data.datos){
+            localStorage.setItem("roll", data.datos.roll)
+            localStorage.setItem("nombre", data.datos.nombre)
+            localStorage.setItem("telefono", data.datos.telefono)
+        }
+        if(data.urlTarget){
+            window.location.href=data.urlTarget
+        } 
+        if(!data.urlTarget){
+            console.log("no hay redireccionamiento")
+        }
+        else{
+            console.log("fallo el payload")
+        }
+        
+    }catch(err){
+        console.log("error de conexion",err)
+        alert("no hay conexion con el servidor")
+    }
+    
+        
     }
 
-    
+function securePage() {
+    const user = localStorage.getItem("usuario") // se sobreescribe cuando se hace login, dejar asi
+    const rolesPermitidos = ["Administrador", "Empleado"]
+    if (!rolesPermitidos.includes(user)) {
+        alert("Usted no tiene los permisos necesarios.")
+        window.location.href = "/"
+    }
+    insertarUsuario(user)
 }
-
+function insertarUsuario(user){
+    const nombre = localStorage.getItem("nombre")
+    const nombreUsuario=document.getElementById("nombreUsuario")
+    const rolUsuario=document.getElementById("rol_usuario")
+    nombreUsuario.textContent=user
+    rolUsuario.textContent=nombre
+}
 
 function traerUsuarios(){
     fetch('http://localhost:3000/Usuario')
@@ -146,7 +217,39 @@ function elistar_usuarios(){
     })
 }
 
-function guardar_usuario(){
+async function crearUsuario(){
+const newPayload = {
+        new_nombres: document.getElementById("new_nombre").value,
+        new_apellidos: document.getElementById("new_apellidos").value,
+        fecha_nacimiento: document.getElementById("new_fecha_nacimiento").value,
+        new_correo: document.getElementById("new_email").value,
+        new_contrasenia: document.getElementById("password_registro").value,
+        confirmar_new_contrasenia: document.getElementById("confirm-password").value,
+        new_telefono: document.getElementById("new_telefono").value
+    }
+    
+    try{
+        const nuevoUsuario=await fetch("http://localhost:8080/guardar/usuario",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newPayload)
+        })
+
+        console.log("los datos enviados son: ",nuevoUsuario)
+        const data=await nuevoUsuario.json()
+        alert(data.mensaje)
+        if (nuevoUsuario.ok) {
+            window.location.reload(); 
+        }
+        if(!data.ok){
+            console.log("error: de origen desconocido")
+        }
+    }
+    catch(err){
+        alert("error servidor no encontrado",err)
+    }
     
 }
 
@@ -230,13 +333,6 @@ cerrar_modal.addEventListener("click",()=>(
 ))
 })
 
-
-function crearUsuario(){
-    /*
-    Aqui va el escrip para crear un nuevo usuario y añadirlo a la base de datos
-    cuando se vea back-end
-    */
-}
 
 function editarUsuario(){
     //aqui va el back-end

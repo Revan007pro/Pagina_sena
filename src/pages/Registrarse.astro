@@ -1,112 +1,212 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 ---
 
-
 <Layout>
-    <main>
-        <header class="fixed top-0 left-0 w-full flex justify-center z-50">
-        <div class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg">
-        
-        <div class="flex items-center gap-110"> 
-            <input type="text" class="w-35 bg-white text-black rounded-3xl" placeholder="Buscar" id="Buscar" />
-            <div class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105  object-cover"> 
-                <a href="http://localhost:4321/" >Inicio</a> 
-            </div>
-            <div id="theme-switcher" class="z-50 ml-25">
-                <button id="theme-toggle" aria-label="Toggle dark-mode">
-                    <svg id="moon-icon" class="theme-icon hover:bg-cyan-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
+  <main>
+    <header class="fixed top-0 left-0 w-full flex justify-center z-50">
+      <div
+        class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg"
+      >
+        <div class="flex items-center gap-110">
+          <input
+            type="text"
+            class="w-35 bg-white text-black rounded-3xl"
+            placeholder="Buscar"
+            id="Buscar"
+          />
+          <div
+            class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105 object-cover"
+          >
+            <a href="http://localhost:4321/">Inicio</a>
+          </div>
+          <div id="theme-switcher" class="z-50 ml-25">
+            <button id="theme-toggle" aria-label="Toggle dark-mode">
+              <svg
+                id="moon-icon"
+                class="theme-icon hover:bg-cyan-400"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path>
+              </svg>
 
-                    <svg id="sun-icon" class="theme-icon hover:bg-orange-400 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+              <svg
+                id="sun-icon"
+                class="theme-icon hover:bg-orange-400 hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+          </div>
         </div>
-    </header>
-    <div class="formulario">
-         <h1 class=" text-3xl font-bold text-center text-gray-800 mb-8 ">Regístrate</h1>
+      </div>
+      <div class="formulario">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
+          Regístrate
+        </h1>
 
         <form action="#" method="POST" class="space-y-6">
-            <div>
-                <label for="nombres" class="block text-sm font-medium text-gray-700 mb-1">Nombre(s)</label>
-                <input type="text" id="id_nombre" name="nombres" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="Ej: Juan David"
-                       title="Nombres personales">
-            </div>
+          <div>
+            <label
+              for="nombres"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Nombre(s)</label
+            >
+            <input
+              type="text"
+              name="nombres"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="Ej: Juan David"
+              title="Nombres personales"
+              id="new_nombre"
+            />
+          </div>
 
-            <div>
-                <label for="apellidos" class="block text-sm font-medium text-gray-700 mb-1">Apellido(p)</label>
-                <input type="text" id="apellidos_paterno" name="apellidos" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="Primer Apellido"
-                       title="Primer Apellido">
-            </div>
-            <div>
-               <label for="apellido" class="block text-sm font-medium text-gray mb-1">Fecha Nacimineto</label> 
-               <input type="date" id="fecha_nacimiento" name="fecha del nacimeinto" required
-               class="mt-1 block w-full px-3 py-2 border border-gray-300 reounded-mb shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-               title="fecha del nacimeinto propio">
-            </div>
+          <div>
+            <label
+              for="apellidos"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Apellido(p)</label
+            >
+            <input
+              type="text"
+              id="new_apellidos"
+              name="apellidos"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="Primer Apellido"
+              title="Primer Apellido"
+            />
+          </div>
+          <div>
+            <label
+              for="apellido"
+              class="block text-sm font-medium text-gray mb-1"
+              >Fecha Nacimineto</label
+            >
+            <input
+              type="date"
+              id="new_fecha_nacimiento"
+              name="fecha del nacimeinto"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 reounded-mb shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              title="fecha del nacimeinto propio"
+            />
+          </div>
 
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
-                <input type="email" id="email" name="email" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="ejemplo@dominio.com"
-                       title="Correo electronico personal">
-            </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              id="new_email"
+              name="email"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="ejemplo@dominio.com"
+              title="Correo electronico personal"
+            />
+          </div>
 
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                <input type="password" id="password_registro" name="password" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="******"
-                       title="Obligatorio">
-            </div>
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              id="password_registro"
+              name="password"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="******"
+              title="Obligatorio"
+            />
+          </div>
 
-            <div>
-                <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Contraseña</label>
-                <input type="password" id="confirm-password" name="confirm_password" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="Repite tu contraseña"
-                       title="Confirmar Contraseña">
-            </div>
+          <div>
+            <label
+              for="confirm-password"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Confirmar Contraseña</label
+            >
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm_password"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="Repite tu contraseña"
+              title="Confirmar Contraseña"
+            />
+          </div>
 
-            <div>
-                <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Número de Teléfono</label>
-                <input type="tel" id="telefono" name="telefono"
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                       placeholder="Celular o Fijo">
-            </div>
+          <div>
+            <label
+              for="telefono"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Número de Teléfono</label
+            >
+            <input
+              type="tel"
+              id="new_telefono"
+              name="telefono"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              placeholder="Celular o Fijo"
+            />
+          </div>
 
-            <div>
-                <button type="submit"
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onclick="crearUsuario()">
-                    Crear Cuenta
-                </button>
-            </div>
-            
-            <p class="text-center text-sm text-gray-600">
-                ¿Ya tienes una cuenta?
-                <a href="/Login" class="font-medium text-sky-600 hover:text-sky-500">Inicia sesión aquí</a>
-            </p>
+          <div>
+            <button
+              type="button"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+              onclick="crearUsuario()"
+            >
+              Crear Cuenta
+            </button>
+          </div>
+
+          <p class="text-center text-sm text-gray-600">
+            ¿Ya tienes una cuenta?
+            <a href="/Login" class="font-medium text-sky-600 hover:text-sky-500"
+              >Inicia sesión aquí</a
+            >
+          </p>
         </form>
-    </div>   
-    </main>
-    
-   
+      </div>
+    </header>
+  </main>
+  <script src="/scripAdmi.js" is:inline></script>
 </Layout>
