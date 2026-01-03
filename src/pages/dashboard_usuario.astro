@@ -1,0 +1,134 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+  <main>
+    <header class="fixed top-0 left-0 w-full flex justify-center z-50">
+      <div
+        class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg"
+      >
+        <div class="flex items-center gap-110">
+          <input
+            type="text"
+            class="w-35 bg-white text-black rounded-3xl"
+            placeholder="Buscar"
+            id="Buscar"
+          />
+          <div
+            class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105 object-cover"
+          >
+            <a href="/">Inicio</a>
+          </div>
+          <div id="theme-switcher" class="z-50 ml-25">
+            <button id="theme-toggle" aria-label="Toggle dark-mode">
+              <svg
+                id="moon-icon"
+                class="theme-icon hover:bg-cyan-400"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path>
+              </svg>
+
+              <svg
+                id="sun-icon"
+                class="theme-icon hover:bg-orange-400 hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="flex justify-center items-center shadow-lg">
+      <div class="grid grid-cols-4 grid-rows-5 gap-15">
+        <div class="col-start-4">
+          <div class="flex bg-cyan-400 rounded-3xl h-auto w-full">
+            <div class="col-span-1 ml-5">
+              <p>Nombre: <b id="rol_usuario"></b></p>
+              <p>Usuario: <b id="nombreUsuario"></b></p>
+            </div>
+            <div class="ml-3 mt-3"><span>🔔</span></div>
+            <div class="ml-2 mt-3">
+              <span>👤<b id="flecha_usuario" class="cursor-pointer">⮟ </b></span
+              >
+            </div>
+            <ul id="bage_usuario"><li>cosas</li></ul>
+          </div>
+        </div>
+        <div
+          class="flex justify-center absolute mt-25 bg-cyan-400 h-55 rounded-3xl w-45 items-center text-center"
+        >
+          <div>
+            <h1>Elementos Cliente</h1>
+            <p class="hover_usuario">Historial de Citas</p>
+            <p class="hover_usuario">Profesionales</p>
+            <p class="hover_usuario">Cancelar Citas</p>
+            <button
+              id="cerrar_seccion"
+              class="mt-4 button"
+              onclick="cerrarSeccion()">Cerrar Sección</button
+            >
+          </div>
+        </div>
+        <div
+          class="col-start-2 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
+          h-auto w-auto text-center"
+        >
+          <h1 class="font-bold">Cita Asignada:</h1>
+          <p id="cita_asignada"></p>
+        </div>
+        <div
+          class="col-start-3 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
+          h-auto w-auto text-center"
+        >
+          <h1 class="font-bold">Profesional Asignada:</h1>
+          <p id="profesional_asignada"></p>
+        </div>
+        <div
+          class="col-start-2 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
+          h-auto w-auto text-center"
+        >
+          <h1 class="font-bold">Sede Asignada:</h1>
+          <p id="sede_asignada"></p>
+        </div>
+        <div
+          class="col-start-3 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
+          h-auto w-auto text-center"
+        >
+          <h1 class="font-bold">Hora Asignada:</h1>
+          <p id="hora_asignada"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/dahsboard_usuario.js" is:inline></script>
+</Layout>
