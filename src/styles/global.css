@@ -117,7 +117,7 @@
     }
     /* Clases de Notificaciones/Badges */
     .bage{
-      @apply absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full;
+      @apply absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full hidden;
       animation: Animiacion-caida 0.8s ease-out; 
     }
 
@@ -171,9 +171,6 @@ main{
   @apply cursor-pointer
 }
 
-/* global.css */
-
-/* Define la animación de brillo */
 @keyframes loading-fade {
   0% {
     background-position: -200px 0;
@@ -203,4 +200,29 @@ main{
 }
 #skeleton_container{
   @apply p-6 max-w-md mx-auto
+}
+
+
+#arrow {
+  @apply text-cyan-400 inline-block transition-transform duration-300 ease-out origin-center
+}
+
+.rotar-flecha {
+    @apply rotate-180; 
+}
+#subgrupo{
+  @apply hidden transition-transform duration-300 ease-out ml-7 origin-center
+
+}
+#bage_admi{
+  @apply bg-gray-700 text-white p-2 rounded-b-lg shadow-lg absolute mt-24 ml-20 hidden transition-all duration-300 ease-in-out
+      max-w-max text-[12px] h-auto
+}
+
+#bage_usuario{
+  @apply bg-gray-200  text-black p-2 rounded-b-lg shadow-lg absolute mt-12 ml-25 hidden transition-all duration-300 ease-in-out
+      max-w-max text-[12px] h-auto 
+}
+.hover_usuario{
+  @apply  cursor-pointer py-2 px-4 transition-colors duration-300 hover:bg-gray-400/25 rounded-2xl
 }

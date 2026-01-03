@@ -2,6 +2,40 @@ document.addEventListener('DOMContentLoaded',function(){
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
+const _flecha_ = document.getElementById("arrow");
+const _block_admi= document.getElementById("subgrupo")
+const _arrow_admi=document.getElementById("arrow_admi")
+const _menu_especial=document.getElementById("bage_admi")
+
+
+
+_arrow_admi.addEventListener("click",(e)=>{
+    e.preventDefault()
+    _arrow_admi.classList.toggle("none")
+    if (_arrow_admi) {
+        console.log("flecha admi detectada")
+        _menu_especial.style.display="block"
+    }
+})
+document.addEventListener("keydown",(e)=>{
+    if (e.key=='Escape') {
+        _menu_especial.style.display='none'
+    }
+})
+
+_flecha_.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    _flecha_.classList.toggle("rotar-flecha"); 
+    if (_flecha_.classList.contains("rotar-flecha")) {
+        console.log("Flecha rotada a 180°")
+         _block_admi.style.display='block'
+
+    } else {
+        console.log("Flecha regresada a 0°")
+        _block_admi.style.display='none'
+
+    }
+});
 
 /* no podia hacer que el icono hamburguesa no se desaparesca juego con el nav
 asi que lo que se me ocurrio, insertarlo en el section siguiente una vez se le de click
@@ -16,7 +50,9 @@ _menu.addEventListener("click", () => {
    /* nav_admi.insertBefore(_menu, nav_admi.firstChild); forma para que el menu
    sea el primero antes de que sea hijo del nav solo para saber funciona igual sin 
    esto */
-});
+
+
+})
 
 
 })
@@ -78,20 +114,151 @@ function loginUsuario() {
         return; 
     }
 }
-function securePage() {
-   const user = localStorage.getItem("usuario");
-   const paginas_admi= ['/Administrador_Abogado', '/Administrador_Academia']
-   const ruta_actua=window.location.pathname
-   const _page_admi=paginas_admi.includes(ruta_actua)
-    if (user !== "admin" && user !=="empleado") {
-        alert("Usted no tiene los permisos necesarios.");
-        window.location.href = "/";
+
+
+export async function ingresarUsuario(){
+    let password=document.getElementById("password").value.trim()
+    let usuario=document.getElementById("usuario").value.trim()
+    const payload={
+        nombre:usuario,
+        password:password
     }
-    else{
-        alert("no funciona seguridad")
+
+   
+    try{
+        const respuesta= await fetch("http://localhost:8080/login",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload) //arma el json con un objeto
+        })
+        console.log("los datos cargados son:",respuesta)
+
+        if(!respuesta.ok){
+            alert("error en el servidor")
+            return
+        }
+        const data=await respuesta.json()
+        console.log("los datos del json son: ", data.datos)
+
+        alert(data.mensaje)
+
+        if(data.datos){
+            console.log("roll", data.datos.roll)
+            console.log("Correo", data.datos.correo)
+            console.log("telefono", data.datos.telefono)
+            console.log("nombre", data.datos.nombre)
+        }
+        if(!data.datos){
+            console.log("alerta no pasa a data.datos")
+        }
+        
+
+        if(data.datos){
+            localStorage.setItem("roll", data.datos.roll)
+            localStorage.setItem("nombre", data.datos.nombre)
+            localStorage.setItem("telefono", data.datos.telefono)
+        }
+        if(data.urlTarget){
+            window.location.href=data.urlTarget
+        } 
+        if(!data.urlTarget){
+            console.log("no hay redireccionamiento")
+        }
+        else{
+            console.log("fallo el payload")
+        }
+        return data;
+        
+    }catch(err){
+        console.log("error de conexion",err)
+        alert("no hay conexion con el servidor")
+    }
+      
+    
+        
+    }
+
+
+
+function securePage() {
+    const user = localStorage.getItem("roll") // se sobreescribe cuando se hace login, dejar asi
+    const rolesPermitidos = ["Administrador", "Empleado", "Cliente"]
+    if (!rolesPermitidos.includes(user)) {
+        alert("Usted no tiene los permisos necesarios.")
+        window.location.href = "/"
+    }
+    insertarUsuario(user)
+}
+function insertarUsuario(user){
+    const nombre = localStorage.getItem("nombre")
+    const nombreUsuario=document.getElementById("nombreUsuario")
+    const rolUsuario=document.getElementById("rol_usuario")
+    nombreUsuario.textContent=user
+    rolUsuario.textContent=nombre // nota encontrar el elemneto usuario en el localstorange
+}
+
+function traerUsuarios(){
+    fetch('http://localhost:3000/Usuario')
+    .then(res => res.json())
+    .then(data => {
+      const ul = document.getElementById('Usuario')
+      if (data !== null){
+        data.forEach(usuario => {
+        const li = document.createElement('li');
+        li.textContent = usuario.nombre + " " + usuario.apellidos;
+        ul.appendChild(li); 
+      })}
+    })}
+
+function elistar_usuarios(){
+    fetch('http://localhost:3000/Usuario/cantidad')
+    .then(res => res.json())
+    .then(data =>{
+        const en = document.getElementById("cantidad_usuarios")
+        const cantidad = data.total_usuarios;
+        en.textContent = `Total de Usuarios: ${cantidad}`;
+
+    })
+}
+
+async function crearUsuario(){
+const newPayload = {
+        new_nombres: document.getElementById("new_nombre").value,
+        new_apellidos: document.getElementById("new_apellidos").value,
+        fecha_nacimiento: document.getElementById("new_fecha_nacimiento").value,
+        new_correo: document.getElementById("new_email").value,
+        new_contrasenia: document.getElementById("password_registro").value,
+        confirmar_new_contrasenia: document.getElementById("confirm-password").value,
+        new_telefono: document.getElementById("new_telefono").value
+    }
+    
+    try{
+        const nuevoUsuario=await fetch("http://localhost:8080/guardar/usuario",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newPayload)
+        })
+
+        console.log("los datos enviados son: ",nuevoUsuario)
+        const data=await nuevoUsuario.json()
+        alert(data.mensaje)
+        if (nuevoUsuario.ok) {
+            window.location.reload(); 
+        }
+        if(!data.ok){
+            console.log("error: de origen desconocido")
+        }
+    }
+    catch(err){
+        alert("error servidor no encontrado",err)
     }
     
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const currentPath = window.location.pathname;
@@ -110,7 +277,7 @@ function validarFormulario() {
     const _estado = document.getElementById('estadoEmpleado').value.trim();
 
     const fotoInput = document.getElementById('foto_empleado');
-    const _foto = fotoInput.files.length > 0 ? fotoInput.files[0] : null;
+    const _foto = fotoInput.files.length > 0 ? fotoInput.files[0] : null //formulario de la foto
 
     if (!_nombre) { 
         alert('El campo "Nombre" es obligatorio');
@@ -173,13 +340,6 @@ cerrar_modal.addEventListener("click",()=>(
 })
 
 
-function crearUsuario(){
-    /*
-    Aqui va el escrip para crear un nuevo usuario y añadirlo a la base de datos
-    cuando se vea back-end
-    */
-}
-
 function editarUsuario(){
     //aqui va el back-end
 }
@@ -231,3 +391,10 @@ _show.addEventListener('click',()=>{
 
 
 })
+
+function cerrarSeccion() {
+    localStorage.clear();
+    window.location.href = "/";
+}
+
+window.cerrarSeccion = cerrarSeccion;

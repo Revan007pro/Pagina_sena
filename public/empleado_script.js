@@ -1,4 +1,4 @@
-
+import { ingresarUsuario } from "/scripAdmi.js";
 
 document.addEventListener('DOMContentLoaded', function (){
     

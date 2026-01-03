@@ -1,106 +1,137 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
 ---
- <script src="/empleado_script.js" is:inline></script>
-<Layout >
-  <main class="container mx-auto px-4 py-8">  
+
+<script type="module" src="/empleado_script.js" is:inline></script>
+
+<Layout>
+  <main class="container mx-auto px-4 py-8">
     <header class="mb-8 flex justify-center items-center">
       <div>
-        <h1 class="text-4xl py-5 text-center font-bold"> 
+        <h1 class="text-4xl py-5 text-center font-bold">
           Bienvenido al Panel de Control
         </h1>
       </div>
     </header>
-        <header class="mb-8 flex justify-end items-center ">
-      <div class="flex justify-center items-center gap-4 w-70 h-auto bg-sky-900 rounded-3xl text-white ">
-        <div><p>Usuario: <b id="nombreUsuario"></b></p>
-        <p>Perfil: <b>Empleado</b></p></div>
-        <div id="emple_notifi">🔔<span class="bage" id="bage_emple"> </span></div>
-        <div id="b_eperfil">👤 <a class="text-cyan-400 ml-0">⮟</a>
+    <header class="mb-8 flex justify-end items-center">
+      <div
+        class="flex justify-center items-center gap-4 w-70 h-auto bg-sky-900 rounded-3xl text-white"
+      >
+        <div>
+          <p>Usuario: <b id="nombreUsuario"></b></p>
+          <p>Nombre: <b id="rol_usuario"></b></p>
+        </div>
+        <div id="emple_notifi">
+          🔔<span class="bage" id="bage_emple"> </span>
+        </div>
+        <div id="b_eperfil">
+          👤 <a class="text-cyan-400 ml-0">⮟</a>
           <ul id="menu_perfil">
             <li class="hover_empleado">Nombre:Mi_futuro_empleado</li>
             <li class="hover_empleado">Apellido:Mi_futuro_empleado</li>
             <li class="hover_empleado">Email:...@email</li>
-            <button class="boton_cerrar_cession"id="cerrar_bage_display">Cerrar</button>
-          </ul> </div>
+            <button class="boton_cerrar_cession" id="cerrar_bage_display"
+              >Cerrar</button
+            >
+          </ul>
+        </div>
       </div>
       <div id="modal_empleado" class="modal">
-        <div class="modal-content"><h2>Notificaciones</h2>
-        <ul id="lista_notificaciones"></ul><button id="cerrar_modal">Cerrar</button></div>
+        <div class="modal-content">
+          <h2>Notificaciones</h2>
+          <ul id="lista_notificaciones"></ul><button id="cerrar_modal"
+            >Cerrar</button
+          >
+        </div>
       </div>
     </header>
-  
 
-    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0"> 
-         
+    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0">
       <nav class="nav_admi" id="nav_admi">
-         <section>
-           
-                 <button id="_menu" class="hamburguesa ">
-            &#x2261;
-          </button>
-        <h2 class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-         
-          
-          Elementos del <b>administrador</b>
-        </h2>
-        
-        <ul class="flex flex-col gap-2">
-          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-            <a href="/Administrador_Academia">Academia</a>
-          </li>
-          <li class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-            <a href="#">Citas </a><a class="text-cyan-400">⮟</a>
-            <ul class="subitems hidden group-hover:block pl-8 rounded-b-lg">
-              <li><a href="/Administrador_Abogado">Abogados</a></li>
-              <li><a href="/Administrador_Detective">Detectives</a></li>
-              <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
-            </ul>
-          </li>
-          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-            <a href="/Administrador_Usuarios">Usuarios</a>
-          </li>
-          <li class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-            <a href="/Administrador_Usuarios">Gestión de Horarios</a>
-          </li>
-          <li class="flex cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800">
-            <a href="/Administrador_Blocks">Blocks<span class="bage" id="bage_noti"></span></a>
-          </li>
-        </ul>
-        
-        <div class="boton_cerrar_cession">
-          <a href="/">Cerrar Sesión</a>
-        </div>
-        
-      </nav>
-      </section>
-      <section class="seccion_class_">
-<div id="seccion_class" class="flex-1">
-        <section  id="seccion_class">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div id="citas_registradas" class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Historial de citas
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Administración Academia
-            </div>
-            <div class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300">
-              Trabajadores registrados en la página
-            </div>
+        <section>
+          <button id="_menu" class="hamburguesa"> &#x2261; </button>
+          <h2
+            class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+          >
+            Elementos del <b>administrador</b>
+          </h2>
+
+          <ul class="flex flex-col gap-2">
+            <li
+              class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+            >
+              <a href="/Administrador_Academia">Academia</a>
+            </li>
+            <li
+              class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+            >
+              <a href="#">Citas </a><a class="text-cyan-400">⮟</a>
+              <ul class="hidden group-hover:block pl-8 rounded-b-lg">
+                <li><a href="/Administrador_Abogado">Abogados</a></li>
+                <li><a href="/Administrador_Detective">Detectives</a></li>
+                <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
+              </ul>
+            </li>
+            <li
+              class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+            >
+              <a href="/Administrador_Usuarios">Usuarios</a>
+            </li>
+            <li
+              class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+            >
+              <a href="/Administrador_Usuarios">Gestión de Horarios</a>
+            </li>
+            <li
+              class="flex cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
+            >
+              <a href="/Administrador_Blocks"
+                >Blocks<span class="bage" id="bage_noti"></span></a
+              >
+            </li>
+          </ul>
+
+          <div class="boton_cerrar_cession">
+            <a href="/">Cerrar Sesión</a>
           </div>
-        </section> 
-        <div class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4 
+        </section>
+      </nav>
+      <section class="seccion_class_">
+        <div id="seccion_class" class="flex-1">
+          <section id="seccion_class">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div
+                id="citas_registradas"
+                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
+              >
+              </div>
+              <div
+                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
+              >
+                Historial de citas
+              </div>
+              <div
+                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
+              >
+                Administración Academia
+              </div>
+              <div
+                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
+              >
+                Trabajadores registrados en la página
+              </div>
+            </div>
+          </section>
+          <div
+            class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4
         
-        hover:scale-105 transition-transform duration-300">
-          <button id="borrar_citas" type="button">Borrar</button>
+        hover:scale-105 transition-transform duration-300"
+          >
+            <button id="borrar_citas" type="button">Borrar</button>
+          </div>
         </div>
-      </div>
-    </div>
       </section>
-       
-     
+    </div>
   </main>
 </Layout>
