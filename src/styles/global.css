@@ -3,8 +3,14 @@
 /* --- 1. Definiciones Estándar (Keyframes y Fuentes) --- */
 
 @keyframes fadeSlideUp {
-  0% { opacity: 0; transform: translateY(50px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* @keyframes Animiacion-caida {
@@ -14,13 +20,13 @@
   100%{ transform: translateY(0); }
 } */
 
-@theme{
-  --font-special: 'Edu',sans-serif;
+@theme {
+  --font-special: "Edu", sans-serif;
 }
 
 @font-face {
   font-family: Edu;
-  src: url('/font/Edu.woff2');
+  src: url("/font/Edu.woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -30,130 +36,128 @@
   animation: fadeSlideUp 1s ease-out forwards;
 }
 @layer components {
-    .h-120 {
-        height: 30rem; /* O 480px */
-    }
+  .h-120 {
+    height: 30rem; /* O 480px */
+  }
 
-    .table{
-      @apply mt-10 ml-0 shadow-md;
-    }
-    .table td{
-      @apply border border-black px-4 py-2 text-center gap-4;
-    }
-    .table th{
-      @apply border border-black px-4 py-2 bg-gray-400;
-    }
-    .header_table{
-      @apply fixed flex-col top-0 left-0 w-full flex justify-center z-50 bg-white;
-    }
-    .header{
-      @apply fixed flex-col top-0 items-center text-center w-full flex justify-center z-50;
-    }
-    .hamburguesa {
-      @apply w-6 cursor-pointer text-cyan-400;
-    }
-    .section-nav{
-      @apply mt-15 ml-3
-    }
-    .header-seccion{
-      @apply fixed mt-20 left-70 w-5xl justify-center z-50 ;
-    }
-    .from-container{
-         @apply max-w-3xl w-full p-6 my-12 bg-white rounded-lg shadow-xl border border-gray-200 mt-0;
-    }
-    .navAdmi{
-     @apply mt-20 flex flex-col gap-5 bg-black text-white rounded-3xl h-110;
-    }
-    .divAdmi{
-      @apply  flex flex-col gap-5 bg-black text-white rounded-3xl h-110;
-    }
-    .input{
-      @apply mt-1 block w-full px-3 py-2 border border-black text-black rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm ;
-    }
-    .nav_admi {
-      @apply  flex flex-col gap-5 bg-black text-white rounded-3xl p-4 w-64;
-    }
-    .formulario{
-      @apply max-w-md mx-auto p-6 my-12 bg-white rounded-lg shadow-xl border border-gray-200 mt-25;
-    }
-    #_menu { 
-      @apply absolute top-22 left-0; 
-    }
-    .seccion_class {
-      @apply w-full ml-[20px] mr-[20px] ;
-    }
-    .seccion_class_{
-      @apply w-full ml-10 
-    }
-    .scala{
-      @apply hover:scale-105 transition-transform duration-300;
-    }
+  .table {
+    @apply mt-10 ml-0 shadow-md;
+  }
+  .table td {
+    @apply border border-black px-4 py-2 text-center gap-4;
+  }
+  .table th {
+    @apply border border-black px-4 py-2 bg-gray-400;
+  }
+  .header_table {
+    @apply fixed flex-col top-0 left-0 w-full flex justify-center z-50 bg-white;
+  }
+  .header {
+    @apply fixed flex-col top-0 items-center text-center w-full flex justify-center z-50;
+  }
+  .hamburguesa {
+    @apply w-6 cursor-pointer text-cyan-400;
+  }
+  .section-nav {
+    @apply mt-15 ml-3;
+  }
+  .header-seccion {
+    @apply fixed mt-20 left-70 w-5xl justify-center z-50;
+  }
+  .from-container {
+    @apply max-w-3xl w-full p-6 my-12 bg-white rounded-lg shadow-xl border border-gray-200 mt-0;
+  }
+  .navAdmi {
+    @apply mt-20 flex flex-col gap-5 bg-black text-white rounded-3xl h-110;
+  }
+  .divAdmi {
+    @apply flex flex-col gap-5 bg-black text-white rounded-3xl h-110;
+  }
+  .input {
+    @apply mt-4 block w-full px-3 py-2 border border-black text-black rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm;
+  }
+  .nav_admi {
+    @apply flex flex-col gap-5 bg-black text-white rounded-3xl p-4 w-64;
+  }
+  .formulario {
+    @apply max-w-md mx-auto p-6 my-12 bg-white rounded-lg shadow-xl border border-gray-200 mt-25;
+  }
+  #_menu {
+    @apply absolute top-22 left-0;
+  }
+  .seccion_class {
+    @apply w-full ml-[20px] mr-[20px];
+  }
+  .seccion_class_ {
+    @apply w-full ml-10;
+  }
+  .scala {
+    @apply hover:scale-105 transition-transform duration-300;
+  }
 
-    .registro-ingresar{
-      @apply grid grid-cols-6 grid-rows-5 gap-9 bg-gray-300 h-96;
-    }
-    .imagen_11{
-      @apply col-span-3 row-span-5 flex items-start justify-center p-4 
+  .registro-ingresar {
+    @apply grid grid-cols-6 grid-rows-5 gap-9 bg-gray-300 h-96;
+  }
+  .imagen_11 {
+    @apply col-span-3 row-span-5 flex items-start justify-center p-4 
              bg-cover bg-[position:50%_25%] bg-[url('./Imagenes/11.webp')];
-    }
-    .imagen_12{
-      @apply col-span-3 row-span-5 col-start-4 flex items-center justify-center p-4 
+  }
+  .imagen_12 {
+    @apply col-span-3 row-span-5 col-start-4 flex items-center justify-center p-4 
              bg-cover bg-[position:50%_25%] bg-[url('./Imagenes/12.webp')];
-    }
+  }
 
-    .menu_especial {
-      @apply absolute top-9 mt-2 w-48 bg-gray-700 text-white p-2 rounded-b-lg shadow-lg hidden group-hover:block z-10
+  .menu_especial {
+    @apply absolute top-9 mt-2 w-48 bg-gray-700 text-white p-2 rounded-b-lg shadow-lg hidden group-hover:block z-10
        transition-all duration-300 ease-in-out;
-    }
-    #menu_perfil{
-      @apply bg-gray-700 text-white p-2 rounded-b-lg shadow-lg absolute mt-4 hidden transition-all duration-300 ease-in-out
-      max-w-max text-[12px] h-auto
-    }
-    .hover_empleado{
-      @apply block px-2 py-2 hover:bg-sky-900 rounded
-    }
-    .boton_cerrar_cession{
-      @apply flex justify-center bg-red-600 w-32 h-7 rounded-3xl items-center text-center mt-4 hover:scale-105 transition-transform duration-300
-    }
-    /* Clases de Notificaciones/Badges */
-    .bage{
-      @apply absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full hidden;
-      animation: Animiacion-caida 0.8s ease-out; 
-    }
+  }
+  #menu_perfil {
+    @apply bg-gray-700 text-white p-2 rounded-b-lg shadow-lg absolute mt-4 hidden transition-all duration-300 ease-in-out
+      max-w-max text-[12px] h-auto;
+  }
+  .hover_empleado {
+    @apply block px-2 py-2 hover:bg-sky-900 rounded;
+  }
+  .boton_cerrar_cession {
+    @apply flex justify-center bg-red-600 w-32 h-7 rounded-3xl items-center text-center mt-4 hover:scale-105 transition-transform duration-300;
+  }
+  /* Clases de Notificaciones/Badges */
+  .bage {
+    @apply absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full hidden;
+    animation: Animiacion-caida 0.8s ease-out;
+  }
 
-    /* Clases de Modal */
-    .modal {
-      @apply hidden absolute top-[35px] mr-[10px] bg-red-900 border-8 z-50 mt-51;
-    }
-    .modal-content {
-      @apply bg-white w-[250px] p-4;
-    }
-    
-    /* Clases de Botón */
-    .button{
-      @apply text-center cursor-pointer w-full px-4 py-2 text-lg text-white font-semibold bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 rounded-lg shadow-md transition-colors duration-150;
-    }
+  /* Clases de Modal */
+  .modal {
+    @apply hidden absolute top-[35px] mr-[10px] bg-red-900 border-8 z-50 mt-51;
+  }
+  .modal-content {
+    @apply bg-white w-[250px] p-4;
+  }
+
+  /* Clases de Botón */
+  .button {
+    @apply text-center cursor-pointer w-full px-4 py-2 text-lg text-white font-semibold bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 rounded-lg shadow-md transition-colors duration-150;
+  }
 }
 
-
-
-nav.oculto{
+nav.oculto {
   display: none;
 }
 .subitems {
-    display: block; 
+  display: block;
 }
-main{
+main {
   padding-top: 80px;
 }
 
-@media (max-width: 508px) { 
+@media (max-width: 508px) {
   .nav_admi {
     @apply flex flex-col gap-2 bg-black text-white rounded-3xl ml-0 w-[150px] h-full text-[15px];
   }
   .seccion_class {
-  @apply w-[130px] text-[15px] ml-0;
-}
+    @apply w-[130px] text-[15px] ml-0;
+  }
 }
 /* .animacion_fade_in{
   @apply opacity-0 translate-y-5 transition-all duration-700 ease-out buscable
@@ -163,12 +167,11 @@ main{
   @apply border-red-500 focus:outline-none focus:border-gray-500 focus:ring-1;
 }
 
-
-#show{
-  @apply hidden cursor-pointer
+#show {
+  @apply hidden cursor-pointer;
 }
-#hide{
-  @apply cursor-pointer
+#hide {
+  @apply cursor-pointer;
 }
 
 @keyframes loading-fade {
@@ -181,48 +184,46 @@ main{
 }
 
 @layer components {
-    .skeleton-skeleton-titele {
-        @apply bg-gray-200; 
-        @apply h-4 mb-4 rounded-md;
-        background-image: linear-gradient(
-            to right,
-            theme('colors.gray.200') 0%,
-            theme('colors.gray.300') 20%, 
-            theme('colors.gray.200') 40%
-        );
-        background-repeat: no-repeat;
-        background-size: 200px 100%; 
-        animation: loading-fade 1.5s infinite linear;
-    }
+  .skeleton-skeleton-titele {
+    @apply bg-gray-200;
+    @apply h-4 mb-4 rounded-md;
+    background-image: linear-gradient(
+      to right,
+      theme("colors.gray.200") 0%,
+      theme("colors.gray.300") 20%,
+      theme("colors.gray.200") 40%
+    );
+    background-repeat: no-repeat;
+    background-size: 200px 100%;
+    animation: loading-fade 1.5s infinite linear;
+  }
 }
-#content_container{
+#content_container {
   display: none;
 }
-#skeleton_container{
-  @apply p-6 max-w-md mx-auto
+#skeleton_container {
+  @apply p-6 max-w-md mx-auto;
 }
 
-
 #arrow {
-  @apply text-cyan-400 inline-block transition-transform duration-300 ease-out origin-center
+  @apply text-cyan-400 inline-block transition-transform duration-300 ease-out origin-center;
 }
 
 .rotar-flecha {
-    @apply rotate-180; 
+  @apply rotate-180;
 }
-#subgrupo{
-  @apply hidden transition-transform duration-300 ease-out ml-7 origin-center
-
+#subgrupo {
+  @apply hidden transition-transform duration-300 ease-out ml-7 origin-center;
 }
-#bage_admi{
+#bage_admi {
   @apply bg-gray-700 text-white p-2 rounded-b-lg shadow-lg absolute mt-24 ml-20 hidden transition-all duration-300 ease-in-out
-      max-w-max text-[12px] h-auto
+      max-w-max text-[12px] h-auto;
 }
 
-#bage_usuario{
+#bage_usuario {
   @apply bg-gray-200  text-black p-2 rounded-b-lg shadow-lg absolute mt-12 ml-25 hidden transition-all duration-300 ease-in-out
-      max-w-max text-[12px] h-auto 
+      max-w-max text-[12px] h-auto;
 }
-.hover_usuario{
-  @apply  cursor-pointer py-2 px-4 transition-colors duration-300 hover:bg-gray-400/25 rounded-2xl
+.hover_usuario {
+  @apply cursor-pointer py-2 px-4 transition-colors duration-300 hover:bg-gray-400/25 rounded-2xl;
 }

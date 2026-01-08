@@ -23,13 +23,15 @@ function cerrarSeccion() {
 }
 
 async function crearCita() {
+
+  
     const payload={
-        nombre: document.getElementById("nombre_cita"),
-        apellido: document.getElementById("apellido_cita"),
-        tipo_documento: document.getElementById("tipo_documento"),
-        Documento: document.getElementById("numero_identidad"),
-        fecha_deseada: document.getElementById("fecha_deseada"),
-        Especialidad: document.getElementById("especialidad")
+        nombre: document.getElementById("nombre_cita").value.trim(),
+        apellido: document.getElementById("apellido_cita").value.trim(),
+        tipo_documento: document.getElementById("tipo_documento").value.trim(),
+        Documento: document.getElementById("numero_identidad").value.trim(),
+        fecha_deseada: document.getElementById("fecha_deseada").value.trim(),
+        Especialidad: document.getElementById("especialidad").value.trim()
     }
     try {
         //const data = await ingresarUsuario();
@@ -37,13 +39,52 @@ async function crearCita() {
         const nuevaCita=await fetch("",{
             method:"POST",
             headers:{"Content-Type": "Application/json"},
-            body:JSON.stringify(nuevaCita) 
+            body:JSON.stringify(payload) 
+
+        
         })
-        console.log("los datos cargados para una nueva cita son: ",nuevaCita)
+        console.log("los datos cargados para una nueva cita son: ",payload)
+        if (nuevaCita.ok) {
+            alert("la cita has sido creada con exito")
+        }
     } catch(err) {
         console.log("error en el servidor", err)
     }
+    
+}
+window.crearCita = crearCita;
+
+
+async function listar_empleados() {
+    const select_empleado = document.getElementById("select_empleado")
+    const Especialidad= document.getElementById("especialidad").value.trim()
+    const li = document.createElement("li")
+    try{
+        const li_empleados = await fetch("http://localhost:8080/usuario/empleados",{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+
+        if (!li_empleados.ok) {
+            alert("error en la funcion")
+        }
+
+        if (Especialidad=="Detective") {
+            select_empleado.innerHTML=`
+            <h1>Funciono</h1>
+            `
+        }
+        else{
+            alert("no funciono")
+        }
+    }catch(err){
+    console.log("error en el servidor", err)
 }
 
+
+}
+window.listar_empleados=listar_empleados
 })
 

@@ -182,7 +182,7 @@ export async function ingresarUsuario(){
 
 
 
-function securePage() {
+/* function securePage() {
     const user = localStorage.getItem("roll") // se sobreescribe cuando se hace login, dejar asi
     const rolesPermitidos = ["Administrador", "Empleado", "Cliente"]
     if (!rolesPermitidos.includes(user)) {
@@ -190,7 +190,7 @@ function securePage() {
         window.location.href = "/"
     }
     insertarUsuario(user)
-}
+} */
 function insertarUsuario(user){
     const nombre = localStorage.getItem("nombre")
     const nombreUsuario=document.getElementById("nombreUsuario")
