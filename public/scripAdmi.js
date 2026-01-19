@@ -223,46 +223,12 @@ function elistar_usuarios(){
     })
 }
 
-async function crearUsuario(){
-const newPayload = {
-        new_nombres: document.getElementById("new_nombre").value,
-        new_apellidos: document.getElementById("new_apellidos").value,
-        fecha_nacimiento: document.getElementById("new_fecha_nacimiento").value,
-        new_correo: document.getElementById("new_email").value,
-        new_contrasenia: document.getElementById("password_registro").value,
-        confirmar_new_contrasenia: document.getElementById("confirm-password").value,
-        new_telefono: document.getElementById("new_telefono").value
-    }
-    
-    try{
-        const nuevoUsuario=await fetch("http://localhost:8080/guardar/usuario",{
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newPayload)
-        })
-
-        console.log("los datos enviados son: ",nuevoUsuario)
-        const data=await nuevoUsuario.json()
-        alert(data.mensaje)
-        if (nuevoUsuario.ok) {
-            window.location.reload(); 
-        }
-        if(!data.ok){
-            console.log("error: de origen desconocido")
-        }
-    }
-    catch(err){
-        alert("error servidor no encontrado",err)
-    }
-    
-}
-
 
 document.addEventListener("DOMContentLoaded", function() {
-    const currentPath = window.location.pathname;
-    
+
+
+// btn.addEventListener('click', crearUsuario) puede ser util despues
+
     //Forma para excluir al login del security page
     if (!currentPath.includes("Login") && 
         !currentPath.includes("Registrarse")) {

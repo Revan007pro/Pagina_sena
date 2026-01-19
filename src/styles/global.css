@@ -13,13 +13,49 @@
   }
 }
 
-/* @keyframes Animiacion-caida {
-  0%{ transform: translateY(-100px); }
-  60%{ transform: translateY(10px); opacity: 1; }
-  80%{ transform: translateY(-5px); }
-  100%{ transform: translateY(0); }
-} */
+@keyframes Animiacion-caida {
+  0% {
+    transform: translateY(-100px);
+  }
+  60% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes hyperSpaceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    filter: blur(10px); /* Simula la distorsión de velocidad */
+  }
+  80% {
+    transform: scale(1.1); /* Rebote ligero para dar impacto */
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
+@keyframes hyperSpaceOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
 @theme {
   --font-special: "Edu", sans-serif;
 }
@@ -226,4 +262,18 @@ main {
 }
 .hover_usuario {
   @apply cursor-pointer py-2 px-4 transition-colors duration-300 hover:bg-gray-400/25 rounded-2xl;
+}
+
+.fade-out {
+  @apply opacity-0 transition-opacity duration-200;
+  animation: hyperSpaceOut 0.5s ease-out forwards;
+}
+
+.fade-in {
+  @apply opacity-100 transition-opacity duration-500;
+  animation: hyperSpaceIn 0.5s ease-out forwards;
+}
+
+.label-horario {
+  @apply border border-black w-45 rounded-3xl px-4 py-2 text-center gap-4 cursor-pointer hover:bg-sky-600 hover:text-white transition-colors duration-300;
 }

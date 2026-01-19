@@ -137,7 +137,7 @@ import "../styles/global.css";
             id="especialidad"
             name="especialidadEmpleado"
             title="Especialidad del Usuario"
-            onchange="listar_empleados(this)"
+            onchange="listar_empleados(this.value, document.getElementById('horario_citas'))"
           >
             <option value="">Selecciona una opción</option>
             <option value="Detective">Detective</option>
@@ -146,6 +146,30 @@ import "../styles/global.css";
           </select>
         </div>
         <div id="select_empleado"></div>
+        <div
+          id="horario_citas"
+          class="hidden grid grid-cols-2 px-4 py-5 justify-center gap-6 text-center items-center mb-4"
+        >
+          <input type="hidden" id="horario_seleccionado" value="" />
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >8:00 AM - 9:00 AM</label
+          >
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >10:00 AM -11 :00AM</label
+          >
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >11:00 AM - 12:00AM</label
+          >
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >1:00 PM - 2:00 PM</label
+          >
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >3:00 PM - 4:00 PM</label
+          >
+          <label class="label-horario" onclick="seleccionarHorario(this)"
+            >4:00 PM - 5:00 PM</label
+          >
+        </div>
         <div>
           <div class="justify-center items-center text-center">
             <ul id="mensaje_cita"></ul>
