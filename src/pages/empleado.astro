@@ -3,9 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 ---
 
-<script type="module" src="/empleado_script.js" is:inline></script>
-
 <Layout>
+  <script type="module" src="/empleado_script.js" is:inline></script>
   <main class="container mx-auto px-4 py-8">
     <header class="mb-8 flex justify-center items-center">
       <div>
@@ -25,12 +24,13 @@ import "../styles/global.css";
         <div id="emple_notifi">
           🔔<span class="bage" id="bage_emple"> </span>
         </div>
+
         <div id="b_eperfil">
           👤 <a class="text-cyan-400 ml-0">⮟</a>
           <ul id="menu_perfil">
-            <li class="hover_empleado">Nombre:Mi_futuro_empleado</li>
-            <li class="hover_empleado">Apellido:Mi_futuro_empleado</li>
-            <li class="hover_empleado">Email:...@email</li>
+            <li class="hover_empleado" id="teleUsuario"></li>
+            <li class="hover_empleado" id="rollUsuario"></li>
+            <li class="hover_empleado" id="emailUsuario"></li>
             <button class="boton_cerrar_cession" id="cerrar_bage_display"
               >Cerrar</button
             >

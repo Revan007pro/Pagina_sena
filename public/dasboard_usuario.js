@@ -156,7 +156,7 @@ async function listar_empleados(Especialidad,horarioCitas) {
 
 }
 function seleccionarHorario(elemento) {
-    //  Quita la clase de selección de todos los labels
+    //  quita la clase de selección de todos los labels
     const todos = document.querySelectorAll('.label-horario');
     todos.forEach(l => l.classList.remove('bg-sky-500', 'text-white', 'border-sky-500'))
 

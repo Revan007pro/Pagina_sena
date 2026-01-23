@@ -159,7 +159,7 @@
   }
   /* Clases de Notificaciones/Badges */
   .bage {
-    @apply absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full hidden;
+    @apply ml-3 absolute text-white text-[13px] w-4 h-4 text-center bg-red-500 rounded-full hidden;
     animation: Animiacion-caida 0.8s ease-out;
   }
 

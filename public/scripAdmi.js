@@ -149,6 +149,7 @@ export async function ingresarUsuario(){
             console.log("Correo", data.datos.correo)
             console.log("telefono", data.datos.telefono)
             console.log("nombre", data.datos.nombre)
+            console.log("usuario", data.datos.usuario)
         }
         if(!data.datos){
             console.log("alerta no pasa a data.datos")
@@ -159,6 +160,8 @@ export async function ingresarUsuario(){
             localStorage.setItem("roll", data.datos.roll)
             localStorage.setItem("nombre", data.datos.nombre)
             localStorage.setItem("telefono", data.datos.telefono)
+            localStorage.setItem("usuario", data.datos.usuario)
+            localStorage.setItem("correo",data.datos.coreo)
         }
         if(data.urlTarget){
             window.location.href=data.urlTarget
@@ -182,21 +185,30 @@ export async function ingresarUsuario(){
 
 
 
-/* function securePage() {
-    const user = localStorage.getItem("roll") // se sobreescribe cuando se hace login, dejar asi
-    const rolesPermitidos = ["Administrador", "Empleado", "Cliente"]
-    if (!rolesPermitidos.includes(user)) {
+export function securePage() {
+    const user = localStorage.getItem("usuario") // se sobreescribe cuando se hace login, dejar asi
+    const usuarioPermitidos = ["Administrador", "Empleado", "Cliente"]
+    if (!usuarioPermitidos.includes(user)) {
         alert("Usted no tiene los permisos necesarios.")
         window.location.href = "/"
     }
     insertarUsuario(user)
-} */
+} 
 function insertarUsuario(user){
     const nombre = localStorage.getItem("nombre")
+    const roll=localStorage.getItem("roll")
+    const correo=localStorage.getItem("correo")
+    const phone=localStorage.getItem("telefono")
     const nombreUsuario=document.getElementById("nombreUsuario")
+    const rollUsuario=document.getElementById("rollUsuario")
     const rolUsuario=document.getElementById("rol_usuario")
+    const emailUsuario=document.getElementById("emailUsuario")
+    const teleUsuario=document.getElementById("teleUsuario")
     nombreUsuario.textContent=user
-    rolUsuario.textContent=nombre // nota encontrar el elemneto usuario en el localstorange
+    rolUsuario.textContent=nombre 
+    rollUsuario.textContent=roll
+    emailUsuario.textContent=correo
+    teleUsuario.textContent=phone
 }
 
 function traerUsuarios(){
