@@ -4,6 +4,9 @@ import "../styles/global.css";
 ---
 
 <Layout>
+  <script type="module">
+    import { ingresarUsuario, securePage } from "/scripAdmi.js";
+  </script>
   <main class="container mx-auto px-4 py-8">
     <header class="mb-8 flex justify-center items-center">
       <div>
@@ -125,7 +128,4 @@ import "../styles/global.css";
       </div>
     </div>
   </main>
-  <script type="module">
-    import { ingresarUsuario } from "/scripAdmi.js";
-  </script>
 </Layout>

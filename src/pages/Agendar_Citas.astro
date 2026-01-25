@@ -146,28 +146,28 @@ import "../styles/global.css";
           </select>
         </div>
         <div id="select_empleado"></div>
-        <div
-          id="horario_citas"
-          class="hidden grid grid-cols-2 px-4 py-5 justify-center gap-6 text-center items-center mb-4"
-        >
+        <div id="horario_citas" class="hidden grid grid-cols-2 ...">
           <input type="hidden" id="horario_seleccionado" value="" />
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >8:00 AM - 9:00 AM</label
+
+          <label
+            class="label-horario"
+            onclick="seleccionarHorario(this, '08:00:00')">08:00 AM</label
           >
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >10:00 AM -11 :00AM</label
+          <label
+            class="label-horario"
+            onclick="seleccionarHorario(this, '10:00:00')">10:00 AM</label
           >
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >11:00 AM - 12:00AM</label
+          <label
+            class="label-horario"
+            onclick="seleccionarHorario(this, '11:00:00')">11:00 AM</label
           >
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >1:00 PM - 2:00 PM</label
+          <label
+            class="label-horario"
+            onclick="seleccionarHorario(this, '13:00:00')">01:00 PM</label
           >
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >3:00 PM - 4:00 PM</label
-          >
-          <label class="label-horario" onclick="seleccionarHorario(this)"
-            >4:00 PM - 5:00 PM</label
+          <label
+            class="label-horario"
+            onclick="seleccionarHorario(this, '15:00:00')">03:00 PM</label
           >
         </div>
         <div>

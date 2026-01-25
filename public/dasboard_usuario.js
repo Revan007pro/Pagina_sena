@@ -1,9 +1,11 @@
-import { ingresarUsuario } from "/scripAdmi.js";
+import { ingresarUsuario ,securePage} from "/scripAdmi.js";
+document.addEventListener('DOMContentLoaded', function (){
+    
 
-document.addEventListener('DOMContentLoaded', () => {
     const arrow_usuario = document.getElementById("flecha_usuario")
     const bage_usuario = document.getElementById("bage_usuario")
-    let empleadoSeleccionadoNombre = "";
+    let empleadoSeleccionadoNombre = ""
+    let empleadoSeleccionadoId = null
 
     if (arrow_usuario && bage_usuario) { 
         arrow_usuario.addEventListener("click", () => {
@@ -23,42 +25,41 @@ function cerrarSeccion() {
     window.location.href = '/';
 }
 
-async function crearCita(select_empleado,emp) {
+async function crearCita(select_empleado, emp) {
+    const payload = {
+        idEmpleado: empleadoSeleccionadoId,
+        idCliente: parseInt(localStorage.getItem("identificacion")),
+        sedeId: 1,
+        especialidad: document.getElementById("especialidad").value.trim(),
+        fecha: document.getElementById("fecha_deseada").value,
+        horaInicio: document.getElementById("horario_seleccionado").value,
+        nombreEspecialista: empleadoSeleccionadoNombre
+    };
 
-  
-    const payload={
-        nombre: document.getElementById("nombre_cita").value.trim(),
-        apellido: document.getElementById("apellido_cita").value.trim(),
-        tipo_documento: document.getElementById("tipo_documento").value.trim(),
-        Documento: document.getElementById("numero_identidad").value.trim(),
-        fecha_deseada: document.getElementById("fecha_deseada").value.trim(),
-        Especialidad: document.getElementById("especialidad").value.trim(),
-        horarioCitas: document.getElementById("horario_seleccionado").value, // lo controla seleccionarHorario
-        sel_emp: empleadoSeleccionadoNombre
+   try {
+    const respuesta = await fetch("http://localhost:8080/guardar/cita", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    // Convertir la respuesta a objeto JSON
+    const datos = await respuesta.json(); 
+
+    if (respuesta.ok) {
+        alert("¡Éxito!: " + datos.mensaje);
+        // Aquí podrías limpiar el formulario
+    } else {
+        // Aquí verás por qué Java falló (ej. NullPointerException o error de parseo)
+        alert("Error del servidor: " + (datos.mensaje || "Error interno"));
     }
-    try {
-        //const data = await ingresarUsuario();
-        const nuevaCita=await fetch("http://localhost:8080/guardar/cita",{
-            method:"POST",
-            headers:{"Content-Type": "Application/json"},
-            body:JSON.stringify(payload) 
 
-        
-        })
-        console.log("los datos cargados para una nueva cita son: ",payload)
-        if (nuevaCita.ok) {
-            alert("la cita has sido creada con exito")
-        }
-
-    } catch(err) {
-        console.log("error en el servidor", err)
-    }
-    
+} catch (err) {
+    console.error("Error de red:", err);
+    alert("No se pudo conectar con el backend.");
 }
-window.crearCita = crearCita;
-window.listar_empleados=listar_empleados
-window.seleccionarHorario=seleccionarHorario
-window.crearUsuario=crearUsuario
+}
+
 
 
 async function listar_empleados(Especialidad,horarioCitas) {
@@ -87,7 +88,7 @@ async function listar_empleados(Especialidad,horarioCitas) {
             case "Detective":
             case "Abogado":
             case "Poligrafista":
-                const empleado = listaEmpleados.filter(emp => emp.usuario.roll === Especialidad)
+                let empleado = listaEmpleados.filter(emp => emp.usuario.roll === Especialidad)
                 const divEmp = document.createElement("div")
 
                empleado.forEach(emp => {
@@ -99,6 +100,8 @@ async function listar_empleados(Especialidad,horarioCitas) {
                         <h3 class="font-bold">Especialista Asignado</h3>
                         <p><strong>Nombre:</strong> ${emp.usuario.nombre} ${emp.usuario.apellidos}</p>
                         <p><strong>Especialidad:</strong> ${emp.usuario.roll}</p>
+                        <p><strong>Identificación:</strong> ${emp.idEmpleado}</p>
+                        
                     `
                    divEmp.addEventListener("click", () => {
                         horarioCitas.classList.remove("hidden")
@@ -108,8 +111,13 @@ async function listar_empleados(Especialidad,horarioCitas) {
 
                         divEmp.classList.add("ring-2", "ring-sky-500", "border-sky-500")
                     
+            empleadoSeleccionadoNombre = emp.usuario.nombre;
+        
+                    
                         empleadoSeleccionadoNombre = emp.usuario.nombre
+                        empleadoSeleccionadoId = emp.idEmpleado;
                         console.log("Empleado seleccionado:", empleadoSeleccionadoNombre)
+                        console.log("Empleado id:", emp.idEmpleado)
                     })
                    
                     select_empleado.appendChild(divEmp)
@@ -155,15 +163,18 @@ async function listar_empleados(Especialidad,horarioCitas) {
     })
 
 }
-function seleccionarHorario(elemento) {
-    //  quita la clase de selección de todos los labels
+function seleccionarHorario(elemento, horaLimpia) {
     const todos = document.querySelectorAll('.label-horario');
-    todos.forEach(l => l.classList.remove('bg-sky-500', 'text-white', 'border-sky-500'))
+    
+    // Si horaLimpia existe, usamos esa. Si no, usamos el texto (como respaldo)
+    const valorParaGuardar = horaLimpia || elemento.innerText;
+    document.getElementById("horario_seleccionado").value = valorParaGuardar;
 
-    elemento.classList.add('bg-sky-500', 'text-white', 'border-sky-500')
+    // Estética de selección
+    todos.forEach(l => l.classList.remove('bg-sky-500', 'text-white', 'border-sky-500'));
+    elemento.classList.add('bg-sky-500', 'text-white', 'border-sky-500');
 
-    // guarda el label en el input
-    document.getElementById('horario_seleccionado').value = elemento.innerText
+    console.log("Hora lista para enviar a Java:", valorParaGuardar);
 }
 
 
@@ -204,7 +215,11 @@ const newPayload = {
     
 }
 
-
+window.crearCita = crearCita;
+window.listar_empleados=listar_empleados
+window.seleccionarHorario=seleccionarHorario
+window.crearUsuario=crearUsuario
+windo.seleccionarHorario=seleccionarHorario
 
 })
 

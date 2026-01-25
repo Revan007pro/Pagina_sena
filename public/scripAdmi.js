@@ -1,4 +1,12 @@
+
+window.cerrarSeccion = cerrarSeccion;
+window.ingresarUsuario=ingresarUsuario
+window.securePage=securePage
 document.addEventListener('DOMContentLoaded',function(){
+
+
+
+
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
@@ -150,6 +158,7 @@ export async function ingresarUsuario(){
             console.log("telefono", data.datos.telefono)
             console.log("nombre", data.datos.nombre)
             console.log("usuario", data.datos.usuario)
+            console.log("identificacion",data.datos.identificador)
         }
         if(!data.datos){
             console.log("alerta no pasa a data.datos")
@@ -161,7 +170,8 @@ export async function ingresarUsuario(){
             localStorage.setItem("nombre", data.datos.nombre)
             localStorage.setItem("telefono", data.datos.telefono)
             localStorage.setItem("usuario", data.datos.usuario)
-            localStorage.setItem("correo",data.datos.coreo)
+            localStorage.setItem("correo",data.datos.correo)
+            localStorage.setItem("identificacion", data.datos.identificacion)
         }
         if(data.urlTarget){
             window.location.href=data.urlTarget
@@ -187,8 +197,9 @@ export async function ingresarUsuario(){
 
 export function securePage() {
     const user = localStorage.getItem("usuario") // se sobreescribe cuando se hace login, dejar asi
+    const userR = localStorage.getItem("roll") // se sobreescribe cuando se hace login, dejar asi
     const usuarioPermitidos = ["Administrador", "Empleado", "Cliente"]
-    if (!usuarioPermitidos.includes(user)) {
+    if (!usuarioPermitidos.includes(user) && !usuarioPermitidos.includes(userR)) {
         alert("Usted no tiene los permisos necesarios.")
         window.location.href = "/"
     }
@@ -200,15 +211,16 @@ function insertarUsuario(user){
     const correo=localStorage.getItem("correo")
     const phone=localStorage.getItem("telefono")
     const nombreUsuario=document.getElementById("nombreUsuario")
-    const rollUsuario=document.getElementById("rollUsuario")
+    
     const rolUsuario=document.getElementById("rol_usuario")
-    const emailUsuario=document.getElementById("emailUsuario")
-    const teleUsuario=document.getElementById("teleUsuario")
-    nombreUsuario.textContent=user
-    rolUsuario.textContent=nombre 
-    rollUsuario.textContent=roll
+    const emailUsuario=document.getElementById("correo_bage")
+    const teleUsuario=document.getElementById("telefono_bage")
+    rolUsuario.textContent=nombre  // este sirve
+    nombreUsuario.textContent=roll
     emailUsuario.textContent=correo
     teleUsuario.textContent=phone
+
+
 }
 
 function traerUsuarios(){
@@ -236,7 +248,7 @@ function elistar_usuarios(){
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
+/* document.addEventListener("DOMContentLoaded", function() {
 
 
 // btn.addEventListener('click', crearUsuario) puede ser util despues
@@ -246,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
         !currentPath.includes("Registrarse")) {
         securePage();
     }
-});
+}); */
 function validarFormulario() {
     const _nombre = document.getElementById('nuevo-usuario').value.trim();
     const _apellido = document.getElementById('apellido').value.trim();
@@ -375,4 +387,4 @@ function cerrarSeccion() {
     window.location.href = "/";
 }
 
-window.cerrarSeccion = cerrarSeccion;
+

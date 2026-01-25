@@ -4,6 +4,7 @@ import "../styles/global.css";
 ---
 
 <Layout>
+  <script type="module" src="dasboard_usuario.js"></script>
   <main>
     <header class="fixed top-0 left-0 w-full flex justify-center z-50">
       <div
@@ -81,7 +82,11 @@ import "../styles/global.css";
               <span>👤<b id="flecha_usuario" class="cursor-pointer">⮟ </b></span
               >
             </div>
-            <ul id="bage_usuario"><li>cosas</li></ul>
+            <ul id="bage_usuario">
+              <li id="telefono_bage"></li>
+              <li id="correo_bage"></li>
+              <li id="id_bage"></li>
+            </ul>
           </div>
         </div>
         <div
@@ -126,7 +131,10 @@ import "../styles/global.css";
           <p id="hora_asignada"></p>
         </div>
       </div>
+      <div>
+        <button class="button"><a href="/Agendar_Citas">Agendar Cita</a></button
+        >
+      </div>
     </section>
   </main>
-  <script type="module" src="/dahsboard_usuario.js" is:inline></script>
 </Layout>
