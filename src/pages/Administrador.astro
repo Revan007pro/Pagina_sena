@@ -5,8 +5,14 @@ import "../styles/global.css";
 
 <Layout>
   <script type="module">
-    import { ingresarUsuario, securePage } from "/scripAdmi.js";
+    import { securePage, ingresarUsuario } from "/scripAdmi.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      securePage();
+      ingresarUsuario();
+    });
   </script>
+
   <main class="container mx-auto px-4 py-8">
     <header class="mb-8 flex justify-center items-center">
       <div>

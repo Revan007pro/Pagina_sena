@@ -1,5 +1,7 @@
 import { ingresarUsuario ,securePage} from "/scripAdmi.js";
 document.addEventListener('DOMContentLoaded', function (){
+
+    securePage()
     
 
     const arrow_usuario = document.getElementById("flecha_usuario")
@@ -48,9 +50,8 @@ async function crearCita(select_empleado, emp) {
 
     if (respuesta.ok) {
         alert("¡Éxito!: " + datos.mensaje);
-        // Aquí podrías limpiar el formulario
     } else {
-        // Aquí verás por qué Java falló (ej. NullPointerException o error de parseo)
+
         alert("Error del servidor: " + (datos.mensaje || "Error interno"));
     }
 
@@ -220,6 +221,8 @@ window.listar_empleados=listar_empleados
 window.seleccionarHorario=seleccionarHorario
 window.crearUsuario=crearUsuario
 windo.seleccionarHorario=seleccionarHorario
+
+
 
 })
 

@@ -2,10 +2,17 @@
 window.cerrarSeccion = cerrarSeccion;
 window.ingresarUsuario=ingresarUsuario
 window.securePage=securePage
+
+
+
 document.addEventListener('DOMContentLoaded',function(){
+    
 
-
-
+/*  if (!currentPath.includes("Login") && 
+        !currentPath.includes("Registrarse")) {
+        securePage();
+    } */
+ 
 
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
@@ -125,8 +132,10 @@ function loginUsuario() {
 
 
 export async function ingresarUsuario(){
+
     let password=document.getElementById("password").value.trim()
     let usuario=document.getElementById("usuario").value.trim()
+    
     const payload={
         nombre:usuario,
         password:password
@@ -173,9 +182,27 @@ export async function ingresarUsuario(){
             localStorage.setItem("correo",data.datos.correo)
             localStorage.setItem("identificacion", data.datos.identificacion)
         }
-        if(data.urlTarget){
-            window.location.href=data.urlTarget
-        } 
+      if (data.urlTarget) {
+        
+        
+        const idEmpleado = data.datos.identificacion
+        if(data.datos.roll === "Administrador"){
+            
+        window.location.href=`/Administrador?id_persona=${idEmpleado}` 
+    }
+
+    if (data.datos.usuario === "Empleado") {
+        const idEmpleado = data.datos.identificacion;
+        window.location.href = `/empleado?id_empleado=${idEmpleado}`
+
+    }
+    
+   if (data.datos.roll === "Cliente") {
+    window.location.href = `/dashboard_usuario?id_empleado=${idEmpleado}`
+    
+   }
+}
+
         if(!data.urlTarget){
             console.log("no hay redireccionamiento")
         }
@@ -204,24 +231,30 @@ export function securePage() {
         window.location.href = "/"
     }
     insertarUsuario(user)
+
 } 
+
 function insertarUsuario(user){
     const nombre = localStorage.getItem("nombre")
     const roll=localStorage.getItem("roll")
+    const usuarioBage=localStorage.getItem("usuario")
     const correo=localStorage.getItem("correo")
     const phone=localStorage.getItem("telefono")
     const nombreUsuario=document.getElementById("nombreUsuario")
     
     const rolUsuario=document.getElementById("rol_usuario")
+    const rollbage=document.getElementById("roll")
     const emailUsuario=document.getElementById("correo_bage")
     const teleUsuario=document.getElementById("telefono_bage")
     rolUsuario.textContent=nombre  // este sirve
-    nombreUsuario.textContent=roll
+    nombreUsuario.textContent=usuarioBage
+    rollbage.textContent=roll
     emailUsuario.textContent=correo
     teleUsuario.textContent=phone
 
 
 }
+
 
 function traerUsuarios(){
     fetch('http://localhost:3000/Usuario')
@@ -248,17 +281,7 @@ function elistar_usuarios(){
 }
 
 
-/* document.addEventListener("DOMContentLoaded", function() {
 
-
-// btn.addEventListener('click', crearUsuario) puede ser util despues
-
-    //Forma para excluir al login del security page
-    if (!currentPath.includes("Login") && 
-        !currentPath.includes("Registrarse")) {
-        securePage();
-    }
-}); */
 function validarFormulario() {
     const _nombre = document.getElementById('nuevo-usuario').value.trim();
     const _apellido = document.getElementById('apellido').value.trim();
@@ -380,11 +403,13 @@ _show.addEventListener('click',()=>{
 })
 
 
+
 })
 
 function cerrarSeccion() {
     localStorage.clear();
     window.location.href = "/";
 }
+
 
 

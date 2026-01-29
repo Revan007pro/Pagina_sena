@@ -1,26 +1,90 @@
-import { ingresarUsuario } from "/scripAdmi.js";
-import { securePage } from "/scripAdmi.js";
+import { ingresarUsuario, securePage } from "/scripAdmi.js";
+
 document.addEventListener('DOMContentLoaded', function (){
     
-securePage()
+
     const _confirm = document.getElementById("confirmar_cita")
     const mensaje_cita = document.getElementById("mensaje_cita")
     const citas_registradas = document.getElementById("citas_registradas")
+ /*    const usuario = JSON.parse(localStorage.getItem('usuario'))
+    const idEmpleadoLogueado = usuario ? usuario.idEmpleado : null 
+    const rolUsuario = JSON.parse(localStorage.getItem('identificacion'))
+    if (!rolUsuario) {
+        console.log("error en el json", rolUsuario)
+    } 
+ */
+
+const params = new URLSearchParams(window.location.search);
+const idEmpleado = params.get("id_empleado");
+
+
+if (!idEmpleado) {
+    console.error("No se recibió id_empleado");
+}
+
+
     
 
+    async function empleadosCitas() {
+        const citas_registradas = document.getElementById("citas_registradas");
+        const noti_emple = document.getElementById("bage_emple");
+    try {
+            const respuesta = await fetch(`http://localhost:8080/citas/mostrar/empleado/${idEmpleado}`,{
+                method: "GET",
+               headers: {
+                "Content-Type": "application/json"
+            }, 
+            })
+            if (!respuesta.ok) {
+
+    console.error("Backend error:", respuesta.status);
+    citas_registradas.innerHTML = "<li>No hay citas registradas</li>";
+    noti_emple.style.display = "none";
+    return;
+}
+
+            const misCitas = await respuesta.json();
+
+            if (misCitas && misCitas.length > 0) {
+                citas_registradas.innerHTML = ""
+                
+                misCitas.forEach(cita => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <h1>Cita Nueva</h1>
+                        <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p>
+                        <p class="bold">Hora: ${cita.horaInicio}</p>
+                        <p class="bold">Id Cita: ${cita.idCita}</p>
+                    `;
+                    citas_registradas.appendChild(li)
+                })
+
+                noti_emple.style.display = "block";
+                noti_emple.textContent = misCitas.length;
+            } else {
+                citas_registradas.innerHTML = '<li>No tienes citas pendientes</li>';
+                noti_emple.style.display = 'none';
+            }
+        } catch (err) {
+            console.error("Error cargando citas:", err);
+        }
+    }
+    
+
+    
 
     async function _notificacion_cita() {
          // const new_cita = JSON.parse(localStorage.getItem('Confirmar') || '[]');
-    const noti_emple = document.getElementById("bage_emple");
+     /* const noti_emple = document.getElementById("bage_emple");
     const _perfil_empleado = document.getElementById("b_eperfil");
     const citas_registradas = document.getElementById("citas_registradas");
-    noti_emple.style.display = 'none';
+    noti_emple.style.display = 'none'  */
 
     try {
-        const respuesta = await fetch(`http://localhost:8080/citas/mostrar`, {
+        /* const respuesta = await fetch(``, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
-        });
+        })
 
         const listaCita = await respuesta.json(); 
 
@@ -32,24 +96,24 @@ securePage()
         }
 
         if (listaCita && listaCita.length > 0) {
-            const citaid = listaCita[listaCita.length - 1]
 
             const nueva_cita = document.createElement('li')
             citas_registradas.innerHTML = `
                 <h1>Citas Nueva</h1>
-                <p class="bold">${citaid.usuarioCita.nombre} ${citaid.usuarioCita.apellidos}</p>
-                <p class="bold">${citaid.horaInicio}<p>
-            `;
+                <p class="bold">${listaCita.usuarioCita.nombre} ${listaCita.usuarioCita.apellidos}</p>
+                <p class="bold">${listaCita.usuarioCita.horaInicio}<p>
+                <p class="bold">Id Cita: ${id}</p>
+            `
             citas_registradas.appendChild(nueva_cita)
             noti_emple.style.display="block"
             noti_emple.textContent=listaCita.length
         } else {
             citas_registradas.innerHTML = 'No hay citas registradas';
-        }
+        } */
 
     } catch (err) {
-        console.error("Error en ejecución:", err);
-        alert("El servidor esta caido o hay un error de variables");
+/*         console.error("Error en ejecución:", err);
+        alert("El servidor esta caido o hay un error de variables"); */
     }
 
 
@@ -65,7 +129,7 @@ _perfil_empleado.addEventListener('click', () => {
 
 
         // Mostrar citas si existen
-        if (new_cita.length > 0) {
+        /* if (new_cita.length > 0) {
             new_cita.forEach(cita_data => {
                 if (citas_registradas) {
                     citas_registradas.innerHTML = `
@@ -85,11 +149,11 @@ _perfil_empleado.addEventListener('click', () => {
                     `
                 }
             });
-        }
+        } */
     }
 
     // Evento para confirmar cita
-    if (_confirm) {
+    /* if (_confirm) {
         _confirm.addEventListener('click', (e) => {
             e.preventDefault()
             const new_nombre = document.getElementById("nombre_cita")
@@ -131,7 +195,7 @@ _perfil_empleado.addEventListener('click', () => {
             alert("Cita agendada correctamente!")
              _notificacion_cita()
         })
-    }
+    } */
         
     const nav_admi = document.getElementById("nav_admi"); // forma para manejar el menu hambuerguesa
 const _menu = document.getElementById("_menu");
@@ -183,7 +247,7 @@ document.addEventListener('keydown',(e)=>{
 
     async function borrarCitas(){
    
-    const idBorrar=prompt("porfavor dijete el identificador de la cita a borrar")
+    const idBorrar=prompt("porfavor dijete el identificador de la cita a borrar") // prompt para pedir datos al usuario por popas
         if(idBorrar !==null && idBorrar !==""){
         const confirmar = confirm(`¿Estás seguro de que quieres borrar la cita #${idBorrar}?`);
         if (confirmar) {
@@ -219,5 +283,13 @@ document.addEventListener('keydown',(e)=>{
     borrar_citas.addEventListener("click", borrarCitas);
 }
 
+const cerrarSeccion=document.getElementById("cerrarSeccion").addEventListener("click",()=>{
+    localStorage.clear()
+})
+
+
+empleadosCitas()
+
+securePage()
 })
 
