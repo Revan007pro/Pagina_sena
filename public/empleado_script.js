@@ -245,7 +245,7 @@ document.addEventListener('keydown',(e)=>{
     _notificacion_cita()
      const borrar_citas = document.getElementById("borrar_citas")
 
-    async function borrarCitas(){
+async function borrarCitas(){
    
     const idBorrar=prompt("porfavor dijete el identificador de la cita a borrar") // prompt para pedir datos al usuario por popas
         if(idBorrar !==null && idBorrar !==""){

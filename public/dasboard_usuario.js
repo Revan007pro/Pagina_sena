@@ -1,7 +1,11 @@
 import { ingresarUsuario ,securePage} from "/scripAdmi.js";
 document.addEventListener('DOMContentLoaded', function (){
 
+    let params= new URLSearchParams(window.location.search)
+    const idPersona=params.get("id_persona")
+
     securePage()
+    citasCliente()
     
 
     const arrow_usuario = document.getElementById("flecha_usuario")
@@ -45,7 +49,7 @@ async function crearCita(select_empleado, emp) {
         body: JSON.stringify(payload)
     });
 
-    // Convertir la respuesta a objeto JSON
+    // convertir la respuesta a objeto JSON
     const datos = await respuesta.json(); 
 
     if (respuesta.ok) {
@@ -216,11 +220,108 @@ const newPayload = {
     
 }
 
+async function citasCliente() {
+
+    const divCita=document.getElementById("citaCliente")
+    const profes=document.getElementById("profe_encargado")
+
+    try{
+        const respuesta= await fetch(`http://localhost:8080/citas/mostrar/cliente/${idPersona}`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        if(!respuesta.ok){
+            console.log("error en algunas de las funciones")
+        }
+
+        const dibujarCita=await respuesta.json()
+
+        if(dibujarCita && dibujarCita.length > 0){
+            divCita.innerHTML= ""
+
+            dibujarCita.forEach(cita=>{
+                const li=document.createElement("li")
+                li.innerHTML=`
+                <h1>Cita Nueva</h1>
+                 <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p> 
+                        <p class="bold">Hora: ${cita.horaInicio}</p>
+                        <p class="bold">Id Cita: ${cita.idCita}</p>
+                        <p class="bold">Fecha de la cita: ${cita.fechaCita}</p>
+                `;
+
+                profes.innerHTML=`<h1 class="bold">Profesional Encargado</h1>
+                <p class="bold">Nombre: ${cita.empleadosCita.usuario.nombre}</p>
+                <p class="bold">Apellidos: ${cita.empleadosCita.usuario.apellidos}</p>
+                <p class="bold">Profesion: ${cita.empleadosCita.usuario.roll}</p>
+                <p class="bold">Telefono: ${cita.empleadosCita.usuario.telefono}</p>
+                `
+                divCita.appendChild(li)
+            })
+        }
+        else{
+            divCita.textContent="No hay Citas programadas"
+        }
+    }catch(err){
+        console.log("error servidor caido",err)
+    }
+    
+}
+
+
+async function reprogramarCitas() {
+
+    const reprogramarCitas=document.getElementById("reproCita")
+    
+
+    reprogramarCitas.addEventListener("click",async()=>{
+    const idRepro=prompt("porfavor dijete el identificador de la cita a borrar")
+    if (idRepro && idRepro !=null) {
+        const confirmar=confirm(`Esta seguro que quiere repogramar su cita con numero: ${idRepro}`)
+       
+    if(confirmar){
+        const idCita = idRepro
+        let fecha = prompt("Ingrese la fecha (yyyy-mm-dd)")
+        let hora = prompt("Ingrese la hora (hh:mm)")
+        if (fecha && hora) {
+
+            try{
+  const payloadRe = {
+    fecha: fecha,
+    horainicio: hora
+}
+            const respuesta = await fetch(`http://localhost:8080/reprogramar/cita/cliente/${idCita}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                       
+                        body: JSON.stringify(payloadRe)
+                    })
+                    const resultado = await respuesta.json();
+
+                    if (respuesta.ok) {
+                        alert(resultado.mensaje)
+                    } else {
+                        console.log("Error en la respuesta del servidor");
+                    }
+                    
+        }catch(err){
+            console.log("error servidor caido",err)
+        }
+    }}}
+})
+
+    
+    
+}
+reprogramarCitas()
 window.crearCita = crearCita;
 window.listar_empleados=listar_empleados
 window.seleccionarHorario=seleccionarHorario
 window.crearUsuario=crearUsuario
-windo.seleccionarHorario=seleccionarHorario
+window.seleccionarHorario=seleccionarHorario
 
 
 

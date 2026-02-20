@@ -198,7 +198,7 @@ export async function ingresarUsuario(){
     }
     
    if (data.datos.roll === "Cliente") {
-    window.location.href = `/dashboard_usuario?id_empleado=${idEmpleado}`
+    window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
     
    }
 }

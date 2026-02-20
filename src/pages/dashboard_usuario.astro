@@ -105,16 +105,16 @@ import "../styles/global.css";
         <div
           class="col-start-2 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
           h-auto w-auto text-center"
+          id="citaCliente"
         >
-          <h1 class="font-bold">Cita Asignada:</h1>
-          <p id="cita_asignada"></p>
+          <!--  <h1 class="font-bold">Cita Asignada:</h1>
+          <p id="cita_asignada"></p> -->
         </div>
         <div
           class="col-start-3 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
           h-auto w-auto text-center"
+          id="profe_encargado"
         >
-          <h1 class="font-bold">Profesional Asignada:</h1>
-          <p id="profesional_asignada"></p>
         </div>
         <div
           class="col-start-2 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
@@ -131,10 +131,14 @@ import "../styles/global.css";
           <p id="hora_asignada"></p>
         </div>
       </div>
-      <div>
-        <button class="button"><a href="/Agendar_Citas">Agendar Cita</a></button
-        >
-      </div>
     </section>
+    <div class="grid grid-cols-5 grid-rows-5 gap-4">
+      <button class="col-start-2 button" id="reproCita">Reprogramar Cita</button
+      >
+      <button class="col-start-3 button">Cancelar Cita</button>
+      <button class="col-start-4 button">
+        <a href="/Agendar_Citas">Agendar Cita</a>
+      </button>
+    </div>
   </main>
 </Layout>
