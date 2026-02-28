@@ -59,8 +59,8 @@ if (!idEmpleado) {
                     citas_registradas.appendChild(li)
                 })
 
-                noti_emple.style.display = "block";
-                noti_emple.textContent = misCitas.length;
+                noti_emple.style.display = "block"
+                noti_emple.textContent = misCitas.length
             } else {
                 citas_registradas.innerHTML = '<li>No tienes citas pendientes</li>';
                 noti_emple.style.display = 'none';

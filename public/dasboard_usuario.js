@@ -250,6 +250,7 @@ async function citasCliente() {
                         <p class="bold">Id Cita: ${cita.idCita}</p>
                         <p class="bold">Fecha de la cita: ${cita.fechaCita}</p>
                 `;
+                
 
                 profes.innerHTML=`<h1 class="bold">Profesional Encargado</h1>
                 <p class="bold">Nombre: ${cita.empleadosCita.usuario.nombre}</p>
@@ -258,6 +259,7 @@ async function citasCliente() {
                 <p class="bold">Telefono: ${cita.empleadosCita.usuario.telefono}</p>
                 `
                 divCita.appendChild(li)
+                dibujarFactura(cita)
             })
         }
         else{
@@ -316,6 +318,58 @@ async function reprogramarCitas() {
     
     
 }
+
+
+async function dibujarFactura(cita) {
+    const idFatu=document.getElementById("idFactura")
+    const nombreClien=document.getElementById("nombreClie")
+    const nameEmple=document.getElementById("nombreEmpl")
+    const valorSin=document.getElementById("valorSin")
+    const valorTo=document.getElementById("valorTo")
+    const noti=document.getElementById("cirRed")
+    const factuNoti=document.getElementById("notiFactu")
+    
+
+    try{
+        
+
+        const respuesta=await fetch(`http://localhost:8080/factura/cita/${cita.idCita}`,{
+            method:"GET",
+            headers: {
+                 "Content-Type": "application/json"
+                }
+
+        })
+        if(!respuesta.ok){
+            console.log("error no hay respuesta del servidor")
+        }
+        const factu= await respuesta.json()
+//Array.isArray(factu)
+
+        if(factu&& factu.length>0){
+            
+            factu.forEach(factura=>{
+                idFatu.textContent=factura.idFactura
+                nombreClien.textContent=factura.nombreCliente
+                nameEmple.textContent=factura.nombreEmpleado
+                valorSin.textContent=factura.valorSinIva
+                valorTo.textContent=factura.valorTotal
+                noti.style.display="block"
+                 noti.textContent=factu.length
+                
+
+            })}
+
+        else{
+            factuNoti.textContent="No Tiene Facturas Pendientes"
+        }
+        
+
+    }catch(err){
+        console.log("error servidor caido",err)
+    }
+}
+
 reprogramarCitas()
 window.crearCita = crearCita;
 window.listar_empleados=listar_empleados

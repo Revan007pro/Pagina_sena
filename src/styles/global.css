@@ -277,3 +277,7 @@ main {
 .label-horario {
   @apply border border-black w-45 rounded-3xl px-4 py-2 text-center gap-4 cursor-pointer hover:bg-sky-600 hover:text-white transition-colors duration-300;
 }
+
+#cirRed {
+  @apply bg-red-500 w-[10px] rounded-full h-[20px] ml-[-5px] mt-6 text-[15px] hidden;
+}

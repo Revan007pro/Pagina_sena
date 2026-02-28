@@ -69,7 +69,7 @@ import "../styles/global.css";
         </div>
       </div>
     </header>
-    <section class="flex justify-center items-center shadow-lg">
+    <section class="flex justify-center items-center">
       <div class="grid grid-cols-4 grid-rows-5 gap-15">
         <div class="col-start-4">
           <div class="flex bg-cyan-400 rounded-3xl h-auto w-full">
@@ -78,10 +78,17 @@ import "../styles/global.css";
               <p>Nombre: <b id="rol_usuario"></b></p>
             </div>
             <div class="ml-3 mt-3"><span>🔔</span></div>
-            <div class="ml-2 mt-3">
-              <span>👤<b id="flecha_usuario" class="cursor-pointer">⮟ </b></span
+            <div class="ml-3 mt-3">
+              <span
+                >👤<b id="flecha_usuario" class="ml-3 cursor-pointer"
+                  >⮟
+                </b></span
               >
             </div>
+            <div class="ml-3 mt-3">
+              <span>🛒</span>
+            </div>
+            <div class="ml-3 mt-3" id="cirRed"></div>
             <ul id="bage_usuario">
               <li id="roll"></li>
               <li id="correo_bage"></li>
@@ -126,9 +133,14 @@ import "../styles/global.css";
         <div
           class="col-start-3 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
           h-auto w-auto text-center"
+          id="idFactu"
         >
-          <h1 class="font-bold">Hora Asignada:</h1>
-          <p id="hora_asignada"></p>
+          <p class="font-bold" id="notiFactu"></p>
+          <p id="idFactura"></p>
+          <p id="nombreClie"></p>
+          <p id="nombreEmpl"></p>
+          <p id="valorSin"></p>
+          <p id="valorTo"></p>
         </div>
       </div>
     </section>
