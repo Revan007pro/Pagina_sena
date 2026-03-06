@@ -7,12 +7,13 @@ window.securePage=securePage
 
 document.addEventListener('DOMContentLoaded',function(){
     
-
-/*  if (!currentPath.includes("Login") && 
+/* 
+  if (!currentPath.includes("Login") && 
         !currentPath.includes("Registrarse")) {
         securePage();
-    } */
- 
+    } 
+ */
+
 
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");

@@ -3,9 +3,22 @@ document.addEventListener('DOMContentLoaded', function (){
 
     let params= new URLSearchParams(window.location.search)
     const idPersona=params.get("id_persona")
+    const currentPath = window.location.pathname
 
-    securePage()
-    citasCliente()
+    const guardarUser=document.getElementById("guardarUsuario")
+
+    if (guardarUser) {
+        guardarUser.addEventListener("click",()=>{
+            crearUsuario()
+        })
+    }
+
+    //securePage()
+   // citasCliente()
+     if (!currentPath.includes("Login") && 
+        !currentPath.includes("Registrarse")) {
+        securePage();
+    } 
     
 
     const arrow_usuario = document.getElementById("flecha_usuario")
@@ -184,42 +197,40 @@ function seleccionarHorario(elemento, horaLimpia) {
 
 
 async function crearUsuario(){
-const newPayload = {
-        new_nombres: document.getElementById("new_nombre").value.trim(),
-        new_apellidos: document.getElementById("new_apellidos").value.trim(),
-        new_apellido2: document.getElementById("new_apellidos2").value.trim(),
-        fecha_nacimiento: document.getElementById("new_fecha_nacimiento").value.trim(),
-        new_correo: document.getElementById("new_email").value.trim(),
-        new_contrasenia: document.getElementById("password_registro").value.trim(),
-        confirmar_new_contrasenia: document.getElementById("confirm-password").value.trim(),
-        new_telefono: document.getElementById("new_telefono").value.trim()
+    const newPayload = {
+
+        newUsuario: document.getElementById("new_nombre").value.trim(),
+        newApellidos: document.getElementById("new_apellidos").value.trim(),
+        newfecha_nacimiento: document.getElementById("new_fecha_nacimiento").value,
+        newCorreo: document.getElementById("new_email").value.trim(),
+        newContrasenia: document.getElementById("password_registro").value.trim(),
+        newConfirmar: document.getElementById("confirm-password").value.trim(),
+        newTelefono: document.getElementById("new_telefono").value.trim()
     }
     
     try{
-        const nuevoUsuario=await fetch("http://localhost:8080/guardar/usuario",{
+        const nuevoUsuario = await fetch("http://localhost:8080/guardar/usuario",{
             method:"POST",
-            headers: {
-                "Content-Type": "application/json"
+            headers:{
+                "Content-Type":"application/json"
             },
-            body: JSON.stringify(newPayload)
+            body:JSON.stringify(newPayload)
         })
 
-        console.log("los datos enviados son: ",nuevoUsuario)
-        const data=await nuevoUsuario.json()
-        alert(data.mensaje)
-        if (nuevoUsuario.ok) {
-            window.location.reload(); 
-        }
-        if(!data.ok){
-            console.log("error: de origen desconocido")
-        }
-    }
-    catch(err){
-        alert("error servidor no encontrado",err)
-    }
-    
-}
+        const data = await nuevoUsuario.json()
 
+        if(nuevoUsuario.ok){
+            alert(data.mensaje)
+            console.log("datos enviados:", data)
+        }else{
+            console.log("Error en la petición:", data)
+        }
+
+    }catch(err){
+        console.error(err)
+        alert("Error: servidor no encontrado")
+    }
+}
 async function citasCliente() {
 
     const divCita=document.getElementById("citaCliente")
@@ -374,9 +385,7 @@ reprogramarCitas()
 window.crearCita = crearCita;
 window.listar_empleados=listar_empleados
 window.seleccionarHorario=seleccionarHorario
-window.crearUsuario=crearUsuario
 window.seleccionarHorario=seleccionarHorario
-
 
 
 })
