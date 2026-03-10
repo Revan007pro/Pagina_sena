@@ -252,8 +252,8 @@ main {
   @apply hidden transition-transform duration-300 ease-out ml-7 origin-center;
 }
 #bage_admi {
-  @apply bg-gray-700 text-white p-2 rounded-b-lg shadow-lg absolute mt-24 ml-20 hidden transition-all duration-300 ease-in-out
-      max-w-max text-[12px] h-auto;
+  @apply flex flex-col bg-gray-700 w-70 text-white p-2 rounded-b-lg shadow-lg absolute mt-55 ml-60 hidden transition-all duration-300 ease-in-out
+      max-w-max text-[15px] h-auto break-words;
 }
 
 #bage_usuario {
@@ -280,4 +280,11 @@ main {
 
 #cirRed {
   @apply bg-red-500 w-[10px] rounded-full h-[20px] ml-[-5px] mt-6 text-[15px] hidden;
+}
+#confi {
+  @apply flex flex-col ml-20 w-25 justify-center rounded-3xl items-center bg-cyan-600 hover:scale-105 cursor-pointer;
+}
+
+.label-confi{
+  @apply rounded-2xl hover:bg-cyan-600 w-21 hover:scale-105 text-center
 }

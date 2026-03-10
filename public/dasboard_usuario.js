@@ -1,5 +1,6 @@
 import { ingresarUsuario ,securePage} from "/scripAdmi.js";
 document.addEventListener('DOMContentLoaded', function (){
+    ingresarUsuario()
 
     let params= new URLSearchParams(window.location.search)
     const idPersona=params.get("id_persona")
@@ -13,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function (){
         })
     }
 
-    //securePage()
-   // citasCliente()
+
+   citasCliente()
      if (!currentPath.includes("Login") && 
         !currentPath.includes("Registrarse")) {
         securePage();
@@ -288,7 +289,7 @@ async function reprogramarCitas() {
     const reprogramarCitas=document.getElementById("reproCita")
     
 
-    reprogramarCitas.addEventListener("click",async()=>{
+    reprogramarCitas.addEventListener("click",async()=>{ // hay que colocarlo aca porque escapa del scope
     const idRepro=prompt("porfavor dijete el identificador de la cita a borrar")
     if (idRepro && idRepro !=null) {
         const confirmar=confirm(`Esta seguro que quiere repogramar su cita con numero: ${idRepro}`)

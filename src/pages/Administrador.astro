@@ -36,9 +36,20 @@ import "../styles/global.css";
           👤 <a class="text-cyan-400 ml-0" id="arrow_admi">⮟</a>
         </div>
         <ul id="bage_admi">
-          <li class="hover_empleado">Nombre:</li>
+          <li class="hover_empleado" id="correo_bage"></li>
+          <li class="hover_empleado" id="telefono_bage"></li>
+          <button type="button" onclick="confiPage()" id="confi"
+            >Configurar
+          </button>
+          <button
+            type="button"
+            onclick="cerrarSeccion()"
+            class="scala hover_empleado"
+            >Cerrar
+          </button>
         </ul>
       </div>
+      <section></section>
       <div id="modal_notificaciones" class="modal">
         <div class="modal-content">
           <h2>Notificaciones</h2>
@@ -49,13 +60,20 @@ import "../styles/global.css";
       </div>
     </header>
 
-    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0">
+    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0" id="divPrinci">
       <section>
         <nav id="nav_admi" class="nav_admi">
           <h2
             class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
           >
-            <button id="_menu" class="hamburguesa"> &#x2261; </button>
+            <button
+              type="button"
+              onclick="hideHambur()"
+              id="_menu"
+              class="hamburguesa"
+            >
+              &#x2261;
+            </button>
             Elementos del <b>administrador</b>
           </h2>
 

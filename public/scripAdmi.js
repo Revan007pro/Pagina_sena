@@ -2,18 +2,13 @@
 window.cerrarSeccion = cerrarSeccion;
 window.ingresarUsuario=ingresarUsuario
 window.securePage=securePage
+window.datosConfi=datosConfi
+window.confiPage=confiPage
 
 
 
 document.addEventListener('DOMContentLoaded',function(){
     
-/* 
-  if (!currentPath.includes("Login") && 
-        !currentPath.includes("Registrarse")) {
-        securePage();
-    } 
- */
-
 
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
@@ -22,20 +17,30 @@ const _flecha_ = document.getElementById("arrow");
 const _block_admi= document.getElementById("subgrupo")
 const _arrow_admi=document.getElementById("arrow_admi")
 const _menu_especial=document.getElementById("bage_admi")
+const divPrinc=document.getElementById("divPrinci")
+
 
 
 
 _arrow_admi.addEventListener("click",(e)=>{
     e.preventDefault()
-    _arrow_admi.classList.toggle("none")
-    if (_arrow_admi) {
+        _arrow_admi.classList.toggle("none")
+        if(_arrow_admi.classList.contains("none")){
         console.log("flecha admi detectada")
         _menu_especial.style.display="block"
-    }
+        divPrinc.classList.add("mt-35") // agrega clases tailwinds al div
+        }
+        else{
+            _menu_especial.style.display="none"
+            divPrinc.classList.remove("mt-35") // remueve lo que le agrega el toggle
+        }
+
+        
 })
 document.addEventListener("keydown",(e)=>{
     if (e.key=='Escape') {
         _menu_especial.style.display='none'
+        divPrinc.classList.remove("mt-35")
     }
 })
 
@@ -72,64 +77,7 @@ _menu.addEventListener("click", () => {
 
 
 })
-function loginUsuario() {
-    const usuario_ingresado = document.getElementById("usuario").value.trim();
-    const contrasenia_ingresada = document.getElementById("password").value.trim();
-    const usuarios_y_contrasenias = {
-        "admi": "123",       
-        "empleado": "321",
-        "usuario": "231"
-    };
 
- 
-    const _usuario_ingresado = document.getElementById("usuario")
-        const contrasenia_correcta = usuarios_y_contrasenias[usuario_ingresado];
-    const _id_contrasenia=document.getElementById("password")
-    
-        if (usuario_ingresado === "admi"&&contrasenia_ingresada===contrasenia_correcta ) {
-            localStorage.setItem("usuario", "admi");
-            window.location.href = "/Administrador";
-        }
-        if (usuario_ingresado === "admi"&&contrasenia_ingresada!==contrasenia_correcta ) {
-                    _id_contrasenia.classList.add('warning')
-   
-        alert("Error: la contraseña ingresada es incorrecta");
-        return
-        }
-        
-         if (usuario_ingresado === "empleado"&&contrasenia_ingresada===contrasenia_correcta) {
-            localStorage.setItem("usuario", "empleado");
-            window.location.href = "/empleado";
-        }
-        if (usuario_ingresado === "empleado"&&contrasenia_ingresada!==contrasenia_correcta) {
-                    _id_contrasenia.classList.add('warning')
-   
-        alert("Error: la contraseña ingresada es incorrecta");
-        }
-        if (usuario_ingresado === "usuario"&&contrasenia_ingresada===contrasenia_correcta) {
-            localStorage.setItem("usuario", "user");
-            window.location.href = "/usuario";
-        }
-        if (usuario_ingresado === "usuario"&&contrasenia_ingresada!==contrasenia_correcta) {
-                    _id_contrasenia.classList.add('warning')
-   
-        alert("Error: la contraseña ingresada es incorrecta");
-        return
-        }
-     /* contrasenia_correcta === undefined) */ 
-
-     if (usuario_ingresado === "" || contrasenia_ingresada === "") {
-        alert("Por favor, llene todos los datos"); 
-         _usuario_ingresado.classList.add('warning')
-         _id_contrasenia.classList.add('warning')
-        return;
-    }
-    else {
-        _usuario_ingresado.classList.add('warning'); 
-        alert("El usuario ingresado no existe");
-        return; 
-    }
-}
 
 
 export async function ingresarUsuario(){
@@ -249,7 +197,7 @@ function insertarUsuario(user){
     const teleUsuario=document.getElementById("telefono_bage")
     rolUsuario.textContent=nombre  // este sirve
     nombreUsuario.textContent=usuarioBage
-    rollbage.textContent=roll
+   // rollbage.textContent=roll
     emailUsuario.textContent=correo
     teleUsuario.textContent=phone
 
@@ -405,7 +353,40 @@ _show.addEventListener('click',()=>{
 
 
 
+
+
 })
+
+function datosConfi(elemeto){
+    let valorCambiar=elemeto.innerText 
+    let cambiarInput=document.getElementById("confiDatos").value=valorCambiar
+
+    switch(cambiarInput){
+        case "Nombres":
+        case "Apellidos":
+        case "fecha de Nacimiento":
+        case "Contraseña":
+        const elec=prompt("Ingresar Nuevo  " +cambiarInput)
+        
+        
+        if (elec) {
+            
+            console.log("el input es:"+elec)
+            valorCambiar=elec
+        }
+        
+
+    }
+  
+    
+    
+
+    
+}
+
+function confiPage(){
+    window.location.href="/Confi"
+}
 
 function cerrarSeccion() {
     localStorage.clear();
