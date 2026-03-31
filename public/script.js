@@ -187,9 +187,6 @@ document.addEventListener("DOMContentLoaded",function(){
     _buscador_tabla();
 })
 
-function crearCita(){
-    /*scrip para cear cita*/
-}
 
 function _buscador() {
 
@@ -229,13 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
     _buscador();
 });
 
-function _nuevoUsuario(){
-    //logica para crear y conectar a la base de datos
-}
-
-function loginUsuario_google(){
-    //conectar el usuario con su correo personal.
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     const botonMensaje = document.getElementById('boton_mensaje');
@@ -343,5 +333,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const skeleton = document.getElementById('skeleton_container').style.display="none"
     const content = document.getElementById('content_container').style.display="block"
     
-  }, 1000); // puedes ajustar el tiempo
+  }, 1000); 
 });

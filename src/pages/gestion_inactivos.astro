@@ -5,11 +5,11 @@ import "../styles/global.css";
 
 <Layout>
   <script type="module">
-    import { securePage, ingresarUsuario } from "/scripAdmi.js";
+    import { securePage } from "/scripAdmi.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       securePage();
-      ingresarUsuario();
+      elistaUserInactivados();
     });
   </script>
 
@@ -137,35 +137,34 @@ import "../styles/global.css";
           </div>
         </nav>
       </section>
-
-      <div id="seccion_class" class="flex-1">
-        <section class="seccion_class">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              <a href="/Administrador_Base_datos"
-                >Ver Usuarios Registrados en la página</a
-              >
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Historial de citas
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Administración Academia
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Trabajadores registrados en la página
-            </div>
-          </div>
-        </section>
+      <div class="container">
+        <table id="tablaInabili" class="table" onload="listarUsuarios()">
+          <thead>
+            <input
+              id="buscarUser"
+              placeholder="nombre.."
+              type="text"
+              class="inputBuscar"
+            />
+            <tr class="border border-black px-4 py-2 mt-0">
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>telefono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tbody>
+        </table>
       </div>
     </div>
-  </main>
-</Layout>
+  </main></Layout
+>

@@ -1,6 +1,17 @@
 import { ingresarUsuario ,securePage} from "/scripAdmi.js";
+
+
 document.addEventListener('DOMContentLoaded', function (){
-    ingresarUsuario()
+    
+
+window.listar_empleados=listar_empleados
+window.crearCita=crearCita
+window.seleccionarHorario=seleccionarHorario
+window.seleccionarHorario=seleccionarHorario //notta no se porque no funciona si se coloca de ultimo
+    const arrow_usuario = document.getElementById("flecha_usuario")
+    const bage_usuario = document.getElementById("bage_usuario")
+    let empleadoSeleccionadoNombre = ""
+    let empleadoSeleccionadoId = null
 
     let params= new URLSearchParams(window.location.search)
     const idPersona=params.get("id_persona")
@@ -22,10 +33,7 @@ document.addEventListener('DOMContentLoaded', function (){
     } 
     
 
-    const arrow_usuario = document.getElementById("flecha_usuario")
-    const bage_usuario = document.getElementById("bage_usuario")
-    let empleadoSeleccionadoNombre = ""
-    let empleadoSeleccionadoId = null
+
 
     if (arrow_usuario && bage_usuario) { 
         arrow_usuario.addEventListener("click", () => {
@@ -49,7 +57,7 @@ async function crearCita(select_empleado, emp) {
     const payload = {
         idEmpleado: empleadoSeleccionadoId,
         idCliente: parseInt(localStorage.getItem("identificacion")),
-        sedeId: 1,
+        sedeId: 1, // nota cambiar
         especialidad: document.getElementById("especialidad").value.trim(),
         fecha: document.getElementById("fecha_deseada").value,
         horaInicio: document.getElementById("horario_seleccionado").value,
@@ -148,6 +156,7 @@ async function listar_empleados(Especialidad,horarioCitas) {
 
             default:
                 select_empleado.innerHTML = ""
+                alert("error desconocido")
                 break
         }
 
@@ -207,10 +216,11 @@ async function crearUsuario(){
         newContrasenia: document.getElementById("password_registro").value.trim(),
         newConfirmar: document.getElementById("confirm-password").value.trim(),
         newTelefono: document.getElementById("new_telefono").value.trim()
+        //nota estos son los datos que espera el backend
     }
     
     try{
-        const nuevoUsuario = await fetch("http://localhost:8080/guardar/usuario",{
+        const nuevoUsuario = await fetch("http://localhost:8080/guardar/usuario/version2",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -220,11 +230,32 @@ async function crearUsuario(){
 
         const data = await nuevoUsuario.json()
 
-        if(nuevoUsuario.ok){
+      /*   if(nuevoUsuario.ok){
             alert(data.mensaje)
             console.log("datos enviados:", data)
         }else{
             console.log("Error en la petición:", data)
+        } */
+        switch(nuevoUsuario.status){
+            case 201:
+                alert("el usuario a sido creado exitosamente")
+                break
+            case 409:
+                alert("error "+data.mensaje)
+                break
+            case 417:
+                alert("error "+data.mensaje)
+                break
+            case 401:
+                alert("error "+data.mensaje)
+                break
+            case 400:
+                alert("error "+data.mensaje)
+                break
+            default:
+                alert("error de origen desconocido"+data.error)
+                break
+
         }
 
     }catch(err){
@@ -352,9 +383,9 @@ async function dibujarFactura(cita) {
                 }
 
         })
-        if(!respuesta.ok){
+ /*        if(!respuesta.ok){
             console.log("error no hay respuesta del servidor")
-        }
+        } */
         const factu= await respuesta.json()
 //Array.isArray(factu)
 
@@ -382,12 +413,19 @@ async function dibujarFactura(cita) {
     }
 }
 
-reprogramarCitas()
-window.crearCita = crearCita;
-window.listar_empleados=listar_empleados
-window.seleccionarHorario=seleccionarHorario
-window.seleccionarHorario=seleccionarHorario
+async function crearFactura(cita){
+    const payload={ 
+            IdCita:idCita,
+            IdPrecio:id_precio,
+            IdEmpresa: id_empresa,
+            fullTotal:total
+    }
+    const infoSend=await fetch(`http://localhost:8080/crear/factura/${idCita}`)
+}
 
+ingresarUsuario()
+reprogramarCitas()
+   
 
 })
 

@@ -77,7 +77,7 @@
   }
 
   .table {
-    @apply mt-10 ml-0 shadow-md;
+    @apply mt-10 ml-0 rounded-lg shadow-xl;
   }
   .table td {
     @apply border border-black px-4 py-2 text-center gap-4;
@@ -284,7 +284,30 @@ main {
 #confi {
   @apply flex flex-col ml-20 w-25 justify-center rounded-3xl items-center bg-cyan-600 hover:scale-105 cursor-pointer;
 }
+.buttonPerfil {
+  @apply flex flex-col ml-20 w-25 justify-center rounded-3xl items-center bg-cyan-600 hover:scale-105 cursor-pointer mt-2;
+}
 
-.label-confi{
-  @apply rounded-2xl hover:bg-cyan-600 w-21 hover:scale-105 text-center
+.label-confi {
+  @apply rounded-2xl hover:bg-cyan-600 w-auto hover:scale-105 text-center;
+}
+
+.input-user {
+  @apply flex flex-col w-full mt-2 px-3 py-2 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 shadow-sm;
+}
+
+.error-input {
+  @apply w-full mt-2 px-3 py-2 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm;
+}
+.inputBuscar {
+  @apply w-50 rounded-2xl border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 shadow-sm;
+}
+.subgrupoG {
+  @apply hidden transition-transform duration-300 ease-out ml-7 origin-center;
+}
+.chip {
+  @apply inline-block px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm;
+}
+.inactivo {
+  @apply text-center cursor-pointer w-full px-4 py-2 text-lg text-white font-semibold bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 rounded-lg shadow-md transition-colors duration-150;
 }

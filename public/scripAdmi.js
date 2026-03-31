@@ -4,11 +4,20 @@ window.ingresarUsuario=ingresarUsuario
 window.securePage=securePage
 window.datosConfi=datosConfi
 window.confiPage=confiPage
+window.listarUsuarios=listarUsuarios
+window.prepararEdicion=prepararEdicion
+window.editarUsuarios=editarUsuarios
+window.prepararInativar=prepararInativar
+window.activarUsuario=activarUsuario
 
 
 
 document.addEventListener('DOMContentLoaded',function(){
+
+    editarUsuarios()
     
+
+
 
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
@@ -18,6 +27,10 @@ const _block_admi= document.getElementById("subgrupo")
 const _arrow_admi=document.getElementById("arrow_admi")
 const _menu_especial=document.getElementById("bage_admi")
 const divPrinc=document.getElementById("divPrinci")
+
+
+
+
 
 
 
@@ -37,6 +50,9 @@ _arrow_admi.addEventListener("click",(e)=>{
 
         
 })
+
+
+
 document.addEventListener("keydown",(e)=>{
     if (e.key=='Escape') {
         _menu_especial.style.display='none'
@@ -78,13 +94,33 @@ _menu.addEventListener("click", () => {
 
 })
 
+function GestionUsuarios(){
+    const subG=document.getElementById("subgrupoG")
+    const arrowG=document.getElementById("arrowG")
+        arrowG.addEventListener("click",()=>{
+        subG.classList.remove("hidden")
+        console.log("activando el ul de la gestion")
+        arrowG.classList.add("rotar-flecha")
+    })
 
+    
+
+ 
+}
 
 export async function ingresarUsuario(){
+    const inputPassword = document.getElementById("password");
+    const inputUsuario = document.getElementById("usuario");
 
     let password=document.getElementById("password").value.trim()
     let usuario=document.getElementById("usuario").value.trim()
-    
+
+    const errores={errorUser:false,
+        errorPassword:false,
+        allBad:false,
+        any:false
+    }
+
     const payload={
         nombre:usuario,
         password:password
@@ -92,7 +128,7 @@ export async function ingresarUsuario(){
 
    
     try{
-        const respuesta= await fetch("http://localhost:8080/login",{
+        const respuesta= await fetch("http://localhost:8080/Login/Status",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -101,63 +137,96 @@ export async function ingresarUsuario(){
         })
         console.log("los datos cargados son:",respuesta)
 
-        if(!respuesta.ok){
+    /*     if(!respuesta.ok){
             alert("error en el servidor")
             return
-        }
+        } */
         const data=await respuesta.json()
-        console.log("los datos del json son: ", data.datos)
+        console.log("los datos del json son: ", data)
 
-        alert(data.mensaje)
+        switch(respuesta.status){
 
-        if(data.datos){
-            console.log("roll", data.datos.roll)
-            console.log("Correo", data.datos.correo)
-            console.log("telefono", data.datos.telefono)
-            console.log("nombre", data.datos.nombre)
-            console.log("usuario", data.datos.usuario)
-            console.log("identificacion",data.datos.identificador)
-        }
-        if(!data.datos){
-            console.log("alerta no pasa a data.datos")
-        }
+            case 200:
+            case 302:
+                alert(data.mensaje)
+                console.log("roll", data.roll)
+                console.log("Correo", data.correo)
+                console.log("telefono", data.telefono)
+                console.log("nombre", data.nombre)
+                console.log("usuario", data.usuario)
+                console.log("identificacion",data.identificador)
+                localStorage.setItem("roll", data.roll)
+                localStorage.setItem("nombre", data.nombre)
+                localStorage.setItem("telefono", data.telefono)
+                localStorage.setItem("usuario", data.usuario)
+                localStorage.setItem("correo",data.correo)
+                localStorage.setItem("identificacion", data.identificacion)
+                if (data.urlTarget) {
         
+        const idEmpleado = data.identificacion
+                
+                if(data.roll === "Administrador"){
+                     
 
-        if(data.datos){
-            localStorage.setItem("roll", data.datos.roll)
-            localStorage.setItem("nombre", data.datos.nombre)
-            localStorage.setItem("telefono", data.datos.telefono)
-            localStorage.setItem("usuario", data.datos.usuario)
-            localStorage.setItem("correo",data.datos.correo)
-            localStorage.setItem("identificacion", data.datos.identificacion)
-        }
-      if (data.urlTarget) {
-        
-        
-        const idEmpleado = data.datos.identificacion
-        if(data.datos.roll === "Administrador"){
+                window.location.href=`/Administrador?id_persona=${idEmpleado}` 
+                 }
+
+                if (data.usuario === "Empleado") {
+                    const idEmpleado = data.identificacion;
+                    window.location.href = `/empleado?id_empleado=${idEmpleado}`
+                
+                }
+    
+                if (data.roll === "Cliente") {
+                 window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
+                
+                }
             
-        window.location.href=`/Administrador?id_persona=${idEmpleado}` 
-    }
+                    }break 
+            case 400:
+                alert("error : "+data.mensaje)
+                errores.allBad=true
+                break
+            case 401:
+                alert(data.mensaje)
+                errores.allBad=true
+                break
+            case 404:
+                alert("error "+data.mensaje)
+                errores.allBad=true
+                break
+            case 417:
+                alert("error "+data.mensaje)
+                errores.errorPassword = true;
+                break
+            default:
+                alert(`"error inesperado: " ${respuesta.status}`)
+                errores.any=true
+                break
 
-    if (data.datos.usuario === "Empleado") {
-        const idEmpleado = data.datos.identificacion;
-        window.location.href = `/empleado?id_empleado=${idEmpleado}`
 
-    }
-    
-   if (data.datos.roll === "Cliente") {
-    window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
-    
-   }
+        }
+ 
+switch (true) {
+    case errores.errorUser:
+        inputUsuario.classList.toggle("error-input")
+        break
+
+    case errores.errorPassword:
+        inputPassword.classList.toggle("error-input")
+        break
+
+    case errores.allBad:
+        inputPassword.classList.toggle("error-input")
+        inputUsuario.classList.toggle("error-input")
+        console.log("no hay inputs")
+        break
+    default:
+        const todos = document.querySelectorAll(".input-user")
+        todos.forEach(all => all.classList.toggle("error-input"))
+        console.log("Error general desconocido")
+        break
 }
-
-        if(!data.urlTarget){
-            console.log("no hay redireccionamiento")
-        }
-        else{
-            console.log("fallo el payload")
-        }
         return data;
         
     }catch(err){
@@ -168,6 +237,7 @@ export async function ingresarUsuario(){
     
         
     }
+
 
 
 
@@ -230,40 +300,6 @@ function elistar_usuarios(){
 }
 
 
-
-function validarFormulario() {
-    const _nombre = document.getElementById('nuevo-usuario').value.trim();
-    const _apellido = document.getElementById('apellido').value.trim();
-    const _documento = document.getElementById('documento').value.trim();
-    const _especialidad = document.getElementById('especialidad').value.trim();
-    const _estado = document.getElementById('estadoEmpleado').value.trim();
-
-    const fotoInput = document.getElementById('foto_empleado');
-    const _foto = fotoInput.files.length > 0 ? fotoInput.files[0] : null //formulario de la foto
-
-    if (!_nombre) { 
-        alert('El campo "Nombre" es obligatorio');
-        return false;
-    } else if (!_apellido) {
-        alert('El campo "Apellido" es obligatorio');
-        return false;
-    } else if (!_documento) {
-        alert('El campo "Documento" es obligatorio');
-        return false;
-    } else if (!_especialidad) {
-        alert('El campo "Especialidad" es obligatorio');
-        return false;
-    } else if (!_estado) { 
-        alert('El campo "Estado" es obligatorio');
-        return false;
-    } else if (!_foto) { 
-        alert('El campo "Foto" es obligatorio');
-        return false;
-    } else {
-        alert("Formulario válido, registrando datos...");
-        return true;
-    }
-}
 const notificaciones = [
   { titulo: "nueva actualización disponible", fecha: "12/08/2025" },
   { titulo: "tu reporte mensual está disponible", fecha: "12/08/2024" },
@@ -302,15 +338,6 @@ cerrar_modal.addEventListener("click",()=>(
 })
 
 
-function editarUsuario(){
-    //aqui va el back-end
-}
-function eliminarUsuario(){
-    //aqui va el back-end
-}
-function inhabilitarUsuario(){
-    //aqui va el back-end
-}
 
 /* document.getElementById('usuario').addEventListener('blur',()=>{//blur cuando abandona el foco
     const usuario_=document.getElementById('usuario')
@@ -357,32 +384,7 @@ _show.addEventListener('click',()=>{
 
 })
 
-function datosConfi(elemeto){
-    let valorCambiar=elemeto.innerText 
-    let cambiarInput=document.getElementById("confiDatos").value=valorCambiar
 
-    switch(cambiarInput){
-        case "Nombres":
-        case "Apellidos":
-        case "fecha de Nacimiento":
-        case "Contraseña":
-        const elec=prompt("Ingresar Nuevo  " +cambiarInput)
-        
-        
-        if (elec) {
-            
-            console.log("el input es:"+elec)
-            valorCambiar=elec
-        }
-        
-
-    }
-  
-    
-    
-
-    
-}
 
 function confiPage(){
     window.location.href="/Confi"
@@ -393,5 +395,330 @@ function cerrarSeccion() {
     window.location.href = "/";
 }
 
+let usuarioCache=[]
+
+async function listarUsuarios(){
+    try{
+        const response=await fetch("http://localhost:8080/listar/usuarios",{
+            method:"GET"
+
+        })
+        const data=await response.json()
+        console.log("los datos son: ",data)
+
+        switch(response.status){
+            case 200:
+                const listaBD=Array.isArray(data.datos) ? data.datos:[data.datos]
+                usuarioCache=listaBD.filter(u=>u.estadoUser=='1')
+                renderTabla(usuarioCache) // se sobreescribe los usuarios con el array
+                break
+            case 404:
+                const tablaUser=document.getElementById("gestionUsuarios")
+                if (tablaUser) {
+                    tablaUser.innerHTML=`<tr><td colspan="6">Error al Cargar los Usuarios</td></tr>`
+                }
+                break
+        }
+        
+    }catch(err){
+            console.error("Error:",err)
+        }
+}
+
+function renderTabla(usuarios){
+    const tbody=document.getElementById("gestionUsuarios")
+    if(!tbody)return
+    if (usuarios.length===0) {
+        tbody.innerHTML=`<tr><td colspan="6" class="text-center">No se encontraron usuarios</td></tr>`
+        console.error("no se encontro los usuarios",usuarios)
+        return
+    }
+    if(tbody){
+         tbody.innerHTML=usuarios.map(u =>`
+     <tr>
+        <td>${u.id}</td>
+        <td>${u.roll}</td>
+        <td>${u.nombre}</td>
+        <td>${u.apellidos}</td>
+        <td>${u.correo}</td>
+        <td>${u.telefono}</td>
+        <td> <button onclick="prepararEdicion(${u.id})" class="cursor-pointer" title="Editar">📝</button>
+        <td> <button onclick="prepararInativar(${u.id})" class="cursor-pointer" title="Eliminar">🗑️</button>
+        </td>
+        </tr>
+
+        `).join("")
+    }
+    else{
+        console.error("error desconocido")
+    }
+   
+}
+
+function prepararEdicion(id){
+      localStorage.setItem('IdEditar',id)
+      window.location.href="/perfil"
+}
+
+async function prepararInativar(id){
+    if(!confirm("Desea Inactivar Este Usuario"))return
+    else{
+        try{
+            const send=await fetch(`http://localhost:8080/inactivar/usuarios/${id}`,{
+            method:"POST"
+
+        })
+        if(send.ok){
+            alert("se inactico el usuario")
+            window.location.reload()
+        }
+        }catch(err){
+            console.error("error en el metodo del front",err)
+        }
+
+    }
+          
+}
+
+async function editarUsuarios() {
+    let id=localStorage.getItem("IdEditar")
+    const state=document.getElementById("estadoUser")
+    if (!id) {
+        //console.error("No se encontro ningun id seleccionado")
+        id=localStorage.getItem("identificacion")
+        console.log("el identificador es: ",id)
+    }
+  
+    try{
+        const response=await fetch(`http://localhost:8080/consultar/${id}`,{
+            method: "GET"
+        })
+        const resultado=await response.json()
+        console.log("los datos son:",resultado.datos)
+
+        if(response.status===200 && resultado.datos){
+            const u=resultado.datos
+            
+            document.getElementById("idUser").value=u.id
+            document.getElementById("nombreUser").value=u.nombre
+                 document.getElementById("apellidosUser").value=u.apellidos
+                document.getElementById("fechaUser").value=u.fechaNacimiento
+                document.getElementById("newRoll").value=u.roll
+                document.getElementById("correoUser").value=u.correo
+                document.getElementById("telefonoUser").value= u.telefono
+                if(u.estadoUser==1&&state){
+                    state.innerText="Activo"
+                }
+                else{
+                    state.innerText="inactivo"
+                }
+        }
+        else{
+            console.log("error no se encontro o no funciono el metodo")
+        }
+      if (id===null) {
+        console.error("No se encontro ningun id seleccionado", id)
+        return
+ 
+    }
+
+    }
+    catch(err){
+        console.error("alerta error desconocido")
+    }
+}
+/* async function datosConfi(elemeto){
+    let valorCambiar=elemeto.innerText 
+    let cambiarInput=document.getElementById("confiDatos").value=valorCambiar
+
+    payload={
+        opcion:cambiarInput,
+        input:elec
+      //  id:parseInt(id)
+    }
 
 
+    try{
+
+        const respuesta=await fetch("http://localhost:8080/actualizar/datos",{
+            method: "PUT",
+             headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const inputs=await respuesta.json()
+        switch(cambiarInput){
+        case "Nombres":
+        case "Apellidos":
+        case "fecha de Nacimiento":
+        case "Contraseña":
+        const elec=prompt("Ingresar Nuevo  " +cambiarInput)
+        
+        if(!elec){
+            alert("error debe ingresar datos")
+        }
+        
+        if (elec) {
+            
+            console.log("el input es:"+elec,"el switch es: "+cambiarInput)
+            valorCambiar=elec
+        }
+        if(respuesta.status===200 && inputs.codigo===0){
+            alert[inputs.mensaje]
+
+            localStorage.removeItem("IdEditar")
+            window.location.href="/perfil"
+        }
+    }
+    
+    metodo no sirve porque en la base de datos las duplas no pueden ser nulas
+        
+
+    }catch(err){
+        console.error("error de origen desconocido")
+    }
+  
+    
+}
+
+ */
+
+async function datosConfi(id){
+
+
+    try{
+     const payload={
+        nombreUser: document.getElementById("nombreUser").value,
+       // idPersona:parseInt(id),
+       idPersona: parseInt(document.getElementById("idUser").value),
+        apellidosUser: document.getElementById("apellidosUser").value,
+        rollUser: document.getElementById("newRoll").value,
+        fechaUser: document.getElementById("fechaUser").value,
+        correoUser: document.getElementById("correoUser").value,
+        contraseniaUser:document.getElementById("contraseñaActu").value ,
+        newTelefono:document.getElementById("telefonoUser").value 
+    }
+
+        const respuesta=await fetch("http://localhost:8080/actualizar/datos",{
+            method: "PUT",
+             headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const inputs=await respuesta.json()
+        console.log("los datos enviados son: ",payload)
+        if(respuesta.ok) {
+            alert("Datos actualizados con éxito");
+            //localStorage.clear()
+            window.location.reload();
+
+        }
+        else{
+            alert(inputs.mensaje)
+            return
+        }
+    }catch(error){
+        alert("error interno",error)
+    }
+
+}
+
+ async function elistaUserInactivados(){
+    try{
+        const response =await fetch("http://localhost:8080/encontrar/inactivados")
+        const data =await response.json()
+
+        const tablaInabi=document.getElementById("tablaInabili")
+        
+
+        if(!tablaInabi) return
+
+        if(response.ok ){
+            const listaBase= Array.isArray(data) ? data: []
+
+            usuarioCache= listaBase
+
+            renderTablaInactivos(usuarioCache) // se sobreescribe la variable con el array 
+        }
+        else{
+            console.error("no se renderizo la tabla")
+        }
+
+    }catch(err){
+        alert("el servidor no responde bien",err)
+    }
+} 
+function renderTablaInactivos(usuarios){
+    const tbody = document.querySelector("#tablaInabili tbody")
+   // const textoEStado=u.estadoUser==='Inacitivo' ?  'Activo' : 'Prestado'
+  // <!--<td><span class="chip ${claseChip}>${textoEStado}</span></td> -->
+
+    if(!tbody) return
+
+    if (usuarios.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6">No hay usuarios inactivos</td></tr>`
+        return
+    }
+
+
+    tbody.innerHTML = usuarios.map(u =>{
+        const estadoUser=u.estadoUser ===0 ? 'Inactivo':'Activo'
+        return `
+
+        <tr>
+            <td>${u.id}</td>
+            <td>${u.nombre}</td>
+            <td>${u.apellidos}</td>
+            <td>${u.correo}</td>
+            <td>${u.telefono}</td>
+            <td><button 
+  onclick="activarUsuario(${u.id})" 
+  class="group bg-red-500 text-white px-3 py-1 rounded w-20 scala"
+>
+  <span class="group-hover:hidden">Inactivo</span>
+  <span class="hidden group-hover:inline cursor-pointer ">Activar</span>
+</button></td>
+          
+        </tr>
+    `}).join("")
+
+}
+
+async function activarUsuario(id){
+    const estadoUser=confirm("Desea habilitar a este usuario")
+    if(!estadoUser) return
+    if(estadoUser){
+    /*     const payload={
+        activarUser:1
+    } */
+    try{
+        const respuesta =await fetch(`http://localhost:8080/activar/usuario/${id}`,{
+            method: "POST"
+           /*  headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload) */
+            
+        })
+        const datos=await respuesta.json()
+
+        if(respuesta.ok){
+            console.log("setear a: ",datos)
+            alert(datos.mensaje)
+        }
+     if (!respuesta.ok) {
+            throw new Error(`HTTP error: ${respuesta.status}`);
+        }
+    
+
+    }catch(err){
+        console.error("error de tipo desconocido")
+    }
+    }
+    
+}
+
+elistaUserInactivados() 
+GestionUsuarios()

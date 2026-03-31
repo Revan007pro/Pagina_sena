@@ -4,9 +4,6 @@ import "../styles/global.css";
 import "../styles/style.less";
 ---
 
-<!-- se usa para que el script solo afecte a la paguina en cestion -->
-<script src="/scripAdmi.js" is:inline></script>
-
 <Layout>
   <main class="w-full h-screen flex flex-col items-center justify-center px-4">
     <header class="fixed top-0 left-0 w-full flex justify-center z-50">
@@ -93,7 +90,7 @@ import "../styles/style.less";
               id="usuario"
               name="usuario"
               required
-              class="w-full mt-2 px-3 py-2 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 shadow-sm"
+              class="input-user"
               placeholder="tu_email@ejemplo.com"
             />
           </div>
@@ -111,7 +108,7 @@ import "../styles/style.less";
               id="password"
               name="password"
               required
-              class="w-full mt-2 px-3 py-2 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 shadow-sm"
+              class="input-user"
               placeholder="********"
             />
             <button type="button" id="show">🙉</button>

@@ -11,5 +11,8 @@
         "statusBar.debuggingForeground": "#FCFCFF",
         "statusBar.noFolderBackground": "#200299",
         "statusBar.noFolderForeground": "#FCFCFF"
-    }
+    },
+
+    "editor.colorDecorators": true,
+    "tailwindCSS.colorDecorators": true
 }
