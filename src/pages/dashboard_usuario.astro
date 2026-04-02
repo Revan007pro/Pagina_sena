@@ -4,7 +4,7 @@ import "../styles/global.css";
 ---
 
 <Layout>
-  <script type="module" src="dasboard_usuario.js"></script>
+  <script type="module" src="/dashboard_usuario.js" is:inline></script>
   <main>
     <header class="fixed top-0 left-0 w-full flex justify-center z-50">
       <div
@@ -147,7 +147,9 @@ import "../styles/global.css";
     <div class="grid grid-cols-5 grid-rows-5 gap-4">
       <button class="col-start-2 button" id="reproCita">Reprogramar Cita</button
       >
-      <button class="col-start-3 button">Cancelar Cita</button>
+      <button onclick="cancelarCita()" class="col-start-3 button"
+        >Cancelar Cita</button
+      >
       <button class="col-start-4 button">
         <a href="/Agendar_Citas">Agendar Cita</a>
       </button>

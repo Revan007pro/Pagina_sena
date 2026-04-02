@@ -1,4 +1,4 @@
-import { ingresarUsuario, securePage } from "/scripAdmi.js";
+import {  securePage } from "/scripAdmi.js";
 
 document.addEventListener('DOMContentLoaded', function (){
     
@@ -22,8 +22,6 @@ if (!idEmpleado) {
     console.error("No se recibió id_empleado");
 }
 
-
-    
 
     async function empleadosCitas() {
         const citas_registradas = document.getElementById("citas_registradas");

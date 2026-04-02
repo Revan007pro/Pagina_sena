@@ -1,7 +1,7 @@
 
 window.cerrarSeccion = cerrarSeccion;
 window.ingresarUsuario=ingresarUsuario
-window.securePage=securePage
+
 window.datosConfi=datosConfi
 window.confiPage=confiPage
 window.listarUsuarios=listarUsuarios
@@ -14,11 +14,12 @@ window.activarUsuario=activarUsuario
 
 document.addEventListener('DOMContentLoaded',function(){
 
+
+elistaUserInactivados() // alerta genera error si se colocan de ultimo los dos siguientes
+GestionUsuarios()
+
     editarUsuarios()
-    
-
-
-
+    ingresarUsuario()
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
@@ -409,7 +410,8 @@ async function listarUsuarios(){
         switch(response.status){
             case 200:
                 const listaBD=Array.isArray(data.datos) ? data.datos:[data.datos]
-                usuarioCache=listaBD.filter(u=>u.estadoUser=='1')
+                //const listaBD=Array.isArray(data.datos) ? data.datos:[]
+                usuarioCache=listaBD.filter(u=>u.estadoUser=='1') 
                 renderTabla(usuarioCache) // se sobreescribe los usuarios con el array
                 break
             case 404:
@@ -652,8 +654,6 @@ async function datosConfi(id){
 } 
 function renderTablaInactivos(usuarios){
     const tbody = document.querySelector("#tablaInabili tbody")
-   // const textoEStado=u.estadoUser==='Inacitivo' ?  'Activo' : 'Prestado'
-  // <!--<td><span class="chip ${claseChip}>${textoEStado}</span></td> -->
 
     if(!tbody) return
 
@@ -720,5 +720,4 @@ async function activarUsuario(id){
     
 }
 
-elistaUserInactivados() 
-GestionUsuarios()
+

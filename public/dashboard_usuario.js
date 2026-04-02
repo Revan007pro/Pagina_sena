@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function (){
     
 
 window.listar_empleados=listar_empleados
+window.cancelarCita=cancelarCita
 window.crearCita=crearCita
 window.seleccionarHorario=seleccionarHorario
 window.seleccionarHorario=seleccionarHorario //notta no se porque no funciona si se coloca de ultimo
@@ -27,6 +28,9 @@ window.seleccionarHorario=seleccionarHorario //notta no se porque no funciona si
 
 
    citasCliente()
+
+
+   
      if (!currentPath.includes("Login") && 
         !currentPath.includes("Registrarse")) {
         securePage();
@@ -76,6 +80,7 @@ async function crearCita(select_empleado, emp) {
 
     if (respuesta.ok) {
         alert("¡Éxito!: " + datos.mensaje);
+        window.location.reload()
     } else {
 
         alert("Error del servidor: " + (datos.mensaje || "Error interno"));
@@ -421,6 +426,34 @@ async function crearFactura(cita){
             fullTotal:total
     }
     const infoSend=await fetch(`http://localhost:8080/crear/factura/${idCita}`)
+}
+
+async function cancelarCita(idCita){
+    const citaCancerar=prompt("por favor ingrese el identidicador de la cita que quiere cancelar")
+
+    
+    if(cancelarCita){
+        idCita=citaCancerar
+    }
+    console.log("la cita a cancelar es: ",idCita)
+  /*   const payload={
+        idCita:parseInt(idCita),
+        
+    } */
+    try{
+        const response=await fetch(`http://localhost:8080/cancelar/citas/${idCita}`,{
+            method: "POST" /* ,
+            headers: { "Content-Type": "application/json" },
+             body:JSON.stringify(payload) */
+        })
+        const datos=await response.json()
+        if(response.ok){
+            alert("la cita a sido cancelada correctamente")
+            console.log("la cita cancelada a sido: ",datos)
+        }
+    }catch(err){
+        console.error("error servidor caido")
+    }
 }
 
 ingresarUsuario()

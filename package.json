@@ -17,6 +17,6 @@
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
-    "less": "^4.4.2"
+    "less": "^4.6.4"
   }
 }
