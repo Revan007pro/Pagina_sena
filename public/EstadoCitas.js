@@ -12,7 +12,7 @@ async function citasActivas(){
         console.log("la respuesta del servidor es: ", datos)
         if(datos && respuesta.status===200){
             const listaDB=Array.isArray(datos.data) ? datos.data:[]
-            listaCita=listaDB.filter(e=>e.estadoCita=='1')
+           listaCita = listaDB.filter(e => [1, 2, 3].includes(e.estadoCita))
             renderTabla(listaCita)
         }
     }catch(error){
@@ -33,17 +33,26 @@ function renderTabla(listaCitas){
         console.error("no se encontro las citas",listaCitas)
         return
     }
+    const mapaEstados = {
+        1: { texto: "Activa",    clase: "Activa" },
+        2: { texto: "Cancelada", clase: "Cancelada" },
+        3: { texto: "Pagada",    clase: "Pagada" } // diccionario para controlar los estados
+    }
 
     if(tbody){
         tbody.innerHTML=listaCitas.map(u =>{
-        const estadoCita=u.estadoCita ===0 ? 'Cancelada': 'Activa'
+       /*  const estadoCita=u.estadoCita ==='Activa'?'Cancelada':'Pagada'
+        const textoEstado=u.estadoCita==='Activa'?'Cancelada':'Pagada' */
+        //const estadoConfig = mapaEstados[u.estadoCita] || { texto: "Desconocido", clase: "Gris" };
+        const estadoConfig = mapaEstados[u.estadoCita]
+
         return `
         <tr>
         <td>${u.idCita}</td>
         <td>${u.empleadosCita.usuario.nombre} ${u.empleadosCita.usuario.apellidos}</td>
         <td>${u.usuarioCita.nombre}</td>
         <td>${u.horaInicio}</td>
-        <td class="chip scala">${estadoCita}</td>
+        <td><span class="estadoCita ${estadoConfig.clase}">${estadoConfig.texto}</span></td>
         <td>${u.fechaCita}</td>
         </tr>
         `

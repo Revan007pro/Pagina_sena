@@ -6,7 +6,6 @@ window.datosConfi=datosConfi
 window.confiPage=confiPage
 window.listarUsuarios=listarUsuarios
 window.prepararEdicion=prepararEdicion
-window.editarUsuarios=editarUsuarios
 window.prepararInativar=prepararInativar
 window.activarUsuario=activarUsuario
 
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded',function(){
 elistaUserInactivados() // alerta genera error si se colocan de ultimo los dos siguientes
 GestionUsuarios()
 
-    editarUsuarios()
+    
     ingresarUsuario()
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
@@ -156,12 +155,14 @@ export async function ingresarUsuario(){
                 console.log("nombre", data.nombre)
                 console.log("usuario", data.usuario)
                 console.log("identificacion",data.identificador)
+                console.log("id_Empleado",data.identificador)
                 localStorage.setItem("roll", data.roll)
                 localStorage.setItem("nombre", data.nombre)
                 localStorage.setItem("telefono", data.telefono)
                 localStorage.setItem("usuario", data.usuario)
                 localStorage.setItem("correo",data.correo)
                 localStorage.setItem("identificacion", data.identificacion)
+                localStorage.setItem("idEmoleado", data.idEmpleado)
                 if (data.urlTarget) {
         
         const idEmpleado = data.identificacion
@@ -173,7 +174,7 @@ export async function ingresarUsuario(){
                  }
 
                 if (data.usuario === "Empleado") {
-                    const idEmpleado = data.identificacion;
+                    const idEmpleado = data.idEmpleado
                     window.location.href = `/empleado?id_empleado=${idEmpleado}`
                 
                 }
@@ -397,7 +398,8 @@ function cerrarSeccion() {
 }
 
 let usuarioCache=[]
-
+let pages=1
+const maxim=6
 async function listarUsuarios(){
     try{
         const response=await fetch("http://localhost:8080/listar/usuarios",{
@@ -412,7 +414,9 @@ async function listarUsuarios(){
                 const listaBD=Array.isArray(data.datos) ? data.datos:[data.datos]
                 //const listaBD=Array.isArray(data.datos) ? data.datos:[]
                 usuarioCache=listaBD.filter(u=>u.estadoUser=='1') 
-                renderTabla(usuarioCache) // se sobreescribe los usuarios con el array
+                //renderTabla(usuarioCache) // se sobreescribe los usuarios con el array
+                pages=1
+                listaUser(pages)
                 break
             case 404:
                 const tablaUser=document.getElementById("gestionUsuarios")
@@ -427,6 +431,47 @@ async function listarUsuarios(){
         }
 }
 
+function listaUser(pagina){
+    let inicio=(pagina-1)*maxim
+    let fin=inicio + maxim
+    const userMax=usuarioCache.slice(inicio,fin)
+
+   const tbody = document.getElementById("gestionUsuarios")
+    tbody.classList.remove("efecto-libro")
+    void tbody.offsetWidth; // 
+    tbody.classList.add("efecto-libro") 
+
+    renderTabla(userMax)
+    renderControl()
+    console.log("el dato es: ",userMax)
+}
+
+ function renderControl(){
+    const tatalPages=Math.ceil(usuarioCache.length/maxim)
+    const contenedor=document.getElementById("controlPaginacion")
+
+    if (!contenedor) return;
+
+    contenedor.innerHTML = `
+        <button onclick="cambiarPagina(-1)" ${pages === 1 ? 'disabled' : ''} class="btn-pag cursor-pointer"> &lt; Anterior </button>
+        <span> Página ${pages} de ${tatalPages} </span>
+        <button onclick="cambiarPagina(1)" ${pages=== tatalPages ? 'disabled' : ''} class="btn-pag cursor-pointer"> Siguiente &gt; </button>
+    `;
+
+   
+    
+
+}
+
+ function cambiarPagina(direccion){
+        pages +=direccion
+        listaUser(pages)
+    }
+
+window.cambiarPagina=cambiarPagina
+
+
+
 function renderTabla(usuarios){
     const tbody=document.getElementById("gestionUsuarios")
     if(!tbody)return
@@ -437,7 +482,7 @@ function renderTabla(usuarios){
     }
     if(tbody){
          tbody.innerHTML=usuarios.map(u =>`
-     <tr>
+     <tr class="animar-hoja border-b hover:bg-gray-50 transition-colors">
         <td>${u.id}</td>
         <td>${u.roll}</td>
         <td>${u.nombre}</td>
@@ -529,62 +574,8 @@ async function editarUsuarios() {
         console.error("alerta error desconocido")
     }
 }
-/* async function datosConfi(elemeto){
-    let valorCambiar=elemeto.innerText 
-    let cambiarInput=document.getElementById("confiDatos").value=valorCambiar
-
-    payload={
-        opcion:cambiarInput,
-        input:elec
-      //  id:parseInt(id)
-    }
 
 
-    try{
-
-        const respuesta=await fetch("http://localhost:8080/actualizar/datos",{
-            method: "PUT",
-             headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        const inputs=await respuesta.json()
-        switch(cambiarInput){
-        case "Nombres":
-        case "Apellidos":
-        case "fecha de Nacimiento":
-        case "Contraseña":
-        const elec=prompt("Ingresar Nuevo  " +cambiarInput)
-        
-        if(!elec){
-            alert("error debe ingresar datos")
-        }
-        
-        if (elec) {
-            
-            console.log("el input es:"+elec,"el switch es: "+cambiarInput)
-            valorCambiar=elec
-        }
-        if(respuesta.status===200 && inputs.codigo===0){
-            alert[inputs.mensaje]
-
-            localStorage.removeItem("IdEditar")
-            window.location.href="/perfil"
-        }
-    }
-    
-    metodo no sirve porque en la base de datos las duplas no pueden ser nulas
-        
-
-    }catch(err){
-        console.error("error de origen desconocido")
-    }
-  
-    
-}
-
- */
 
 async function datosConfi(id){
 
@@ -721,3 +712,60 @@ async function activarUsuario(id){
 }
 
 
+/* async function datosConfi(elemeto){
+    let valorCambiar=elemeto.innerText 
+    let cambiarInput=document.getElementById("confiDatos").value=valorCambiar
+
+    payload={
+        opcion:cambiarInput,
+        input:elec
+      //  id:parseInt(id)
+    }
+
+
+    try{
+
+        const respuesta=await fetch("http://localhost:8080/actualizar/datos",{
+            method: "PUT",
+             headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const inputs=await respuesta.json()
+        switch(cambiarInput){
+        case "Nombres":
+        case "Apellidos":
+        case "fecha de Nacimiento":
+        case "Contraseña":
+        const elec=prompt("Ingresar Nuevo  " +cambiarInput)
+        
+        if(!elec){
+            alert("error debe ingresar datos")
+        }
+        
+        if (elec) {
+            
+            console.log("el input es:"+elec,"el switch es: "+cambiarInput)
+            valorCambiar=elec
+        }
+        if(respuesta.status===200 && inputs.codigo===0){
+            alert[inputs.mensaje]
+
+            localStorage.removeItem("IdEditar")
+            window.location.href="/perfil"
+        }
+    }
+    
+    metodo no sirve porque en la base de datos las duplas no pueden ser nulas
+        
+
+    }catch(err){
+        console.error("error de origen desconocido")
+    }
+  
+    
+}
+
+ */
+editarUsuarios() // este se debe dejar de ultimo no tengo ni idea del orque

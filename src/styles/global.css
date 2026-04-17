@@ -305,12 +305,70 @@ main {
 .subgrupoG {
   @apply hidden transition-transform duration-300 ease-out ml-7 origin-center;
 }
-.chip {
-  @apply inline-block px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm;
+.estadoCita {
+  @apply inline-block px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm cursor-pointer;
 }
-.inactivo {
-  @apply text-center cursor-pointer w-full px-4 py-2 text-lg text-white font-semibold bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 rounded-lg shadow-md transition-colors duration-150;
+.estadoCita.Activa {
+  @apply bg-cyan-600 
 }
-.chip {
-  @apply ml-15 items-center mt-1 text-center text-white rounded-3xl bg-cyan-600 cursor-pointer;
+.estadoCita.Cancelada{
+  @apply  bg-red-500 
+}
+.estadoCita.Pagada{
+  @apply bg-green-500 
+}
+/* .estadoCita.Gris{ @apply bg-gray-400; } */
+
+.estadoEmpleado{
+  @apply inline-block px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm cursor-pointer;
+}
+.estadoEmpleado.Activo{
+  @apply bg-green-500;
+}
+.estadoEmpleado.Inactivo{
+  @apply bg-red-600;
+}
+
+
+
+#buttonFactu{
+  @apply w-full bg-blue-400 flex-col mt-5 rounded-3xl py-3 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#gestionUsuarios {
+    perspective: 1500px; /* Aumentamos para un efecto más sutil y realista */
+    transform-style: preserve-3d;
+}
+
+@keyframes hojaLibro {
+    0% {
+        opacity: 0;
+        /* Empezamos rotados hacia atrás y un poco desplazados */
+        transform: rotateY(-40deg) translateX(50px) translateZ(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) translateX(0) translateZ(0);
+    }
+}
+
+.animar-hoja {
+    display: table-row; /* Asegura que mantenga su comportamiento de fila */
+    animation: hojaLibro 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    backface-visibility: hidden;
 }

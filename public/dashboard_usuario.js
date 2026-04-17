@@ -268,10 +268,13 @@ async function crearUsuario(){
         alert("Error: servidor no encontrado")
     }
 }
+let citasBS=[]
 async function citasCliente() {
 
     const divCita=document.getElementById("citaCliente")
     const profes=document.getElementById("profe_encargado")
+    const buttonFactura=document.getElementById("buttonFactu")
+    
 
     try{
         const respuesta= await fetch(`http://localhost:8080/citas/mostrar/cliente/${idPersona}`,{
@@ -282,16 +285,24 @@ async function citasCliente() {
         })
         if(!respuesta.ok){
             console.log("error en algunas de las funciones")
+            return
         }
 
         const dibujarCita=await respuesta.json()
 
         if(dibujarCita && dibujarCita.length > 0){
             divCita.innerHTML= ""
-
-            dibujarCita.forEach(cita=>{
+            const citasCache = Array.isArray(dibujarCita) ? dibujarCita : [];
+            const citasBS = citasCache.filter(cita => cita.estadoCita === 1 || cita.estadoCita === 2 || cita.estadoCita === 3 );
+            
+            //dibujarCita.forEach(cita=>{
+             citasBS.forEach(cita=>{
                 const li=document.createElement("li")
-                li.innerHTML=`
+                if(cita.estadoCita===2){divCita.textContent="cancelo la ultima cita"; return}
+                if(cita.estadoCita===3){divCita.textContent=`su factura id (${cita.idCita}) ha sido cancelada`}
+                if(cita.estadoCita===1){
+                    
+                    li.innerHTML=`
                 <h1>Cita Nueva</h1>
                  <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p> 
                         <p class="bold">Hora: ${cita.horaInicio}</p>
@@ -299,15 +310,25 @@ async function citasCliente() {
                         <p class="bold">Fecha de la cita: ${cita.fechaCita}</p>
                 `;
                 
-
-                profes.innerHTML=`<h1 class="bold">Profesional Encargado</h1>
+                if(!profes.hasChildNodes()){
+                    profes.innerHTML=`<h1 class="bold">Profesional Encargado</h1>
                 <p class="bold">Nombre: ${cita.empleadosCita.usuario.nombre}</p>
                 <p class="bold">Apellidos: ${cita.empleadosCita.usuario.apellidos}</p>
                 <p class="bold">Profesion: ${cita.empleadosCita.usuario.roll}</p>
                 <p class="bold">Telefono: ${cita.empleadosCita.usuario.telefono}</p>
                 `
+                }
+                else{
+                    //profes=new nota hacer funcion por separado 
+
+                }
+                
                 divCita.appendChild(li)
-                dibujarFactura(cita)
+                dibujarFactura(cita,buttonFactura)
+                buttonFactura.classList.remove("hidden")
+                
+                }
+                
             })
         }
         else{
@@ -318,6 +339,8 @@ async function citasCliente() {
     }
     
 }
+
+
 
 
 async function reprogramarCitas() {
@@ -368,7 +391,7 @@ async function reprogramarCitas() {
 }
 
 
-async function dibujarFactura(cita) {
+async function dibujarFactura(cita,buttonFactura) {
     const idFatu=document.getElementById("idFactura")
     const nombreClien=document.getElementById("nombreClie")
     const nameEmple=document.getElementById("nombreEmpl")
@@ -381,18 +404,16 @@ async function dibujarFactura(cita) {
     try{
         
 
-        const respuesta=await fetch(`http://localhost:8080/factura/cita/${cita.idCita}`,{
-            method:"GET",
-            headers: {
-                 "Content-Type": "application/json"
-                }
+        const respuesta = await fetch(`http://localhost:8080/factura/cita/${cita.idCita}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" } //dibula la factura por el id de la cita
 
         })
  /*        if(!respuesta.ok){
             console.log("error no hay respuesta del servidor")
         } */
         const factu= await respuesta.json()
-//Array.isArray(factu)
+
 
         if(factu&& factu.length>0){
             
@@ -404,6 +425,17 @@ async function dibujarFactura(cita) {
                 valorTo.textContent=factura.valorTotal
                 noti.style.display="block"
                  noti.textContent=factu.length
+
+                 if(buttonFactura){
+                    buttonFactura.addEventListener("click",()=>{
+                        console.log("imprimiendo factura")
+                        impriFactu(factura.idFactura,factura.nombreCliente,factura.nombreEmpleado,factura.valorSinIva,factura.valorTotal)
+
+                    })
+                 }
+                 else{
+                    console.error("no se detecto el boton de factura")
+                 }
                 
 
             })}
@@ -416,6 +448,13 @@ async function dibujarFactura(cita) {
     }catch(err){
         console.log("error servidor caido",err)
     }
+}
+
+function impriFactu(id,name,cliente,precio,total){
+
+    
+    console.log("la factura es: ", id,name,cliente,precio,total) //funciono
+    //window.print() imprime la pagina
 }
 
 async function crearFactura(cita){

@@ -69,7 +69,7 @@ if (!idEmpleado) {
     }
     
 
-    
+
 
     async function _notificacion_cita() {
          // const new_cita = JSON.parse(localStorage.getItem('Confirmar') || '[]');
@@ -251,7 +251,7 @@ async function borrarCitas(){
         if (confirmar) {
             try {
                 
-                const respuesta = await fetch(`http://localhost:8080/citas/borrar?idCita=${idBorrar}`, {
+                const respuesta = await fetch(`http://localhost:8080/citas/borrar/${idBorrar}`, {
                     method:  "PUT" //"DELETE" // 
                 });
 
