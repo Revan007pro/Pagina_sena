@@ -23,15 +23,12 @@ if (!idEmpleado) {
 }
 
 
-    async function empleadosCitas() {
+async function empleadosCitas() {
         const citas_registradas = document.getElementById("citas_registradas");
         const noti_emple = document.getElementById("bage_emple");
     try {
             const respuesta = await fetch(`http://localhost:8080/citas/mostrar/empleado/${idEmpleado}`,{
                 method: "GET",
-               headers: {
-                "Content-Type": "application/json"
-            }, 
             })
             if (!respuesta.ok) {
 
@@ -48,12 +45,22 @@ if (!idEmpleado) {
                 
                 misCitas.forEach(cita => {
                     const li = document.createElement('li');
-                    li.innerHTML = `
+                    if(cita.estadoCita===1){
+                         li.innerHTML = `
                         <h1>Cita Nueva</h1>
                         <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p>
                         <p class="bold">Hora: ${cita.horaInicio}</p>
                         <p class="bold">Id Cita: ${cita.idCita}</p>
-                    `;
+                    `
+                noti_emple.style.display = "block"
+                noti_emple.textContent = misCitas.length}
+                if(cita.estadoCita===3){
+                        li.innerHTML=`
+                        <p class="bold">El cliente cancelo la cita</p>
+                        `
+                    }
+                   
+                   
                     citas_registradas.appendChild(li)
                 })
 

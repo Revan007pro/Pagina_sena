@@ -9,6 +9,7 @@ window.cancelarCita=cancelarCita
 window.crearCita=crearCita
 window.seleccionarHorario=seleccionarHorario
 window.seleccionarHorario=seleccionarHorario //notta no se porque no funciona si se coloca de ultimo
+window.citasClient=citasCliente
     const arrow_usuario = document.getElementById("flecha_usuario")
     const bage_usuario = document.getElementById("bage_usuario")
     let empleadoSeleccionadoNombre = ""
@@ -65,11 +66,12 @@ async function crearCita(select_empleado, emp) {
         especialidad: document.getElementById("especialidad").value.trim(),
         fecha: document.getElementById("fecha_deseada").value,
         horaInicio: document.getElementById("horario_seleccionado").value,
-        nombreEspecialista: empleadoSeleccionadoNombre
+        nombreEspecialista: empleadoSeleccionadoNombre,
+        estado:1
     };
 
    try {
-    const respuesta = await fetch("http://localhost:8080/guardar/cita", {
+    const respuesta = await fetch("http://localhost:8080/guardar/cita/vesion2", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -220,7 +222,8 @@ async function crearUsuario(){
         newCorreo: document.getElementById("new_email").value.trim(),
         newContrasenia: document.getElementById("password_registro").value.trim(),
         newConfirmar: document.getElementById("confirm-password").value.trim(),
-        newTelefono: document.getElementById("new_telefono").value.trim()
+        newTelefono: document.getElementById("new_telefono").value.trim(),
+        newEstado:1
         //nota estos son los datos que espera el backend
     }
     
@@ -244,6 +247,7 @@ async function crearUsuario(){
         switch(nuevoUsuario.status){
             case 201:
                 alert("el usuario a sido creado exitosamente")
+                window.location.reload()
                 break
             case 409:
                 alert("error "+data.mensaje)

@@ -264,15 +264,19 @@ function insertarUsuario(user){
     const nombreUsuario=document.getElementById("nombreUsuario")
     
     const rolUsuario=document.getElementById("rol_usuario")
-    const rollbage=document.getElementById("roll")
+    const atriUsuer=document.getElementById("nombreUsuario")
     const emailUsuario=document.getElementById("correo_bage")
     const teleUsuario=document.getElementById("telefono_bage")
     rolUsuario.textContent=nombre  // este sirve
     nombreUsuario.textContent=usuarioBage
-   // rollbage.textContent=roll
     emailUsuario.textContent=correo
     teleUsuario.textContent=phone
+const valorLimpio = (usuarioBage === null || usuarioBage === "null" || usuarioBage === "") 
+                        ? "Cliente" 
+                        : usuarioBage;
 
+    if (nombreUsuario) nombreUsuario.textContent = valorLimpio
+   
 
 }
 
