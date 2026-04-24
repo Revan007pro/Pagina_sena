@@ -137,50 +137,55 @@ export async function ingresarUsuario(){
         })
         console.log("los datos cargados son:",respuesta)
 
-    /*     if(!respuesta.ok){
+        if(!respuesta.ok){
             alert("error en el servidor")
             return
-        } */
+        } 
         const data=await respuesta.json()
         console.log("los datos del json son: ", data)
+
+        if(!data) return;
 
         switch(respuesta.status){
 
             case 200:
-            case 302:
-                alert(data.mensaje)
-                console.log("roll", data.roll)
-                console.log("Correo", data.correo)
-                console.log("telefono", data.telefono)
-                console.log("nombre", data.nombre)
-                console.log("usuario", data.usuario)
-                console.log("identificacion",data.identificador)
-                console.log("id_Empleado",data.identificador)
-                localStorage.setItem("roll", data.roll)
+
+            alert(data.mensaje)
+
+              localStorage.setItem("token", data.token)
                 localStorage.setItem("nombre", data.nombre)
                 localStorage.setItem("telefono", data.telefono)
                 localStorage.setItem("usuario", data.usuario)
                 localStorage.setItem("correo",data.correo)
                 localStorage.setItem("identificacion", data.identificacion)
                 localStorage.setItem("idEmoleado", data.idEmpleado)
-                if (data.urlTarget) {
-        
-        const idEmpleado = data.identificacion
-                
-                if(data.roll === "Administrador"){
-                     
 
-                window.location.href=`/Administrador?id_persona=${idEmpleado}` 
+                console.log("roll", data.roll)
+                console.log("usuario", data.usuario)
+                console.log("Correo", data.correo)
+                console.log("telefono", data.telefono)
+                console.log("nombre", data.nombre)
+                console.log("Id",data.identificacion)
+               
+                if (data.urlTarget) {
+                
+                if(data.roll  === "Administrador"){
+                     
+               window.location.href = "/Administrador"
+
+
                  }
 
                 if (data.usuario === "Empleado") {
-                    const idEmpleado = data.idEmpleado
-                    window.location.href = `/empleado?id_empleado=${idEmpleado}`
+                   // const idEmpleado = data.idEmpleado
+                    //window.location.href = `/empleado?id_empleado=${idEmpleado}`
+                    window.location.href = "/empleado"
                 
                 }
     
                 if (data.roll === "Cliente") {
-                 window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
+                 //window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
+                 window.location.href = "/dashboard_usuario"
                 
                 }
             
@@ -244,16 +249,18 @@ switch (true) {
 
 
 export function securePage() {
-    const user = localStorage.getItem("usuario") // se sobreescribe cuando se hace login, dejar asi
-    const userR = localStorage.getItem("roll") // se sobreescribe cuando se hace login, dejar asi
+    const user = localStorage.getItem("usuario")
+    const token = localStorage.getItem("token")
     const usuarioPermitidos = ["Administrador", "Empleado", "Cliente"]
-    if (!usuarioPermitidos.includes(user) && !usuarioPermitidos.includes(userR)) {
+
+    if (!token || !usuarioPermitidos.includes(user)) {
         alert("Usted no tiene los permisos necesarios.")
         window.location.href = "/"
+        return
+  
     }
-    insertarUsuario(user)
-
-} 
+    insertarUsuario(user);
+}
 
 function insertarUsuario(user){
     const nombre = localStorage.getItem("nombre")

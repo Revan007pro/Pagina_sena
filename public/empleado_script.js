@@ -24,11 +24,16 @@ if (!idEmpleado) {
 
 
 async function empleadosCitas() {
-        const citas_registradas = document.getElementById("citas_registradas");
-        const noti_emple = document.getElementById("bage_emple");
+        const citas_registradas = document.getElementById("citas_registradas")
+        const noti_emple = document.getElementById("bage_emple")
+        const token = localStorage.getItem("token")
     try {
-            const respuesta = await fetch(`http://localhost:8080/citas/mostrar/empleado/${idEmpleado}`,{
+            const respuesta = await fetch("http://localhost:8080/citas/mostrar/empleado",{
                 method: "GET",
+                headers:{
+                    "Authorization": `Bearer ${token}`,
+                   "Content-Type": "application/json"
+                }
             })
             if (!respuesta.ok) {
 
