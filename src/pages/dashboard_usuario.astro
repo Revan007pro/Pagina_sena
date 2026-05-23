@@ -1,25 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+import "../styles/style.less";
 ---
 
 <Layout>
   <script type="module" src="/dashboard_usuario.js" is:inline></script>
   <main>
-    <header class="fixed top-0 left-0 w-full flex justify-center z-50">
-      <div
-        class="w-full max-w-screen-xl flex justify-between items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg"
-      >
-        <div class="flex items-center gap-110">
+    <header id="headerM">
+      <div id="buscarHe">
+        <div id="divBus">
           <input
             type="text"
             class="w-35 bg-white text-black rounded-3xl"
             placeholder="Buscar"
             id="Buscar"
           />
-          <div
-            class="w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105 object-cover"
-          >
+          <div id="iniHe">
             <a href="/">Inicio</a>
           </div>
           <div id="theme-switcher" class="z-50 ml-25">
@@ -72,7 +69,7 @@ import "../styles/global.css";
     <section class="flex justify-center items-center">
       <div class="grid grid-cols-4 grid-rows-5 gap-15">
         <div class="col-start-4">
-          <div class="flex bg-cyan-400 rounded-3xl h-auto w-full">
+          <div id="divUsu">
             <div class="col-span-1 ml-5">
               <p>Usuario: <b id="nombreUsuario"></b></p>
               <p>Nombre: <b id="rol_usuario"></b></p>
@@ -96,19 +93,22 @@ import "../styles/global.css";
             </ul>
           </div>
         </div>
-        <div
-          class="flex justify-center absolute mt-25 bg-cyan-400 h-55 rounded-3xl w-45 items-center text-center"
-        >
-          <div>
-            <h1>Elementos Cliente</h1>
-            <p class="hover_usuario">Historial de Citas</p>
-            <p class="hover_usuario">Profesionales</p>
-            <p class="hover_usuario">Cancelar Citas</p>
-            <button id="cerrar_seccion" class="mt-4 button"
-              >Cerrar Sección</button
-            >
+        <div id="eleCliente">
+          <div
+            class="flex justify-center absolute mt-25 bg-cyan-400 h-55 rounded-3xl w-45 items-center text-center"
+          >
+            <div>
+              <h1>Elementos Cliente</h1>
+              <p class="hover_usuario">Historial de Citas</p>
+              <p class="hover_usuario">Profesionales</p>
+              <p class="hover_usuario">Cancelar Citas</p>
+              <button onclick="cerrarSeccion()" class="mt-4 button"
+                >Cerrar Sección</button
+              >
+            </div>
           </div>
         </div>
+
         <div
           class="col-start-2 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
           h-auto w-auto text-center"

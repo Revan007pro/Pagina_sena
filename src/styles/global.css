@@ -203,6 +203,34 @@ main {
   @apply border-red-500 focus:outline-none focus:border-gray-500 focus:ring-1;
 }
 
+
+#divUsu{
+  @apply flex bg-cyan-400 rounded-3xl h-auto w-full
+}
+
+
+#headerM{
+  @apply fixed top-0 left-0 w-full flex justify-center z-50
+}
+
+#sectionInfo{
+  @apply w-full min-h-screen px-10 mt-10
+}
+
+
+
+#buscarHe{
+  @apply w-full max-w-screen-xl flex justify-center items-center gap-6 text-white bg-sky-950 p-4 rounded-b-lg
+}
+
+#iniHe{
+  @apply w-20 bg-white text-black flex justify-center hover:bg-cyan-400 rounded-3xl transform transition-transform duration-5 hover:scale-105 object-cover
+}
+
+#divBus{
+  @apply flex items-center justify-between w-full
+}
+
 #show {
   @apply hidden cursor-pointer;
 }

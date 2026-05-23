@@ -54,7 +54,8 @@ async function empleadosCitas() {
                          li.innerHTML = `
                         <h1>Cita Nueva</h1>
                         <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p>
-                        <p class="bold">Hora: ${cita.horaInicio}</p>
+                        <p class="bold">Fecha: ${cita.fechaCita}</p>
+                        <p class="bold">Hora: ${cita.horaInicio.horaHorario}</p>
                         <p class="bold">Id Cita: ${cita.idCita}</p>
                     `
                 noti_emple.style.display = "block"
@@ -123,7 +124,7 @@ async function empleadosCitas() {
 
     } catch (err) {
 /*         console.error("Error en ejecución:", err);
-        alert("El servidor esta caido o hay un error de variables"); */
+        //alert("El servidor esta caido o hay un error de variables"); */
     }
 
 

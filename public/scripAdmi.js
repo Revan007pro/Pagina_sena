@@ -11,6 +11,7 @@ window.activarUsuario=activarUsuario
 
 
 
+
 document.addEventListener('DOMContentLoaded',function(){
 
 
@@ -18,7 +19,6 @@ elistaUserInactivados() // alerta genera error si se colocan de ultimo los dos s
 GestionUsuarios()
 
     
-    ingresarUsuario()
 const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
@@ -108,6 +108,47 @@ function GestionUsuarios(){
  
 }
 
+
+export function loginUsuario() {
+    const usuario_ingresado = document.getElementById("usuario").value.trim();
+    const contrasenia_ingresada = document.getElementById("password").value.trim();
+
+    // 2. Definir el objeto de usuarios y contraseñas.
+    const usuarios_y_contrasenias = {
+        "admi": "123",       
+        "empleado": "321",
+        "usuario": "231"
+    };
+    
+    // 3. Validar que los campos no estén vacíos.
+    if (usuario_ingresado === "" || contrasenia_ingresada === "") {
+        alert("Por favor, llene todos los datos"); 
+        return;
+    }
+
+    // 4. Validar el usuario y la contraseña.
+    const contrasenia_correcta = usuarios_y_contrasenias[usuario_ingresado];
+    
+    if (contrasenia_correcta === undefined) {
+        alert("El usuario ingresado no existe");
+    } 
+    else if (contrasenia_ingresada === contrasenia_correcta) {
+        if (usuario_ingresado === "admi") {
+            localStorage.setItem("usuario", "admi");
+            window.location.href = "/Administrador";
+        } else if (usuario_ingresado === "empleado") {
+            localStorage.setItem("usuario", "empleado");
+            window.location.href = "/empleado";
+        } else if (usuario_ingresado === "usuario") {
+            localStorage.setItem("usuario", "user");
+            window.location.href = "/usuario";
+        }
+    } 
+    else {
+        alert("Error: la contraseña ingresada es incorrecta");
+    }
+}
+
 export async function ingresarUsuario(){
     const inputPassword = document.getElementById("password");
     const inputUsuario = document.getElementById("usuario");
@@ -135,12 +176,13 @@ export async function ingresarUsuario(){
             },
             body: JSON.stringify(payload) //arma el json con un objeto
         })
-        console.log("los datos cargados son:",respuesta)
+        console.log("los datos cargados son:",respuesta) //nota se debe elimiar despjest
 
-        if(!respuesta.ok){
-            alert("error en el servidor")
-            return
-        } 
+        if(!respuesta.ok && !respuesta.status){
+            //alert("error en el servidor")
+            repuesta
+            
+        }  
         const data=await respuesta.json()
         console.log("los datos del json son: ", data)
 
@@ -171,7 +213,7 @@ export async function ingresarUsuario(){
                 
                 if(data.roll  === "Administrador"){
                      
-               window.location.href = "/Administrador"
+             window.location.href = "/Administrador"
 
 
                  }
@@ -179,13 +221,13 @@ export async function ingresarUsuario(){
                 if (data.usuario === "Empleado") {
                    // const idEmpleado = data.idEmpleado
                     //window.location.href = `/empleado?id_empleado=${idEmpleado}`
-                    window.location.href = "/empleado"
+                   window.location.href = "/empleado"
                 
                 }
     
-                if (data.roll === "Cliente") {
+                if (data.roll  === "Cliente") {
                  //window.location.href = `/dashboard_usuario?id_persona=${idEmpleado}`
-                 window.location.href = "/dashboard_usuario"
+                window.location.href = "/dashboard_usuario"
                 
                 }
             
@@ -200,7 +242,7 @@ export async function ingresarUsuario(){
                 break
             case 404:
                 alert("error "+data.mensaje)
-                errores.allBad=true
+                errores.errorUser=true
                 break
             case 417:
                 alert("error "+data.mensaje)
@@ -238,7 +280,7 @@ switch (true) {
         
     }catch(err){
         console.log("error de conexion",err)
-        alert("no hay conexion con el servidor")
+        
     }
       
     
@@ -418,7 +460,7 @@ async function listarUsuarios(){
 
         })
         const data=await response.json()
-        console.log("los datos son: ",data)
+        //console.log("los datos son: ",data)
 
         switch(response.status){
             case 200:
@@ -552,7 +594,7 @@ async function editarUsuarios() {
             method: "GET"
         })
         const resultado=await response.json()
-        console.log("los datos son:",resultado.datos)
+       // console.log("los datos son:",resultado.datos)
 
         if(response.status===200 && resultado.datos){
             const u=resultado.datos
@@ -651,7 +693,8 @@ async function datosConfi(id){
         }
 
     }catch(err){
-        alert("el servidor no responde bien",err)
+        console.error("el servidor no responde bien",err)
+        
     }
 } 
 function renderTablaInactivos(usuarios){
@@ -722,6 +765,29 @@ async function activarUsuario(id){
     
 }
 
+async function contarUser(){
+    const mensajeCount=document.getElementById("contarUserBD")
+    const numerosCount=document.getElementById("numberUser")
+
+    try{
+        const response=await fetch("http://localhost:8080/contar/usarios",{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+
+        })
+        const datos=await response.json()
+        if(datos){
+            mensajeCount.innerText=datos.mensaje
+            numerosCount.innerText=datos.total
+        }
+    }catch(err){
+        console.error("servidor no responde bien",err)
+    }
+
+}
+
 
 /* async function datosConfi(elemeto){
     let valorCambiar=elemeto.innerText 
@@ -780,3 +846,4 @@ async function activarUsuario(id){
 
  */
 editarUsuarios() // este se debe dejar de ultimo no tengo ni idea del orque
+contarUser()

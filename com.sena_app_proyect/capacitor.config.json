@@ -1,0 +1,10 @@
+{
+  "appId": "com.riot_studio.app",
+  "appName": "proyecto_sena",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

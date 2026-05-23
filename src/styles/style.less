@@ -6,3 +6,78 @@
 input.error-input{
     border: 2px solid crimson;
 }
+
+
+@media(max-width:412px){
+
+    #headerM{
+        width:100%;
+    }
+
+    #buscarHe{
+        display:flex;
+        justify-content:center;
+        width:100%;
+    }
+
+    #divBus{
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        width:100%;
+
+        gap:10px; 
+    }
+
+    #iniHe{
+        margin-left:0;
+    }
+     #divUsu{
+        display: flex;
+        background-color: aqua;
+        border-radius: 1.5rem;
+        height: auto;
+        width: 280px;
+    }
+     .grid{
+        display:grid;
+
+        grid-template-columns:1fr !important;
+
+        gap:20px;
+    }
+
+    .absolute{ //quitar absolute del class
+        position:static !important;
+    }
+
+    /* RESETEAR columnas */
+    [class*="col-start"]{
+        grid-column:auto !important;
+    }
+
+    [class*="row-start"]{
+        grid-row:auto !important;
+    }
+
+    #citaCliente,
+    #profe_encargado,
+    #idFactu{
+        width:100%;
+
+        min-height:auto;
+    }
+
+    .button{
+        width:100%;
+    }
+
+
+    #eleCliente{
+        margin-top: -170px;
+        padding-left: 3.5rem;
+    }
+}

@@ -14,7 +14,10 @@ import "../styles/global.css";
     <slot name="head" />
   </head>
   <body class="bg-white text-gray-800">
-    <!-- Skeleton (solo visible al inicio) -->
+    <!-- nota importante: se uso capacitor pero no leia las rutas, se tuvo que usar
+    .html para que cuando compilara la aplicacion movil puediera abrir las
+    diferentes paginas dentro del proyecto una vez se abriera en el celular -->
+    <!-- Skeleton  -->
     <div id="skeleton_container">
       <div class="skeleton-skeleton-titele"></div>
       <div class="skeleton-skeleton-titele w-2/3"></div>
@@ -27,6 +30,9 @@ import "../styles/global.css";
       <slot />
     </div>
 
-    <script src="/script.js" defer></script>
+    <!-- <script src="/script.js" defer></script> -->
+    <script>
+      import "../components/script.js";
+    </script>
   </body>
 </html>

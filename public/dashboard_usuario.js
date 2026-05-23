@@ -7,19 +7,24 @@ document.addEventListener('DOMContentLoaded', function (){
 window.listar_empleados=listar_empleados
 window.cancelarCita=cancelarCita
 window.crearCita=crearCita
-window.seleccionarHorario=seleccionarHorario
 window.seleccionarHorario=seleccionarHorario //notta no se porque no funciona si se coloca de ultimo
 window.citasClient=citasCliente
+window.crearUsuario=crearUsuario
+window.cerrarSeccion=cerrarSeccion
+window.crearFactura=crearFactura
+
     const arrow_usuario = document.getElementById("flecha_usuario")
     const bage_usuario = document.getElementById("bage_usuario")
     let empleadoSeleccionadoNombre = ""
     let empleadoSeleccionadoId = null
+    let horarioSeleccionadoId=""
 
     let params= new URLSearchParams(window.location.search)
     const idPersona=params.get("id_persona")
     const currentPath = window.location.pathname
 
     const guardarUser=document.getElementById("guardarUsuario")
+    const token=localStorage.getItem("token")
 
     if (guardarUser) {
         guardarUser.addEventListener("click",()=>{
@@ -48,25 +53,41 @@ window.citasClient=citasCliente
         console.log("error en el escuchador");
     }
     
-    const cerrarBtn = document.getElementById("cerrar_seccion");
-    if (cerrarBtn) {
-        cerrarBtn.addEventListener("click", cerrarSeccion);
-    }
+   
 
 function cerrarSeccion() {
     localStorage.clear()
-    window.location.href = '/';
+    window.location.href = '/'
+    
 }
 
 async function crearCita(select_empleado, emp) {
+
+    const fechaInput=document.getElementById("fecha_deseada")
+    const fechaSelecc=fechaInput.value
+
+    if(!fechaSelecc) return;
+
+    const fecha=new Date(fechaSelecc)
+    const diaSemana=fecha.getDay()
+
+
+    if (diaSemana === 0 || diaSemana === 6) {
+        alert("Solo se agendan citas los dias de semana")
+        fechaInput.value = ""
+        fechaInput.focus()
+        return false
+    }
+
     const payload = {
         idEmpleado: empleadoSeleccionadoId,
         idCliente: parseInt(localStorage.getItem("identificacion")),
         sedeId: 1, // nota cambiar
         especialidad: document.getElementById("especialidad").value.trim(),
         fecha: document.getElementById("fecha_deseada").value,
-        horaInicio: document.getElementById("horario_seleccionado").value,
+      //  horaInicio: document.getElementById("horario_seleccionado").value,
         nombreEspecialista: empleadoSeleccionadoNombre,
+        idHorario: horarioSeleccionadoId,
         estado:1
     };
 
@@ -85,7 +106,7 @@ async function crearCita(select_empleado, emp) {
         window.location.reload()
     } else {
 
-        alert("Error del servidor: " + (datos.mensaje || "Error interno"));
+        //alert("Error del servidor: " + (datos.mensaje || "Error interno"));
     }
 
 } catch (err) {
@@ -138,7 +159,8 @@ async function listar_empleados(Especialidad,horarioCitas) {
                         
                     `
                    divEmp.addEventListener("click", () => {
-                        horarioCitas.classList.remove("hidden")
+                        //horarioCitas.classList.remove("hidden")
+                    listarHorario(emp.idEmpleado)
                         const todos = select_empleado.querySelectorAll('div')
                         todos.forEach(d => d.classList.remove("ring-2", "ring-sky-500", "border-sky-500"))
                         
@@ -198,18 +220,61 @@ async function listar_empleados(Especialidad,horarioCitas) {
     })
 
 }
-function seleccionarHorario(elemento, horaLimpia) {
+function seleccionarHorario(elemento, idReal) {
     const todos = document.querySelectorAll('.label-horario');
     
-    // Si horaLimpia existe, usamos esa. Si no, usamos el texto (como respaldo)
-    const valorParaGuardar = horaLimpia || elemento.innerText;
-    document.getElementById("horario_seleccionado").value = valorParaGuardar;
+    /* const horarioSeleccionadoId = horaLimpia || elemento.innerText;
+    document.getElementById("horario_seleccionado").value = horarioSeleccionadoId; */
+    horarioSeleccionadoId = idReal;
 
-    // Estética de selección
     todos.forEach(l => l.classList.remove('bg-sky-500', 'text-white', 'border-sky-500'));
     elemento.classList.add('bg-sky-500', 'text-white', 'border-sky-500');
 
-    console.log("Hora lista para enviar a Java:", valorParaGuardar);
+    console.log("Hora lista para enviar a Java:", horarioSeleccionadoId);
+}
+
+
+ let arrayHorario=[]
+async function listarHorario(idEmpleado) {
+    const divHorario=document.getElementById("select_hora")
+    if (!empleadoSeleccionadoId) {
+        console.error("No se ha seleccionado ningún empleado")
+        return
+    }
+    try{
+        const response=await fetch(`http://localhost:8080/encontrar/horario/${idEmpleado}`,{
+            method: "GET"
+
+        })
+        const datos=await response.json()
+        console.log("la respuesta es: ",datos) // para debug borrar despues
+
+        let horarioDis=datos.filter(d =>d.estadoHo===1)
+        const listaBD = Array.isArray(datos) ? datos : []
+        horarioDis = horarioDis.slice(0, 9) // devuelve una lista con datos no repetidos
+    
+       if (horarioDis.length >0) {
+
+    divHorario.innerHTML = `
+        <div class="grid grid-cols-2 gap-4 w-full max-w-xs mx-auto">
+            ${horarioDis.map(u => {
+                return `
+                    <div  class="flex justify-center">
+                    <input type="hidden" id="horario_seleccionado" value="" />
+                        <label class="label-horario border p-2 w-full text-center rounded cursor-pointer hover:bg-sky-500 hover:text-white transition-colors"
+                        onclick="seleccionarHorario(this, ${u.idHorario})">
+                            ${u.horaHorario.substring(0, 5)} <!--corta el texto desde la posición 0 hasta la 5-->
+                        </label>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `
+}
+
+    }catch(error){
+        console.error("error el servidor no responde")
+    }
 }
 
 
@@ -281,11 +346,12 @@ async function citasCliente() {
     
 
     try{
-        const respuesta= await fetch(`http://localhost:8080/citas/mostrar/cliente/${idPersona}`,{
+        const respuesta= await fetch("http://localhost:8080/citas/mostrar/cliente",{
             method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
+           headers:{
+                    "Authorization": `Bearer ${token}`,
+                   "Content-Type": "application/json"
+                }
         })
         if(!respuesta.ok){
             console.log("error en algunas de las funciones")
@@ -306,10 +372,11 @@ async function citasCliente() {
                 if(cita.estadoCita===3){divCita.textContent=`su factura id (${cita.idCita}) ha sido cancelada`}
                 if(cita.estadoCita===1){
                     
+                   //
                     li.innerHTML=`
                 <h1>Cita Nueva</h1>
                  <p class="bold">Cliente: ${cita.usuarioCita.nombre}</p> 
-                        <p class="bold">Hora: ${cita.horaInicio}</p>
+                        <p class="bold">Hora: ${cita.horaInicio.horaHorario}</p>
                         <p class="bold">Id Cita: ${cita.idCita}</p>
                         <p class="bold">Fecha de la cita: ${cita.fechaCita}</p>
                 `;
@@ -330,6 +397,7 @@ async function citasCliente() {
                 divCita.appendChild(li)
                 dibujarFactura(cita,buttonFactura)
                 buttonFactura.classList.remove("hidden")
+                crearFactura(cita.idCita)
                 
                 }
                 
@@ -347,7 +415,7 @@ async function citasCliente() {
 
 
 
-async function reprogramarCitas() {
+async function reprogramarCitas() { // nota importate: rehacer funcion
 
     const reprogramarCitas=document.getElementById("reproCita")
     
@@ -463,12 +531,26 @@ function impriFactu(id,name,cliente,precio,total){
 
 async function crearFactura(cita){
     const payload={ 
-            IdCita:idCita,
             IdPrecio:id_precio,
-            IdEmpresa: id_empresa,
-            fullTotal:total
+            IdEmpresa: 1,
+            fechaEmi: new Date().toLocaleDateString('sv-SE')
+
     }
-    const infoSend=await fetch(`http://localhost:8080/crear/factura/${idCita}`)
+    try{
+        const infoSend=await fetch(`http://localhost:8080/crear/factura/${cita.idCita}`,{
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body:JSON.stringify(payload)
+
+    })
+    const response=await infoSend.json()
+    if(!response.ok){
+        console.error("hubo un error en el metodo del front")
+    }
+    }catch(err){
+        console.error("alerta error desconocido",err)
+    }
+    
 }
 
 async function cancelarCita(idCita){
@@ -498,6 +580,9 @@ async function cancelarCita(idCita){
         console.error("error servidor caido")
     }
 }
+
+
+
 
 ingresarUsuario()
 reprogramarCitas()
