@@ -1,5 +1,5 @@
 
-import { App } from '@capacitor/app';
+import { App } from '@capacitor/app'; //importa la lobreria para poder crear una app movil
 
   App.addListener('backButton', async () => {
 
@@ -218,7 +218,6 @@ function _buscador() {
      
         var textoBuscado = input.value.toLowerCase();
         
-        var resultadosEncontrados = false;
 
         elementosBuscables.forEach(function(elemento) {
     

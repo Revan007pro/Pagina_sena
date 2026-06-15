@@ -1,4 +1,5 @@
 import { ingresarUsuario ,securePage} from "/scripAdmi.js";
+//import {horariosDisponibles} from "/horarios.js"
 
 
 document.addEventListener('DOMContentLoaded', function (){
@@ -237,6 +238,7 @@ function seleccionarHorario(elemento, idReal) {
  let arrayHorario=[]
 async function listarHorario(idEmpleado) {
     const divHorario=document.getElementById("select_hora")
+    const fechaInput = document.getElementById("fecha_deseada").value
     if (!empleadoSeleccionadoId) {
         console.error("No se ha seleccionado ningún empleado")
         return
@@ -248,8 +250,11 @@ async function listarHorario(idEmpleado) {
         })
         const datos=await response.json()
         console.log("la respuesta es: ",datos) // para debug borrar despues
+        const diasTexto = [ "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"] //no pude sacarlo de la base dedatos
+        const fechaObj = new Date(fechaInput + "T00:00:00")
+        const diaEscogido = diasTexto[fechaObj.getDay()]
 
-        let horarioDis=datos.filter(d =>d.estadoHo===1)
+        let horarioDis=datos.filter(h=>h.diaSemana === diaEscogido && h.estadoHo === 1)
         const listaBD = Array.isArray(datos) ? datos : []
         horarioDis = horarioDis.slice(0, 9) // devuelve una lista con datos no repetidos
     
@@ -273,7 +278,7 @@ async function listarHorario(idEmpleado) {
 }
 
     }catch(error){
-        console.error("error el servidor no responde")
+        console.error("error el servidor no responde",error)
     }
 }
 
@@ -398,6 +403,7 @@ async function citasCliente() {
                 dibujarFactura(cita,buttonFactura)
                 buttonFactura.classList.remove("hidden")
                 crearFactura(cita.idCita)
+                reprogramarCitas(cita)
                 
                 }
                 
@@ -415,47 +421,18 @@ async function citasCliente() {
 
 
 
-async function reprogramarCitas() { // nota importate: rehacer funcion
+function reprogramarCitas(cita) { // nota importate: rehacer funcion
 
     const reprogramarCitas=document.getElementById("reproCita")
     
 
     reprogramarCitas.addEventListener("click",async()=>{ // hay que colocarlo aca porque escapa del scope
-    const idRepro=prompt("porfavor dijete el identificador de la cita a borrar")
-    if (idRepro && idRepro !=null) {
-        const confirmar=confirm(`Esta seguro que quiere repogramar su cita con numero: ${idRepro}`)
-       
-    if(confirmar){
-        const idCita = idRepro
-        let fecha = prompt("Ingrese la fecha (yyyy-mm-dd)")
-        let hora = prompt("Ingrese la hora (hh:mm)")
-        if (fecha && hora) {
+    const idRepro=prompt("porfavor dijete el identificador de la cita a reprogramar")
+    if(idRepro && idRepro !=null){
+        const URL=`reprogramar-cita?idRepro=${idRepro}&idEpl=${cita.empleadosCita.idEmpleado}`
+        window.location.href=URL
 
-            try{
-  const payloadRe = {
-    fecha: fecha,
-    horainicio: hora
-}
-            const respuesta = await fetch(`http://localhost:8080/reprogramar/cita/cliente/${idCita}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                       
-                        body: JSON.stringify(payloadRe)
-                    })
-                    const resultado = await respuesta.json();
-
-                    if (respuesta.ok) {
-                        alert(resultado.mensaje)
-                    } else {
-                        console.log("Error en la respuesta del servidor");
-                    }
-                    
-        }catch(err){
-            console.log("error servidor caido",err)
-        }
-    }}}
+    }
 })
 
     
@@ -585,7 +562,7 @@ async function cancelarCita(idCita){
 
 
 ingresarUsuario()
-reprogramarCitas()
+//reprogramarCitas()
    
 
 })

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 elistaUserInactivados() // alerta genera error si se colocan de ultimo los dos siguientes
 GestionUsuarios()
+buscadorUsuarios()
 
     
 const nav_admi = document.getElementById("nav_admi");
@@ -787,6 +788,34 @@ async function contarUser(){
     }
 
 }
+export function buscadorUsuarios(){
+    const buscarTabla = document.getElementById("buscarUser")
+    if (!buscarTabla) return;
+    
+    buscarTabla.addEventListener('keyup', function(){
+        const texto = this.value.toLowerCase().trim()
+        
+        if (texto === "") {
+            // mostrar todos si el buscador esta vacio
+            renderTabla(usuarioCache)
+            renderTablaInactivos(usuarioCache)
+            listaUser(pages) 
+            return
+        }
+        
+        // filtrar usuarios que coincidan con la búsqueda
+        const usuariosFiltrados = usuarioCache.filter(usuario => 
+            usuario.nombre.toLowerCase().includes(texto) ||
+            usuario.apellidos.toLowerCase().includes(texto) ||
+            usuario.correo.toLowerCase().includes(texto)
+        )
+        
+        // renderizar los filtrados
+        renderTabla(usuariosFiltrados)
+        renderTablaInactivos(usuariosFiltrados)
+    })
+}
+
 
 
 /* async function datosConfi(elemeto){

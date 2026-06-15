@@ -5,9 +5,10 @@ import "../styles/global.css";
 
 <Layout>
   <script type="module">
-    import { securePage } from "/scripAdmi.js";
+    import { securePage, buscadorUsuarios } from "/scripAdmi.js";
 
     document.addEventListener("DOMContentLoaded", () => {
+      buscadorUsuarios();
       securePage();
       elistaUserInactivados();
     });
