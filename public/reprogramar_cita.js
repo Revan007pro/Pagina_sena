@@ -1,4 +1,4 @@
-import {horariosDisponibles} from "/horarios.js";
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -11,6 +11,7 @@ window.verHorarioEmpleado=verHorarioEmpleado
 
     const repoId=new URLSearchParams(window.location.search)
     const citaId=repoId.get("idRepro")
+    const idHorarioPass=repoId.get("idHorPass")
    
     const labelIdCita=document.getElementById("idCitaRepo")
     labelIdCita.textContent=citaId
@@ -30,7 +31,7 @@ function repogramar_cita(elemto,fechaObje){
     payloadRe = {
     fecha:fechaObje,
     horainicio: elemto,
-    //idHorario:elemto,
+    idHorarioPas:idHorarioPass,
     estadoHorario:0
 
  }
@@ -84,8 +85,9 @@ async function verHorarioEmpleado() {
         const datos = await respuesta.json()
         const diasTexto = [ "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"] //no pude sacarlo de la base dedatos
         const fechaEnviar=fechaInput.value
-        const fechaObj = new Date(fechaEnviar + "T00:00:00")
+        const fechaObj = new Date(fechaEnviar)
         const diaEscogido = diasTexto[fechaObj.getDay()]
+        console.log("el dia comparado es: ",diaEscogido)
          
         
         

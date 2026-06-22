@@ -143,7 +143,7 @@ async function tablaEmpleados(empleadosBD){
     </select>
 </td>
                 <td><button class="cursor-pointer px-5" onclick="prestarElementos(${u.idEmpleado}, '${u.usuario.nombre}', '${u.usuario.apellidos}')">
-          <a>📑</a> <a>✅</a> <a>❌</a>
+         <a class="cursor-pointer px-2" title="Prestar")">📑</a><a>✅</a> <a>❌</a>
         </button></td>
          
                

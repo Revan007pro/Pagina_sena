@@ -2,16 +2,7 @@
 
 /* --- 1. Definiciones Estándar (Keyframes y Fuentes) --- */
 
-@keyframes fadeSlideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+
 
 @keyframes Animiacion-caida {
   0% {
@@ -71,6 +62,20 @@
 .animate-fadeSlideUp {
   animation: fadeSlideUp 1s ease-out forwards;
 }
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
 @layer components {
   .h-120 {
     height: 30rem; /* O 480px */
@@ -380,7 +385,7 @@ main {
 @keyframes hojaLibro {
     0% {
         opacity: 0;
-        /* Empezamos rotados hacia atrás y un poco desplazados */
+        /* primero esta rotado hacia atrás y un poco desplazados */
         transform: rotateY(-40deg) translateX(50px) translateZ(-20px);
     }
     100% {
@@ -409,7 +414,7 @@ main {
   }
 }
 .voltearAni{
-  animation: autoShowAnimatio 2s linear both;
+  animation: autoShowAnimatio 1.5s linear both;     /* <--controla el tiempo en la animacion */
   animation-timeline:  view();
     animation-range: entry 80% cover 40%;
 

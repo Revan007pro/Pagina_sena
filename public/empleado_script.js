@@ -1,8 +1,8 @@
-import {  securePage } from "/scripAdmi.js";
+
 
 document.addEventListener('DOMContentLoaded', function (){
     
-
+window.cancelarCita=cancelarCita
     const _confirm = document.getElementById("confirmar_cita")
     const mensaje_cita = document.getElementById("mensaje_cita")
     const citas_registradas = document.getElementById("citas_registradas")
@@ -21,6 +21,49 @@ const idEmpleado = params.get("id_empleado");
 if (!idEmpleado) {
     console.error("No se recibió id_empleado");
 }
+
+
+function securePage() {
+    const user = localStorage.getItem("usuario")
+    const token = localStorage.getItem("token")
+    const usuarioPermitidos = "Empleado"
+
+    if (!token || !usuarioPermitidos.includes(user)) {
+        alert("Usted no tiene los permisos necesarios.")
+        window.location.href = "/"
+        localStorage.clear()
+        return
+  
+    }
+    insertarUsuario(user)
+}
+
+
+function insertarUsuario(user){
+    const nombre = localStorage.getItem("nombre")
+    const roll=localStorage.getItem("roll")
+    const usuarioBage=localStorage.getItem("usuario")
+    const correo=localStorage.getItem("correo")
+    const phone=localStorage.getItem("telefono")
+    const nombreUsuario=document.getElementById("nombreUsuario")
+    
+    const rolUsuario=document.getElementById("rol_usuario")
+    const atriUsuer=document.getElementById("nombreUsuario")
+    const emailUsuario=document.getElementById("correo_bage")
+    const teleUsuario=document.getElementById("telefono_bage")
+    rolUsuario.textContent=nombre  // este sirve
+    nombreUsuario.textContent=usuarioBage
+    emailUsuario.textContent=correo
+    teleUsuario.textContent=phone
+const valorLimpio = (usuarioBage === null || usuarioBage === "null" || usuarioBage === "") 
+                        ? "Cliente" 
+                        : usuarioBage;
+
+    if (nombreUsuario) nombreUsuario.textContent = valorLimpio
+   
+
+}
+
 
 
 async function empleadosCitas() {
@@ -82,7 +125,88 @@ async function empleadosCitas() {
     }
     
 
+async function empleadosCitasV2() {
+        const tableEmpleado = document.querySelector("#table_empleados tbody")
+         const token = localStorage.getItem("token")
 
+    try {
+            const respuesta = await fetch("http://localhost:8080/citas/mostrar/empleado",{
+                method: "GET",
+                headers:{
+                    "Authorization": `Bearer ${token}`,
+                   "Content-Type": "application/json"
+                }
+            })
+
+            const datos=await respuesta.json()
+            if (!respuesta.ok) {
+
+    console.error("Backend error:", respuesta.status);
+    tableEmpleado.innerHTML = "<td><span>Error en el servidor</span></td>"
+   // return;
+}
+
+    const userCache=Array.isArray(datos) ? datos : []
+    const citasEstado=userCache.filter(cita => cita.estadoCita === 1 || cita.estadoCita === 2 || cita.estadoCita === 3 )
+
+    console.log("citas en la cache son: ",citasEstado)
+    const estados={
+        1:{texto:"Activo",clase:"Activo"},
+        2:{texto:"Inactivo",clase:"Inactivo"},
+        3:{texto:"Cancelada",clase:"Canelada"}
+    }
+    tableEmpleado.innerHTML=` 
+    ${citasEstado.map(cita=>{
+        const renderState=estados[cita.estadoCita] //vincula el estado con el diccionario
+        return ` 
+        <tr>
+        <td>${cita.usuarioCita.nombre}</td>
+        <td>${cita.usuarioCita.apellidos}</td>
+        <td>${cita.fechaCita}</td>
+        <td>${cita.horaInicio.horaHorario}</td>
+        <td>${cita.idCita}</td>
+        <td>${cita.usuarioCita.telefono}</td>
+        <td> <span class="estadoEmpleado ${renderState.clase}" >${renderState.texto}</td>
+        <td><button onclick="cancelarCita(${cita.idCita})" class="button">Cancelar</td>
+        </tr>
+       
+        `
+
+    }).join('')}
+    `
+           
+        } catch (err) {
+            console.error("Error cargando citas:", err);
+        }
+    }
+
+empleadosCitasV2()
+
+
+async function cancelarCita(cita){
+    console.log("la cita cancelada es: ",cita)
+
+    const idCitaCan=confirm(`Esta seguro que desea cancelar la cita con el id: ${cita}`)
+
+    if(idCitaCan){
+        try{
+            const sendData=await fetch(`http://localhost:8080/cancelar/citas/${cita}`,{
+                method: "POST",
+                 headers: {
+                "Content-Type": "application/json"
+            }})
+            const envio=await sendData.json()
+              if(envio.codigo===1){
+            alert(envio.mensaje)
+            window.location.reload()
+            console.log("la cita cancelada a sido: ",envio)
+        }
+
+        }catch(err){
+            console.error("error en el front ",err)
+        }
+    }
+}
 
     async function _notificacion_cita() {
          // const new_cita = JSON.parse(localStorage.getItem('Confirmar') || '[]');

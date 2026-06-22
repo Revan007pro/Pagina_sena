@@ -4,6 +4,18 @@ import "../styles/global.css";
 ---
 
 <Layout>
+  <div class="fixed left-4 top-1/2 -translate-y-1/2 z-50 floating-icon">
+    <a
+      href="https://wa.me/573151569307?text=Hola,%20quiero%20información%20sobre%20sus%20servicios"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block bg-green-500 p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110"
+    >
+      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+        <use href="/sprites.svg#whatsapp"></use>
+      </svg>
+    </a>
+  </div>
   <main>
     <header class="header">
       <div
@@ -68,6 +80,7 @@ import "../styles/global.css";
         </div>
       </div>
     </header>
+
     <nav class="mt-15 left-0 w-full flex justify-center py-6 z-50 buscable">
       <div
         class="mx-full flex justify-around items-center w-full max-w-145 bg-sky-950 text-white p-4 gap-4 rounded-2xl"

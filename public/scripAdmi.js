@@ -8,6 +8,7 @@ window.listarUsuarios=listarUsuarios
 window.prepararEdicion=prepararEdicion
 window.prepararInativar=prepararInativar
 window.activarUsuario=activarUsuario
+window.prepararEmpleado=prepararEmpleado
 
 
 
@@ -294,11 +295,12 @@ switch (true) {
 export function securePage() {
     const user = localStorage.getItem("usuario")
     const token = localStorage.getItem("token")
-    const usuarioPermitidos = ["Administrador", "Empleado", "Cliente"]
+    const usuarioPermitidos = "Administrador"
 
     if (!token || !usuarioPermitidos.includes(user)) {
         alert("Usted no tiene los permisos necesarios.")
         window.location.href = "/"
+        localStorage.clear()
         return
   
     }
@@ -545,6 +547,7 @@ function renderTabla(usuarios){
         <td>${u.telefono}</td>
         <td> <button onclick="prepararEdicion(${u.id})" class="cursor-pointer" title="Editar">📝</button>
         <td> <button onclick="prepararInativar(${u.id})" class="cursor-pointer" title="Eliminar">🗑️</button>
+        <td> <button onclick="prepararEmpleado(${u.id})" class="cursor-pointer" title="Empleaar">👷‍♂️</button>
         </td>
         </tr>
 
@@ -562,7 +565,7 @@ function prepararEdicion(id){
 }
 
 async function prepararInativar(id){
-    if(!confirm("Desea Inactivar Este Usuario"))return
+    if(!confirm(`¿Desea Inactivar Este Usuario con ID: ${id}?`))return
     else{
         try{
             const send=await fetch(`http://localhost:8080/inactivar/usuarios/${id}`,{
@@ -579,6 +582,11 @@ async function prepararInativar(id){
 
     }
           
+}
+
+async function prepararEmpleado(id){
+   const url=`convertirEmpleado?idPersona=${id}`
+   window.location=url
 }
 
 async function editarUsuarios() {

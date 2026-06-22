@@ -95,36 +95,44 @@ import "../styles/global.css";
       <section class="seccion_class_">
         <div id="seccion_class" class="flex-1">
           <section id="seccion_class">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div
-                id="citas_registradas"
-                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-              >
-              </div>
-              <div
-                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-              >
-                Historial de citas
-              </div>
-              <div
-                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-              >
-                Administración Academia
-              </div>
-              <div
-                class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-              >
-                Trabajadores registrados en la página
-              </div>
-            </div>
-          </section>
-          <div
-            class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4
+            <h1 class="flex justify-center font-bold text-center text-2xl">
+              Citas Empleado
+            </h1>
+            <table
+              id="table_empleados"
+              class="table"
+              onload="empleadosCitasV2()"
+            >
+              <thead>
+                <tr class="border border-black px-4 py-2 mt-0">
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Fecha</th>
+                  <th>Hora Inicio</th>
+                  <th>Id Cita</th>
+                  <th>telefono</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tbody>
+            </table>
+            <div
+              class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4
         
         hover:scale-105 transition-transform duration-300"
-          >
-            <button id="borrar_citas" type="button">Borrar</button>
-          </div>
+            >
+              <button id="borrar_citas" type="button">Borrar</button>
+            </div>
+          </section>
         </div>
       </section>
     </div>

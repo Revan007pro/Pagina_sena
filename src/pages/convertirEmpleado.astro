@@ -61,7 +61,6 @@ import "../styles/global.css";
         </div>
       </div>
     </header>
-
     <div class="flex gap-10 py-10 animate-fadeSlideUp top-0" id="divPrinci">
       <section>
         <nav id="nav_admi" class="nav_admi">
@@ -142,33 +141,10 @@ import "../styles/global.css";
           </div>
         </nav>
       </section>
-
-      <div id="seccion_class" class="flex-1">
-        <section class="seccion_class">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              <a id="contarUserBD"></a>
-              <p id="numberUser"></p>
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Historial de citas
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Administración Academia
-            </div>
-            <div
-              class="rounded-lg shadow-xl border border-gray-200 text-center py-20 font-bold hover:scale-105 transition-transform duration-300"
-            >
-              Trabajadores registrados en la página
-            </div>
-          </div>
-        </section>
+      <div>
+        <form class="formulario" onload="convertirWorker()">
+          <label>Nombre</label>
+        </form>
       </div>
     </div>
   </main>
