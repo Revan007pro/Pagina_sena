@@ -112,6 +112,7 @@ async function tablaEmpleados(empleadosBD){
         })
 
         const datos=await respuesta.json()
+       
 
         if(respuesta.ok){
 

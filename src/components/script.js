@@ -18,8 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const moonIcon = document.getElementById('moon-icon'); 
     const sunIcon = document.getElementById('sun-icon'); 
     const bodyElement = document.getElementById("body");
+    const mainContent = document.getElementById("main-content");
     const htmlElement = document.documentElement;
-        const revealItems = document.querySelectorAll('.reveal-item');
+    const navContainer = document.getElementById("nav-container");
+    const labelForms = document.querySelectorAll('.label-form');
+    const contactTitle = document.getElementById('contact-title');
+    const revealItems = document.querySelectorAll('.reveal-item');
        const nav_admi = document.getElementById("nav_admi");
 const _menu = document.getElementById("_menu");
 const _seccion = document.getElementById("seccion_class");
@@ -87,42 +91,47 @@ if (_flecha) {
     } */
 
 
-    if (themeToggleButton && moonIcon && sunIcon && bodyElement) { 
+    if (themeToggleButton && moonIcon && sunIcon) { 
         // Cargar tema guardado
         const savedTheme = localStorage.getItem('theme');
         
-        if (savedTheme === 'dark') {
-            htmlElement.classList.add('dark');
-            bodyElement.classList.add('bg-sky-900');
-            moonIcon.classList.add('hidden'); 
-            sunIcon.classList.remove('hidden'); 
-            bodyElement.classList.add('text-white')
-        } else {
-            htmlElement.classList.remove('dark');
-            bodyElement.classList.remove('bg-sky-900');
-            moonIcon.classList.remove('hidden'); 
-            sunIcon.classList.add('hidden'); 
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                if (bodyElement) bodyElement.classList.add('bg-sky-900', 'text-white');
+                if (mainContent) mainContent.classList.add('bg-gray-900');
+                if (navContainer) navContainer.classList.replace('bg-sky-950', 'bg-gray-800');
+                if (contactTitle) contactTitle.classList.replace('text-black', 'text-white');
+                labelForms.forEach(label => {
+                    label.classList.replace('text-gray-700', 'text-gray-200');
+                });
 
-        }
+                moonIcon.classList.add('hidden'); 
+                sunIcon.classList.remove('hidden'); 
+            } else {
+                htmlElement.classList.remove('dark');
+                if (bodyElement) bodyElement.classList.remove('bg-sky-900', 'text-white');
+                if (mainContent) mainContent.classList.remove('bg-gray-900');
+                if (navContainer) navContainer.classList.replace('bg-gray-800', 'bg-sky-950');
+                if (contactTitle) contactTitle.classList.replace('text-white', 'text-black');
+                labelForms.forEach(label => {
+                    label.classList.replace('text-gray-200', 'text-gray-700');
+                });
+
+                moonIcon.classList.remove('hidden'); 
+                sunIcon.classList.add('hidden'); 
+            }
+        };
+
+        // Aplicar tema inicial
+        applyTheme(savedTheme);
 
         // Evento de click
         themeToggleButton.addEventListener('click', () => {
-            
-            if (htmlElement.classList.contains('dark')) {
-                // Cambiar a claro
-                htmlElement.classList.remove('dark');
-                bodyElement.classList.remove('bg-sky-900');
-                localStorage.setItem('theme', 'light');
-                moonIcon.classList.remove('hidden'); 
-                sunIcon.classList.add('hidden');
-            } else {
-                // Cambiar a oscuro
-                htmlElement.classList.add('dark');
-                bodyElement.classList.add('bg-sky-900');
-                localStorage.setItem('theme', 'dark');
-                moonIcon.classList.add('hidden'); 
-                sunIcon.classList.remove('hidden')
-            }
+            const isDark = htmlElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
         });
     } 
 });    
@@ -346,4 +355,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('content_container').style.display="block"
     
   }, 1000); 
+
+ const whasapIcono=document.getElementById("whasap_ico")
+ const rutaActual=window.location.pathname
+ const paginasNone=["/Administrador","/empleado","/dashboard_usuario"]
+
+ if(paginasNone.includes(rutaActual)){
+    whasapIcono.style.display="none"
+ }
+ 
+
+
+
+
 });

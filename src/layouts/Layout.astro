@@ -28,6 +28,18 @@ import "../styles/global.css";
     <div id="content_container">
       <slot />
     </div>
+    <div id="whasap_ico" class="fixed right-4 bottom-1/4 z-50 floating-icon">
+      <a
+        href="https://wa.me/573151569307?text=Hola,%20quiero%20información%20sobre%20sus%20servicios"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block bg-green-500 p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110"
+      >
+        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+          <use href="/sprites.svg#whatsapp"></use>
+        </svg>
+      </a>
+    </div>
 
     <!-- <script src="/script.js" defer></script> -->
     <script>
@@ -35,3 +47,6 @@ import "../styles/global.css";
     </script>
   </body>
 </html>
+
+<!-- class="fixed right-4 mr-10 top-1/2 -translate-y-1/2 z-50 floating-icon" centra a la
+ mitad de la pantalla -->

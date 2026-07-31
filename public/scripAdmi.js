@@ -9,6 +9,7 @@ window.prepararEdicion=prepararEdicion
 window.prepararInativar=prepararInativar
 window.activarUsuario=activarUsuario
 window.prepararEmpleado=prepararEmpleado
+window.paginaWorker=paginaWorker
 
 
 
@@ -19,6 +20,8 @@ document.addEventListener('DOMContentLoaded',function(){
 elistaUserInactivados() // alerta genera error si se colocan de ultimo los dos siguientes
 GestionUsuarios()
 buscadorUsuarios()
+ver_nav()
+
 
     
 const nav_admi = document.getElementById("nav_admi");
@@ -43,7 +46,8 @@ _arrow_admi.addEventListener("click",(e)=>{
         if(_arrow_admi.classList.contains("none")){
         console.log("flecha admi detectada")
         _menu_especial.style.display="block"
-        divPrinc.classList.add("mt-35") // agrega clases tailwinds al div
+        divPrinc.classList.add("mt-45") // agrega clases tailwinds al div
+        
         }
         else{
             _menu_especial.style.display="none"
@@ -796,6 +800,35 @@ async function contarUser(){
     }
 
 }
+
+
+function ver_nav(){
+    const flechaEmple=document.getElementById("arrowEm")
+    const navEmple=document.getElementById("subgrupoEmp")
+
+    flechaEmple.addEventListener("click",()=>{
+        console.log("tecla del empleado detectada")
+        if(navEmple.classList.contains("hidden")){
+            navEmple.classList.remove("hidden")
+           flechaEmple.classList.add("rotar-flecha");
+        }else{
+            navEmple.classList.add("hidden")
+            flechaEmple.classList.remove("rotar-flecha")
+        }
+/*         nota importante: 1. El elemento <a> es "inline" por defecto
+Los elementos <a> (y los <span>) tienen una propiedad de CSS llamada display: inline. Los elementos 
+inline no se pueden rotar ni transformar. Para que la rotación funcione, necesitas cambiar la propiedad 
+de display a inline-block o block */
+        
+    })
+}
+function paginaWorker(elemento){
+    const roll = elemento.dataset.roll
+    const url=`listarEmpleados?roll=${roll}`
+    console.log("rederigiendo a la seccion ",roll)
+    window.location.href=url
+}
+
 export function buscadorUsuarios(){
     const buscarTabla = document.getElementById("buscarUser")
     if (!buscarTabla) return;
@@ -823,6 +856,9 @@ export function buscadorUsuarios(){
         renderTablaInactivos(usuariosFiltrados)
     })
 }
+
+
+
 
 
 

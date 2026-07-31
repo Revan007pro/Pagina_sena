@@ -285,7 +285,7 @@ main {
   @apply hidden transition-transform duration-300 ease-out ml-7 origin-center;
 }
 #bage_admi {
-  @apply flex flex-col bg-gray-700 w-70 text-white p-2 rounded-b-lg shadow-lg absolute mt-55 ml-60 hidden transition-all duration-300 ease-in-out
+  @apply flex flex-col bg-gray-700 w-70 text-white p-2 rounded-b-lg shadow-lg absolute mt-63  hidden transition-all duration-300 ease-in-out
       max-w-max text-[15px] h-auto break-words;
 }
 

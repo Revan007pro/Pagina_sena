@@ -5,148 +5,211 @@ import "../styles/style.less";
 ---
 
 <Layout>
+  <!-- Conservamos la lógica original del script -->
   <script type="module" src="/dashboard_usuario.js" is:inline></script>
-  <main>
-    <header id="headerM">
-      <div id="buscarHe">
-        <div id="divBus">
-          <input
-            type="text"
-            class="w-35 bg-white text-black rounded-3xl"
-            placeholder="Buscar"
-            id="Buscar"
-          />
-          <div id="iniHe">
-            <a href="/">Inicio</a>
-          </div>
-          <div id="theme-switcher" class="z-50 ml-25">
-            <button id="theme-toggle" aria-label="Toggle dark-mode">
-              <svg
-                id="moon-icon"
-                class="theme-icon hover:bg-cyan-400"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                ></path>
-              </svg>
+  
+  <!-- External Resources -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/font/lucide.min.css">
 
-              <svg
-                id="sun-icon"
-                class="theme-icon hover:bg-orange-400 hidden"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </button>
+  <div class="h-screen bg-[#F8FAFC] flex overflow-hidden font-sans text-[#111827]">
+    <!-- Menú Lateral Completo -->
+    <aside class="w-72 bg-white border-r border-gray-200 hidden lg:flex flex-col shrink-0">
+      <div class="p-6 border-b border-gray-100 flex items-center gap-3 text-[#2563EB] font-bold text-xl">
+        <div class="bg-blue-600 text-white p-1.5 rounded-lg">
+          <i class="lucide-shield-check w-6 h-6"></i>
+        </div>
+        <span>SENA Cliente</span>
+      </div>
+      
+      <nav class="flex-1 p-4 space-y-2 overflow-y-auto" id="eleCliente">
+        <div class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Panel de Control</div>
+        
+        <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-[#2563EB] rounded-xl font-medium">
+          <i class="lucide-layout-dashboard w-5"></i> Dashboard
+        </a>
+
+        <div class="px-4 py-2 mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Mis Servicios</div>
+        
+        <button class="w-full flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-all text-sm font-medium hover_usuario">
+          <i class="lucide-history w-5"></i> Historial de Citas
+        </button>
+        
+        <button class="w-full flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-all text-sm font-medium hover_usuario">
+          <i class="lucide-users-2 w-5"></i> Profesionales
+        </button>
+        
+        <button class="w-full flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-all text-sm font-medium hover_usuario">
+          <i class="lucide-calendar-x w-5"></i> Cancelar Citas
+        </button>
+
+        <div class="px-4 py-2 mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Acciones</div>
+        
+        <a href="/Agendar_Citas" class="flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-all text-sm font-medium">
+          <i class="lucide-calendar-plus w-5"></i> Agendar Nueva Cita
+        </a>
+      </nav>
+
+      <div class="p-4 border-t border-gray-100">
+        <button onclick="cerrarSeccion()" class="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-colors font-medium">
+          <i class="lucide-log-out w-5"></i> Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Área de Contenido -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <!-- Barra Superior -->
+      <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 shrink-0 z-50">
+        <div class="flex items-center gap-4">
+          <button class="lg:hidden text-gray-500 p-2">
+            <i class="lucide-menu w-6 h-6"></i>
+          </button>
+          <div class="hidden sm:flex items-center gap-2 bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-medium text-gray-600">
+            <i class="lucide-calendar w-4"></i>
+            <span>Hoy: {new Date().toLocaleDateString()}</span>
           </div>
         </div>
-      </div>
-    </header>
-    <section class="flex justify-center items-center">
-      <div class="grid grid-cols-4 grid-rows-5 gap-15">
-        <div class="col-start-4">
-          <div id="divUsu">
-            <div class="col-span-1 ml-5">
-              <p>Usuario: <b id="nombreUsuario"></b></p>
-              <p>Nombre: <b id="rol_usuario"></b></p>
+
+        <div class="flex items-center gap-2 lg:gap-5">
+          <div id="theme-switcher" class="flex items-center">
+            <button id="theme-toggle" class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500" aria-label="Toggle dark-mode">
+              <i id="moon-icon" class="lucide-moon w-5 h-5"></i>
+              <i id="sun-icon" class="lucide-sun w-5 h-5 hidden"></i>
+            </button>
+          </div>
+
+          <div class="h-8 w-px bg-gray-200 mx-2"></div>
+
+          <!-- Perfil Usuario -->
+          <div class="flex items-center gap-3 group relative cursor-pointer ml-2" id="divUsu">
+            <div class="text-right hidden lg:block">
+              <div class="flex flex-col">
+                <span class="text-[10px] text-[#6B7280] uppercase tracking-tighter font-bold leading-tight">Cliente Activo</span>
+                <p class="text-sm font-bold text-[#111827] truncate max-w-[150px]" id="nombreUsuario">Cargando...</p>
+                <p class="text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-md self-end mt-0.5 font-bold uppercase" id="rol_usuario">Cliente</p>
+              </div>
             </div>
-            <div class="ml-3 mt-3"><span>🔔</span></div>
-            <div class="ml-3 mt-3">
-              <span
-                >👤<b id="flecha_usuario" class="ml-3 cursor-pointer"
-                  >⮟
-                </b></span
-              >
+            
+            <div class="relative">
+              <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-sm border-2 border-white overflow-hidden">
+                <i class="lucide-user w-6 h-6"></i>
+              </div>
+              <div id="cirRed" class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></div>
             </div>
-            <div class="ml-3 mt-3">
-              <span>🛒</span>
-            </div>
-            <div class="ml-3 mt-3" id="cirRed"></div>
-            <ul id="bage_usuario">
-              <li id="roll"></li>
-              <li id="correo_bage"></li>
-              <li id="telefono_bage"></li>
+            <i id="flecha_usuario" class="lucide-chevron-down w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-transform group-hover:rotate-180"></i>
+
+            <ul id="bage_usuario" class="absolute right-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-2xl py-3 hidden group-hover:block z-50 animate-fadeSlideUp">
+              <li class="px-5 py-3 border-b border-gray-50 mb-2 bg-gray-50/50">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Información de Cuenta</p>
+                <div class="flex items-center gap-2 mb-1">
+                   <span id="roll" class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md"></span>
+                </div>
+                <p id="correo_bage" class="text-xs text-gray-600 truncate flex items-center gap-2"><i class="lucide-mail w-3 h-3"></i> Cargando...</p>
+                <p id="telefono_bage" class="text-xs text-gray-600 flex items-center gap-2 mt-1"><i class="lucide-phone w-3 h-3"></i> Cargando...</p>
+              </li>
+              <li>
+                <button onclick="cerrarSeccion()" class="w-full text-left px-5 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2 font-bold">
+                  <i class="lucide-log-out w-4 h-4"></i> Cerrar Sesión
+                </button>
+              </li>
             </ul>
           </div>
         </div>
-        <div id="eleCliente">
-          <div
-            class="flex justify-center absolute mt-25 bg-cyan-400 h-55 rounded-3xl w-45 items-center text-center"
-          >
-            <div>
-              <h1>Elementos Cliente</h1>
-              <p class="hover_usuario">Historial de Citas</p>
-              <p class="hover_usuario">Profesionales</p>
-              <p class="hover_usuario">Cancelar Citas</p>
-              <button onclick="cerrarSeccion()" class="mt-4 button"
-                >Cerrar Sesión</button
-              >
+      </header>
+
+      <!-- Main Body Centrado -->
+      <main class="flex-1 overflow-y-auto p-4 lg:p-12">
+        <div class="max-w-5xl mx-auto space-y-10">
+          <!-- Bienvenida -->
+          <div class="text-center md:text-left space-y-2">
+            <h1 class="text-3xl font-extrabold text-[#111827] tracking-tight">Mi Dashboard</h1>
+            <p class="text-[#6B7280] text-base">Gestiona tus servicios y revisa el estado de tus citas desde un solo lugar.</p>
+          </div>
+
+          <!-- Acciones Rápidas (Ahora arriba) -->
+          <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-xl mb-8 flex items-center gap-2">
+              <i class="lucide-zap text-amber-500 w-6 h-6"></i> Acciones Rápidas
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <button id="reproCita" class="flex flex-col items-center gap-4 p-6 rounded-2xl border border-gray-50 hover:border-blue-200 hover:bg-blue-50/50 transition-all group">
+                <div class="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                  <i class="lucide-refresh-cw w-6 h-6"></i>
+                </div>
+                <span class="text-sm font-bold text-gray-700">Reprogramar Cita</span>
+              </button>
+              
+              <button onclick="cancelarCita()" class="flex flex-col items-center gap-4 p-6 rounded-2xl border border-gray-50 hover:border-red-200 hover:bg-red-50/50 transition-all group">
+                <div class="p-4 bg-red-50 text-red-600 rounded-xl group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                  <i class="lucide-calendar-off w-6 h-6"></i>
+                </div>
+                <span class="text-sm font-bold text-gray-700">Cancelar Cita</span>
+              </button>
+
+              <a href="/Agendar_Citas" class="flex flex-col items-center gap-4 p-6 rounded-2xl border border-gray-50 hover:border-emerald-200 hover:bg-emerald-50/50 transition-all group">
+                <div class="p-4 bg-emerald-50 text-emerald-600 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                  <i class="lucide-calendar-plus w-6 h-6"></i>
+                </div>
+                <span class="text-sm font-bold text-gray-700">Agendar Cita</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Grid de Información de Citas -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pb-12">
+            <!-- Cita Asignada -->
+            <div id="citaCliente" class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center min-h-[200px] text-center group">
+              <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                <i class="lucide-calendar-check w-8 h-8"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Cita Asignada</h3>
+              <p id="cita_asignada" class="text-gray-500 font-medium italic">No hay citas activas</p>
+            </div>
+
+            <!-- Profesional Encargado -->
+            <div id="profe_encargado" class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center min-h-[200px] text-center group">
+              <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                <i class="lucide-user-cog w-8 h-8"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Profesional Encargado</h3>
+              <p class="text-gray-500 font-medium italic">Pendiente por asignar</p>
+            </div>
+
+            <!-- Sede Asignada -->
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center min-h-[200px] text-center group">
+              <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                <i class="lucide-map-pin w-8 h-8"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Sede Asignada</h3>
+              <p id="sede_asignada" class="text-gray-700 font-bold">Cargando sede...</p>
+            </div>
+
+            <!-- Facturación -->
+            <div id="idFactu" class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center min-h-[200px] text-center group">
+              <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                <i class="lucide-receipt w-8 h-8"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Estado de Facturación</h3>
+              <p class="text-gray-500 font-medium italic">Sin movimientos recientes</p>
             </div>
           </div>
         </div>
-
-        <div
-          class="col-start-2 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
-          h-auto w-auto text-center"
-          id="citaCliente"
-        >
-          <!--  <h1 class="font-bold">Cita Asignada:</h1>
-          <p id="cita_asignada"></p> -->
-        </div>
-        <div
-          class="col-start-3 row-start-2 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
-          h-auto w-auto text-center"
-          id="profe_encargado"
-        >
-        </div>
-        <div
-          class="col-start-2 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
-          h-auto w-auto text-center"
-        >
-          <h1 class="font-bold">Sede Asignada:</h1>
-          <p id="sede_asignada"></p>
-        </div>
-        <div
-          class="col-start-3 row-start-3 shadow-xl rounded-3xl border border-gray-200 hover:scale-150
-          h-auto w-auto text-center"
-          id="idFactu"
-        >
-        </div>
-      </div>
-    </section>
-    <div class="grid grid-cols-5 grid-rows-5 gap-4">
-      <button class="col-start-2 button" id="reproCita">Reprogramar Cita</button
-      >
-      <button onclick="cancelarCita()" class="col-start-3 button"
-        >Cancelar Cita</button
-      >
-      <button class="col-start-4 button">
-        <a href="/Agendar_Citas">Agendar Cita</a>
-      </button>
+      </main>
     </div>
-  </main>
+  </div>
+
+  <style>
+    /* Transiciones suaves */
+    .animate-fadeSlideUp {
+      animation: fadeSlideUp 0.3s ease-out forwards;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+  </style>
 </Layout>

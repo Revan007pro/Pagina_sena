@@ -4,137 +4,193 @@ import "../styles/global.css";
 ---
 
 <Layout>
+  <!-- Conservamos la lógica original del script -->
   <script type="module" src="/empleado_script.js" is:inline></script>
-  <main class="container mx-auto px-4 py-8">
-    <header class="mb-8 flex justify-center items-center">
-      <div>
-        <h1 class="text-4xl py-5 text-center font-bold">
-          Bienvenido al Panel de Control
-        </h1>
+
+  <!-- External Resources -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/font/lucide.min.css">
+
+  <div class="min-h-screen bg-[#F8FAFC] flex font-sans text-[#111827]">
+    <!-- Menú Lateral (Estilo Dashboard Moderno) -->
+    <aside class="w-64 bg-white border-r border-gray-200 hidden lg:flex flex-col sticky top-0 h-screen">
+      <div class="p-6 border-b border-gray-100 flex items-center gap-3 text-[#2563EB] font-bold text-xl">
+        <div class="bg-blue-600 text-white p-1.5 rounded-lg">
+          <i class="lucide-briefcase w-6 h-6"></i>
+        </div>
+        <span>SENA Emp</span>
       </div>
-    </header>
-    <header class="mb-8 flex justify-end items-center">
-      <div
-        class="flex justify-center items-center gap-4 w-70 h-auto bg-sky-900 rounded-3xl text-white"
-      >
-        <div>
-          <p>Usuario: <b id="nombreUsuario"></b></p>
-          <p>Nombre: <b id="rol_usuario"></b></p>
-        </div>
-        <div id="emple_notifi">
-          🔔<span class="bage" id="bage_emple"> </span>
-        </div>
+      
+      <nav class="flex-1 p-4 space-y-2 overflow-y-auto" id="nav_admi">
+        <div class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Principal</div>
+        
+        <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-[#2563EB] rounded-xl font-medium">
+          <i class="lucide-calendar-days w-5"></i> Mis Citas
+        </a>
 
-        <div id="b_eperfil">
-          👤 <a class="text-cyan-400 ml-0">⮟</a>
-          <ul id="menu_perfil">
-            <li class="hover_empleado" id="roll"></li>
-            <li class="hover_empleado" id="correo_bage"></li>
-            <li class="hover_empleado" id="telefono_bage"></li>
-            <button class="boton_cerrar_cession" id="cerrar_bage_display"
-              >Cerrar</button
-            >
-          </ul>
-        </div>
-      </div>
-      <div id="modal_empleado" class="modal">
-        <div class="modal-content">
-          <h2>Notificaciones</h2>
-          <ul id="lista_notificaciones"></ul><button id="cerrar_modal"
-            >Cerrar</button
-          >
-        </div>
-      </div>
-    </header>
-
-    <div class="flex gap-10 py-10 animate-fadeSlideUp top-0">
-      <nav class="nav_admi" id="nav_admi">
-        <section>
-          <button id="_menu" class="hamburguesa"> &#x2261; </button>
-          <h2
-            class="ml-4 py-4 mt-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
-          >
-            Elementos del <b>Empleado</b>
-          </h2>
-
-          <ul class="flex flex-col gap-2">
-            <li
-              class="submenu group cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
-            >
-              <a href="#">Citas </a><a class="text-cyan-400">⮟</a>
-              <ul class="hidden group-hover:block pl-8 rounded-b-lg">
-                <li><a href="/Administrador_Abogado">Abogados</a></li>
-                <li><a href="/Administrador_Detective">Detectives</a></li>
-                <li><a href="/Administrador_Poligrafista">Poligrafistas</a></li>
-              </ul>
-            </li>
-            <li
-              class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
-            >
-              <a href="/Administrador_Usuarios">Usuarios</a>
-            </li>
-            <li
-              class="cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
-            >
-              <a href="/Administrador_Usuarios">Gestión de Horarios</a>
-            </li>
-            <li
-              class="flex cursor-pointer py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-sky-800"
-            >
-              <a href="/Administrador_Blocks"
-                >Blocks<span class="bage" id="bage_noti"></span></a
-              >
-            </li>
-          </ul>
-
-          <div class="boton_cerrar_cession" id="cerrarSeccion">
-            <a href="/">Cerrar Sesión</a>
+        <details class="group">
+          <summary class="flex items-center justify-between gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 rounded-xl transition-colors cursor-pointer list-none">
+            <div class="flex items-center gap-3">
+              <i class="lucide-clipboard-list w-5"></i> Servicios
+            </div>
+            <i class="lucide-chevron-down w-4 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="pl-11 pr-4 py-2 space-y-1">
+            <a href="/Administrador_Abogado" class="block py-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">Abogados</a>
+            <a href="/Administrador_Detective" class="block py-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">Detectives</a>
+            <a href="/Administrador_Poligrafista" class="block py-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">Poligrafistas</a>
           </div>
-        </section>
+        </details>
+
+        <a href="/Administrador_Usuarios" class="flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 rounded-xl transition-colors">
+          <i class="lucide-users w-5"></i> Usuarios
+        </a>
+
+        <a href="/Administrador_Usuarios" class="flex items-center gap-3 px-4 py-3 text-[#6B7280] hover:bg-gray-50 rounded-xl transition-colors">
+          <i class="lucide-clock w-5"></i> Gestión Horarios
+        </a>
+
+        <a href="/Administrador_Blocks" class="flex items-center justify-between px-4 py-3 text-[#6B7280] hover:bg-gray-50 rounded-xl transition-colors">
+          <div class="flex items-center gap-3">
+            <i class="lucide-book-marked w-5"></i> Blocks
+          </div>
+          <span class="bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-bold" id="bage_noti"></span>
+        </a>
       </nav>
-      <section class="seccion_class_">
-        <div id="seccion_class" class="flex-1">
-          <section id="seccion_class">
-            <h1 class="flex justify-center font-bold text-center text-2xl">
-              Citas Empleado
-            </h1>
-            <table
-              id="table_empleados"
-              class="table"
-              onload="empleadosCitasV2()"
-            >
+
+      <div class="p-4 border-t border-gray-100" id="cerrarSeccion">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-colors font-medium">
+          <i class="lucide-log-out w-5"></i> Cerrar Sesión
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <!-- Barra Superior -->
+      <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 sticky top-0 z-10">
+        <button id="_menu" class="lg:hidden text-gray-500 p-2">
+          <i class="lucide-menu w-6 h-6"></i>
+        </button>
+
+        <div class="flex-1 px-4 hidden md:block">
+           <h2 class="text-sm font-medium text-gray-500">Panel del Empleado</h2>
+        </div>
+
+        <div class="flex items-center gap-4 lg:gap-6">
+          <!-- Notificaciones -->
+          <button id="emple_notifi" class="relative text-gray-500 hover:text-blue-600 transition-colors p-2">
+            <i class="lucide-bell w-6 h-6"></i>
+            <span class="absolute top-1 right-1 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full border-2 border-white" id="bage_emple"></span>
+          </button>
+
+          <div class="h-8 w-px bg-gray-200"></div>
+
+          <!-- Perfil Usuario con Menú Desplegable -->
+          <div class="flex items-center gap-3 group relative cursor-pointer" id="b_eperfil">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-semibold text-[#111827]" id="nombreUsuario">Empleado</p>
+              <p class="text-[10px] text-[#6B7280] uppercase tracking-wider font-bold" id="rol_usuario">Cargando...</p>
+            </div>
+            
+            <div class="relative">
+              <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold border-2 border-white shadow-sm">
+                <i class="lucide-user w-6 h-6"></i>
+              </div>
+            </div>
+
+            <!-- Menú Perfil (Nav Invisible) -->
+            <ul id="menu_perfil" class="absolute right-0 top-full mt-2 w-56 bg-white border border-gray-100 rounded-xl shadow-xl py-2 hidden group-hover:block z-50 animate-fadeSlideUp">
+              <li class="px-4 py-2 border-b border-gray-50 mb-1">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Sesión iniciada como</p>
+                <p id="roll" class="text-xs font-bold text-blue-600"></p>
+              </li>
+              <li class="px-4 py-2">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Contacto</p>
+                <p id="correo_bage" class="text-xs text-gray-600 truncate"></p>
+                <p id="telefono_bage" class="text-xs text-gray-600"></p>
+              </li>
+              <li class="mt-1 pt-1 border-t border-gray-50">
+                <button type="button" id="cerrar_bage_display" class="boton_cerrar_cession w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2 font-medium">
+                  <i class="lucide-log-out w-4"></i> Cerrar
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Body -->
+      <main class="flex-1 overflow-y-auto p-4 lg:p-8 space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-[#111827]">Bienvenido al Panel de Control</h1>
+            <p class="text-[#6B7280] text-sm">Gestiona tus citas y servicios asignados.</p>
+          </div>
+        </div>
+
+        <!-- Sección de Citas -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" id="seccion_class">
+          <div class="p-6 border-b border-gray-50 flex items-center justify-between bg-white sticky top-0">
+            <h3 class="font-bold text-lg flex items-center gap-2">
+              <i class="lucide-calendar text-blue-600"></i> Citas Empleado
+            </h3>
+            <div class="flex gap-2">
+               <button id="borrar_citas" type="button" class="bg-red-50 text-red-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-100 transition-colors flex items-center gap-2">
+                <i class="lucide-trash-2 w-4"></i> Borrar Citas
+              </button>
+            </div>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table id="table_empleados" class="w-full text-left border-collapse">
               <thead>
-                <tr class="border border-black px-4 py-2 mt-0">
-                  <th>Nombre</th>
-                  <th>Apellido</th>
-                  <th>Fecha</th>
-                  <th>Hora Inicio</th>
-                  <th>Id Cita</th>
-                  <th>telefono</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
+                <tr class="bg-[#F8FAFC] text-[#6B7280] text-[10px] uppercase tracking-widest font-bold">
+                  <th class="px-6 py-4">Nombre</th>
+                  <th class="px-6 py-4">Apellido</th>
+                  <th class="px-6 py-4">Fecha</th>
+                  <th class="px-6 py-4">Hora Inicio</th>
+                  <th class="px-6 py-4">ID Cita</th>
+                  <th class="px-6 py-4">Teléfono</th>
+                  <th class="px-6 py-4">Estado</th>
+                  <th class="px-6 py-4">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tbody class="divide-y divide-gray-50 text-sm">
+                <!-- Se llenará dinámicamente con tu script original -->
+                <tr class="animate-pulse">
+                  <td colspan="8" class="px-6 py-10 text-center text-gray-400 italic">Cargando citas...</td>
+                </tr>
               </tbody>
             </table>
-            <div
-              class="flex justify-center items-center text-center bg-blue-500 w-20 rounded-4xl mt-4
-        
-        hover:scale-105 transition-transform duration-300"
-            >
-              <button id="borrar_citas" type="button">Borrar</button>
-            </div>
-          </section>
+          </div>
         </div>
-      </section>
+      </main>
     </div>
-  </main>
+  </div>
+
+  <!-- Modal de Notificaciones (Estilizado) -->
+  <div id="modal_empleado" class="modal fixed inset-0 bg-black/50 hidden items-center justify-center z-[100] backdrop-blur-sm">
+    <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+      <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-blue-600 text-white">
+        <h2 class="font-bold text-xl flex items-center gap-2"><i class="lucide-bell"></i> Notificaciones</h2>
+        <button id="cerrar_modal" class="hover:bg-blue-700 p-1 rounded-lg transition-colors"><i class="lucide-x"></i></button>
+      </div>
+      <div class="p-6 max-h-[60vh] overflow-y-auto">
+        <ul id="lista_notificaciones" class="space-y-4">
+          <li class="text-center text-gray-500 py-4 italic">No hay notificaciones nuevas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Estilos base para el modal */
+    .modal.flex { display: flex; }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #CBD5E1; }
+  </style>
 </Layout>
