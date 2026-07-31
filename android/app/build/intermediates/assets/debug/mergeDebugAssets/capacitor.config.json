@@ -1,0 +1,8 @@
+{
+	"appId": "com.proyecto_sena.app",
+	"appName": "proyecto_web",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https"
+	}
+}
